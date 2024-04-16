@@ -1,12 +1,19 @@
 <template>
-  <h1>Track Stack</h1>
+  <!-- Header mit Name/Logo-->
+  <header>
+    <h1>{{ projectName }}</h1>
+    <img src="./logo.png" alt="Logo" />
+  </header>
+
   <router-view />
 </template>
 
 <script>
 export default {
   data() {
-    return {}
+    return {
+      projectName: 'TrackStack'
+    }
   }
 }
 </script>
