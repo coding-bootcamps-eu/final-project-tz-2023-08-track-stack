@@ -8,11 +8,11 @@
       <p>{{ greeting }}</p>
     </section>
     <!-- Weiter für DJ-->
-    <button>DJ</button>
+    <button>Ich bin DJ</button>
     <!-- Weiter für User-->
     <section>
-      <input type="text" />
-      <button>User</button>
+      <button>QR-Link</button>
+      <div><input type="text" value="Event-Name" /> <button>GO User</button></div>
     </section>
   </body>
 </template>
@@ -21,11 +21,25 @@
 export default {
   data() {
     return {
-      greeting: 'Greetings',
-      projectName: 'TrackStack'
+      greeting: 'Greetings'
     }
   }
 }
 </script>
 
-<style></style>
+<style scoped>
+* {
+  /* margin: 0; */
+}
+
+p {
+  margin: 0;
+}
+
+body {
+  margin: 0;
+  height: 90vh;
+  margin: 0;
+  /* background: lightcoral; */
+}
+</style>
