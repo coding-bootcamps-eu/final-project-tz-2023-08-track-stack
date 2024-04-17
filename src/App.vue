@@ -1,18 +1,55 @@
 <template>
-  <h1>Track Stack</h1>
-  <router-view />
+  <!-- Header mit Name/Logo-->
+  <header>
+    <img class="img-logo" src="./logo.png" alt="Logo" />
+    <h1 class="pname">{{ projectName }}</h1>
+  </header>
+  <!-- the choosen View-->
+  <body>
+    <router-view />
+  </body>
 </template>
 
 <script>
 export default {
   data() {
-    return {}
+    return {
+      projectName: 'TrackStack'
+    }
   }
 }
 </script>
 
 <style>
+html {
+  min-width: 300px;
+  margin: 0;
+  height: 100vh;
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgb(130, 150, 150) 30%,
+    rgb(130, 150, 150) 70%,
+    rgba(255, 255, 255, 1) 100%
+  );
+}
+header {
+  min-height: 4rem;
+  height: 10vh;
+  background: rgba(121, 121, 221, 0.15);
+  display: flex;
+}
+.img-logo {
+  margin: 0.5rem;
+  min-height: 3rem;
+  height: 8vh;
+}
+.pname {
+  font-size: 2rem;
+}
 body {
-  background-color: dodgerblue;
+  margin: 0;
+  /* background: green; */
 }
 </style>
