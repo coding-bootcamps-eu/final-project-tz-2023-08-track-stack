@@ -1,0 +1,11 @@
+<template>
+  <h2>ProfilView</h2>
+  <ul>
+    <li>name</li>
+    <li>firstname</li>
+    <li>lastname</li>
+    <li>email</li>
+    <li>mobil</li>
+  </ul>
+  <button>EditProfil</button>
+</template>
