@@ -1,6 +1,6 @@
 <template>
   <head>
-    <title>LandingPage</title>
+    <title>TestPage</title>
   </head>
   <body>
     <!-- Einführung-->

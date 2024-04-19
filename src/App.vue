@@ -3,6 +3,7 @@
   <header>
     <img class="img-logo" src="./logo.png" alt="Logo" />
     <h1 class="pname">{{ projectName }}</h1>
+    <button @click="this.goBack()">Back</button>
   </header>
   <!-- the choosen View-->
   <body>

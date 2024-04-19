@@ -18,9 +18,84 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue')
     },
     {
-      path: '/trackstack',
-      name: 'trackstack',
-      component: () => import('../views/LandingPageView.vue')
+      path: '/login',
+      name: 'login',
+      component: () => import('../views/LoginView.vue')
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: () => import('../views/Register_dj.vue')
+    },
+    {
+      path: '/overview',
+      name: '/overview',
+      component: () => import('../views/OverviewDj.vue')
+    },
+    {
+      path: '/events',
+      name: '/events',
+      component: () => import('../views/EventsView.vue')
+    },
+    {
+      path: '/playlists',
+      name: '/playlists',
+      component: () => import('../views/PlaylistsView.vue')
+    },
+    {
+      path: '/profil',
+      name: '/profil',
+      component: () => import('../views/ProfilView.vue')
+    },
+    {
+      path: '/createevent',
+      name: '/createevent',
+      component: () => import('../views/CreateEvent.vue')
+    },
+    {
+      path: '/manageevents',
+      name: '/manageevents',
+      component: () => import('../views/ManageEvents.vue')
+    },
+    {
+      path: '/editevent',
+      name: '/editevent',
+      component: () => import('../views/EditEvent.vue')
+    },
+    {
+      path: '/createplaylist',
+      name: '/createplaylist',
+      component: () => import('../views/CreatePlaylist.vue')
+    },
+    {
+      path: '/manageplaylists',
+      name: '/manageplaylists',
+      component: () => import('../views/ManagePlaylists.vue')
+    },
+    {
+      path: '/editplaylist',
+      name: '/editplaylist',
+      component: () => import('../views/EditPlaylist.vue')
+    },
+    {
+      path: '/visitorstart',
+      name: '/visitorstart',
+      component: () => import('../views/VisitorStart.vue')
+    },
+    {
+      path: '/overviewvisitor',
+      name: '/overviewvisitor',
+      component: () => import('../views/OverviewVisitor.vue')
+    },
+    {
+      path: '/wishlist',
+      name: '/wishlist',
+      component: () => import('../views/WishList.vue')
+    },
+    {
+      path: '/wishsong',
+      name: '/wishsong',
+      component: () => import('../views/WishSong.vue')
     }
   ]
 })

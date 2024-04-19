@@ -1,3 +1,3 @@
 <template>
-  <div>DjLogin</div>
+  <h2>EditEvent</h2>
 </template>
