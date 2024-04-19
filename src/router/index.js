@@ -10,82 +10,64 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
-    },
-    {
       path: '/login',
       name: 'login',
-      component: () => import('../views/LoginView.vue')
+      component: () => import('../views/dj/DjLogin.vue')
     },
     {
       path: '/register',
       name: 'register',
-      component: () => import('../views/Register_dj.vue')
+      component: () => import('../views/dj/DjRegister.vue')
     },
     {
       path: '/overview',
       name: '/overview',
-      component: () => import('../views/OverviewDj.vue')
+      component: () => import('../views/dj/DjOverview.vue')
     },
     {
       path: '/events',
       name: '/events',
-      component: () => import('../views/EventsView.vue')
+      component: () => import('../views/dj/EventsView.vue')
     },
     {
       path: '/playlists',
       name: '/playlists',
-      component: () => import('../views/PlaylistsView.vue')
+      component: () => import('../views/dj/PlaylistsView.vue')
     },
     {
       path: '/profil',
       name: '/profil',
-      component: () => import('../views/ProfilView.vue')
+      component: () => import('../views/dj/ChangeProfil.vue')
     },
     {
       path: '/createevent',
       name: '/createevent',
-      component: () => import('../views/CreateEvent.vue')
-    },
-    {
-      path: '/manageevents',
-      name: '/manageevents',
-      component: () => import('../views/ManageEvents.vue')
+      component: () => import('../views/dj/CreateEvent.vue')
     },
     {
       path: '/editevent',
       name: '/editevent',
-      component: () => import('../views/EditEvent.vue')
+      component: () => import('../views/dj/EditEvent.vue')
     },
     {
       path: '/createplaylist',
       name: '/createplaylist',
-      component: () => import('../views/CreatePlaylist.vue')
-    },
-    {
-      path: '/manageplaylists',
-      name: '/manageplaylists',
-      component: () => import('../views/ManagePlaylists.vue')
+      component: () => import('../views/dj/CreatePlaylist.vue')
     },
     {
       path: '/editplaylist',
       name: '/editplaylist',
-      component: () => import('../views/EditPlaylist.vue')
+      component: () => import('../views/dj/EditPlaylist.vue')
     },
     {
       path: '/visitorstart',
       name: '/visitorstart',
-      component: () => import('../views/VisitorStart.vue')
+      component: () => import('../views/visitor/VisitorStart.vue')
     },
     {
       path: '/overviewvisitor',
       name: '/overviewvisitor',
-      component: () => import('../views/OverviewVisitor.vue')
+      component: () => import('../views/visitor/OverviewVisitor.vue')
     },
     {
       path: '/wishlist',
@@ -95,7 +77,7 @@ const router = createRouter({
     {
       path: '/wishsong',
       name: '/wishsong',
-      component: () => import('../views/WishSong.vue')
+      component: () => import('../views/visitor/WishSong.vue')
     }
   ]
 })
