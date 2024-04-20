@@ -1,7 +1,7 @@
 <template>
   <!-- Header mit Name/Logo-->
   <header>
-    <img class="img-logo" src="./logo.png" alt="Logo" />
+    <img class="img-logo" src="./images/logo.png" alt="Logo" />
     <h1 class="pname">{{ projectName }}</h1>
     <button @click="this.goBack()">Back</button>
   </header>
