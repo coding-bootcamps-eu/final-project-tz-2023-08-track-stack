@@ -20,8 +20,8 @@ const router = createRouter({
       component: () => import('../views/dj/DjRegister.vue')
     },
     {
-      path: '/overview',
-      name: '/overview',
+      path: '/djoverview',
+      name: '/djoverview',
       component: () => import('../views/dj/DjOverview.vue')
     },
     {
@@ -60,14 +60,14 @@ const router = createRouter({
       component: () => import('../views/dj/EditPlaylist.vue')
     },
     {
-      path: '/visitorstart',
-      name: '/visitorstart',
-      component: () => import('../views/visitor/VisitorStart.vue')
+      path: '/gueststart',
+      name: '/gueststart',
+      component: () => import('../views/guest/GuestStart.vue')
     },
     {
-      path: '/overviewvisitor',
-      name: '/overviewvisitor',
-      component: () => import('../views/visitor/OverviewVisitor.vue')
+      path: '/guestoverview',
+      name: '/guestoverview',
+      component: () => import('../views/guest/GuestOverview.vue')
     },
     {
       path: '/wishlist',

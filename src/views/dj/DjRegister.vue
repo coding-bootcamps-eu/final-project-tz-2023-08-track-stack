@@ -1,12 +1,18 @@
 <template>
-  <h2>Register_dj</h2>
-  <p>register with:</p>
-  <ul>
-    <li>id</li>
-    <li>username</li>
-    <li>firstname</li>
-    <li>lastname</li>
-    <li>email</li>
-    <li>mobilephone</li>
-  </ul>
+  <h2>DJ_Register</h2>
+  <h3>Register DJ</h3>
+  <p>Hier kannst du dich als DJ registrieren</p>
+  <form>
+    <label for="dj-name">DJ Name:</label>
+    <input type="text" name="dj-name" />
+    <label for="dj-firstname">Vorname:</label>
+    <input type="text" name="dj-vorname" />
+    <label for="dj-lastname">Nachname:</label>
+    <input type="text" name="dj-nachname" />
+    <label for="dj-email">E-Mail-Adresse:</label>
+    <input type="text" name="dj-email" />
+    <label for="dj-phone">Handynummer:</label>
+    <input type="text" name="dj-phone" />
+    <input type="submit" value="Registrierung abschließen" />
+  </form>
 </template>
