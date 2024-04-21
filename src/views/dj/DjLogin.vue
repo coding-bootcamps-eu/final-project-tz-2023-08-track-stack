@@ -9,7 +9,7 @@
     <label for="dj-name">DJ Name</label>
     <input type="text" name="dj-name" placeholder="Trage hier deinen DJ Name ein" /><br />
   </form>
-  <router-link to="/djoverview">Einloggen</router-link>
+  <router-link to="/dj-overview">Einloggen</router-link>
   <span>&nbsp;|&nbsp;</span>
   <router-link to="/register">Registrieren</router-link>
 </template>
