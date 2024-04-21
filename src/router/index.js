@@ -77,7 +77,7 @@ const router = createRouter({
     {
       path: '/wishsong',
       name: '/wishsong',
-      component: () => import('../views/visitor/WishSong.vue')
+      component: () => import('../views/guest/WishSong.vue')
     }
   ]
 })
