@@ -22,19 +22,6 @@ export default {
 </script>
 
 <style>
-html {
-  min-width: 300px;
-  margin: 0;
-  height: 100vh;
-  background: rgb(255, 255, 255);
-  background: linear-gradient(
-    0deg,
-    rgba(255, 255, 255, 1) 0%,
-    rgb(130, 150, 150) 30%,
-    rgb(130, 150, 150) 70%,
-    rgba(255, 255, 255, 1) 100%
-  );
-}
 header {
   min-height: 4rem;
   height: 10vh;
@@ -48,9 +35,5 @@ header {
 }
 .pname {
   font-size: 2rem;
-}
-body {
-  margin: 0;
-  /* background: green; */
 }
 </style>
