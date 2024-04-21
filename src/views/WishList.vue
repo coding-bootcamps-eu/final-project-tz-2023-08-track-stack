@@ -80,8 +80,11 @@
       </details>
     </li>
   </ol>
-  <router-link to="/guestoverview">
-    Zurück zur Übersicht
-    <!-- muss dynamisch sein, Gast oder DJ -->
+  <router-link to="/guest-overview">
+    Zurück zur Gast Übersicht<!-- muss dynamisch sein, Gast oder DJ -->
+  </router-link>
+  <span>&nbsp;|&nbsp;</span>
+  <router-link to="/dj-overview">
+    Zurück zur DJ Übersicht<!-- muss dynamisch sein, Gast oder DJ -->
   </router-link>
 </template>

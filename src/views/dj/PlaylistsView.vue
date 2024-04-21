@@ -36,5 +36,5 @@
       </li>
     </ol>
   </form>
-  <router-link to="/djoverview">Zurück zur Übersicht</router-link>
+  <router-link to="/dj-overview">Zurück zur Übersicht</router-link>
 </template>

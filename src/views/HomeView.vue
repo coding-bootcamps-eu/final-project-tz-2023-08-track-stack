@@ -10,7 +10,13 @@
       auf derselben Seite und führt ein Event aus. Dann habe ich Visitor noch in Guest geändert.
       Wenn alles klar ist, können wir gerne auf den Main branch mergen 🤞🏻
     </p>
+
+    <p>
+      Lars: Ich habe Normalize CSS ergänzt, weiß nur nicht ob das Issue wo ich einen Branch für
+      erstellt habe, dieser jetzt von mir gemerged werden muss.
+    </p>
     <router-link to="/login">DJ-Start</router-link>
-    <router-link to="/gueststart">Guest-Start</router-link>
+    <span>&nbsp;|&nbsp;</span>
+    <router-link to="/guest-start">Guest-Start</router-link>
   </main>
 </template>

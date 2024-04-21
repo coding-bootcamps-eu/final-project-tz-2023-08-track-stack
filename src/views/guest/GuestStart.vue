@@ -8,7 +8,7 @@
   <form>
     <label for="guest-name"></label>
     <input type="text" name="guest-name" placeholder="Dein Name" />
-    <button>Ab geht die Post</button>
+    <!--<button>Ab geht die Post</button>-->
   </form>
-  <router-link to="/overviewvisitor"><button>Overview</button></router-link>
+  <router-link to="/guest-overview">einloggen</router-link>
 </template>

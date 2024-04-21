@@ -15,5 +15,6 @@
     <input type="text" name="dj-phone" value="dj-phone" />
     <input type="submit" value="Profil speichern" />
   </form>
-  <button>EditProfil</button>
+  <!--<button>EditProfil</button>-->
+  <router-link to="/dj-overview">Edit Profile</router-link>
 </template>
