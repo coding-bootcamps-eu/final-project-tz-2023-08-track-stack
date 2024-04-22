@@ -20,8 +20,8 @@ const router = createRouter({
       component: () => import('../views/dj/DjRegister.vue')
     },
     {
-      path: '/djoverview',
-      name: '/djoverview',
+      path: '/dj-overview',
+      name: '/dj-overview',
       component: () => import('../views/dj/DjOverview.vue')
     },
     {
@@ -40,8 +40,8 @@ const router = createRouter({
       component: () => import('../views/dj/ChangeProfil.vue')
     },
     {
-      path: '/createevent',
-      name: '/createevent',
+      path: '/create-event',
+      name: '/creat-event',
       component: () => import('../views/dj/CreateEvent.vue')
     },
     {
@@ -50,23 +50,23 @@ const router = createRouter({
       component: () => import('../views/dj/EditEvent.vue')
     },
     {
-      path: '/createplaylist',
-      name: '/createplaylist',
+      path: '/create-playlist',
+      name: '/create-playlist',
       component: () => import('../views/dj/CreatePlaylist.vue')
     },
     {
-      path: '/editplaylist',
-      name: '/editplaylist',
+      path: '/edit-playlist',
+      name: '/edit-playlist',
       component: () => import('../views/dj/EditPlaylist.vue')
     },
     {
-      path: '/gueststart',
-      name: '/gueststart',
+      path: '/guest-start',
+      name: '/guest-start',
       component: () => import('../views/guest/GuestStart.vue')
     },
     {
-      path: '/guestoverview',
-      name: '/guestoverview',
+      path: '/guest-overview',
+      name: '/guest-overview',
       component: () => import('../views/guest/GuestOverview.vue')
     },
     {
@@ -77,7 +77,7 @@ const router = createRouter({
     {
       path: '/wishsong',
       name: '/wishsong',
-      component: () => import('../views/visitor/WishSong.vue')
+      component: () => import('../views/guest/WishSong.vue')
     }
   ]
 })

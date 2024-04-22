@@ -8,5 +8,5 @@
     <label for="event-upload">Upload CSV:</label>
     <input type="file" name="event-upload" />
   </form>
-  <router-link to="/events">Playlist aktualisieren</router-link>
+  <router-link to="/playlists">Playlist aktualisieren</router-link>
 </template>
