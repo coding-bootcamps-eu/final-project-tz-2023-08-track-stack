@@ -1,9 +1,9 @@
 <template>
   <!-- Header mit Name/Logo-->
   <header>
-    <img class="img-logo" src="./images/logo.png" alt="Logo" />
+    <img class="img-logo" src="./images/logo_senftraxx.svg" alt="Logo Senftraxx" />
     <h1 class="pname">{{ projectName }}</h1>
-    <button @click="this.goBack()">Back</button>
+    <button @click="this.goBack()">Zurück</button>
   </header>
   <!-- the choosen View-->
   <body>
@@ -15,7 +15,7 @@
 export default {
   data() {
     return {
-      projectName: 'TrackStack'
+      projectName: 'SENF TRAXX'
     }
   }
 }
@@ -23,17 +23,16 @@ export default {
 
 <style>
 header {
-  min-height: 4rem;
-  height: 10vh;
-  background: rgba(121, 121, 221, 0.15);
+  width: 100%;
+  min-height: 10rem;
+  color: white;
+  background: black;
   display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 .img-logo {
-  margin: 0.5rem;
-  min-height: 3rem;
-  height: 8vh;
-}
-.pname {
-  font-size: 2rem;
+  padding: 1rem;
+  width: 15vw;
 }
 </style>
