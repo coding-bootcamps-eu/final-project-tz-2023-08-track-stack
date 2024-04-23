@@ -1,14 +1,16 @@
 <template>
   <!-- Header mit Name/Logo-->
   <header>
-    <img class="img-logo" src="./images/logo_senftraxx.svg" alt="Logo Senftraxx" />
-    <h1 class="pname">{{ projectName }}</h1>
-    <button @click="this.goBack()">Zurück</button>
+    <a href="/"><img class="img-logo" src="./images/logo_senftraxx.svg" alt="Logo Senftraxx" /></a>
+    <button @click="this.goBack()">zurück</button>
   </header>
   <!-- the choosen View-->
   <body>
-    <router-view />
+    <main class="container">
+      <router-view />
+    </main>
   </body>
+  <footer>Ein <strong>Coding Bootcamp Europe</strong> - Abschlussprojekt 2024</footer>
 </template>
 
 <script>
@@ -24,15 +26,32 @@ export default {
 <style>
 header {
   width: 100%;
-  min-height: 10rem;
   color: white;
-  background: black;
+
+  background:
+    radial-gradient(circle, rgba(0, 0, 255, 0.5), rgba(255, 255, 255, 0.2)),
+    url('/src/images/header_119471366.jpg') center/cover;
+
+  background-size: cover;
+
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  padding-block: 2rem;
+}
+
+footer {
+  background: black;
+  padding: 1rem;
+  color: white;
+  text-align: center;
 }
 .img-logo {
-  padding: 1rem;
-  width: 15vw;
+  width: 25vw;
+  padding-bottom: 1rem;
+}
+header h1 {
+  color: white;
 }
 </style>
