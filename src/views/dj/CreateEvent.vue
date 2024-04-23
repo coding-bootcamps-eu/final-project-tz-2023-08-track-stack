@@ -11,13 +11,17 @@
     <input type="text" name="event-organizer" />
     <label for="event-address">Adresse:</label>
     <input type="text" name="event-address" />
-    <label for="event-playlist">Playlist:</label>
+    <hr />
+    <h4>Playlist</h4>
+    <label for="event-playlist">Playlist auswählen:</label>
     <select name="event-playlist">
       <option>Playlist 1</option>
       <option>Playlist 2</option>
       <option>Playlist 3</option>
     </select>
-    <label for="event-image">Foto:</label>
+    <h4>Veranstaltungsfoto</h4>
+    <hr />
+    <label for="event-image">Foto auswählen:</label>
     <fieldset id="event-image">
       <input type="radio" id="birthday" name="event-image-radio" value="Geburtstag" />
       <label for="html">Geburtstag</label><br />
@@ -31,8 +35,10 @@
     <label for="event-qrcode">Firmenfeier</label>
     <hr />
     <!-- <button name="event-qrcode">QR Code generieren</button> -->
+    <h4>QR Code</h4>
+    <QrCodeGenerator />
   </form>
-  <QrCodeGenerator />
+  <hr />
 
   <router-link to="/events">Event hinzufügen</router-link>
 </template>

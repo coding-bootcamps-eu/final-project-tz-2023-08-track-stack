@@ -1,13 +1,19 @@
 <template>
   <div>
     <form @submit.prevent="generateQR">
-      <p>Enter your URL to create the QR code for your event</p>
+      <p>Gib die gewünschte URL ein, um den QR Code deiner Veranstaltung zu generieren</p>
+      <label for="qr-code">QR Code:</label>
+      <input
+        class="qr-input"
+        name="qr-code"
+        type="text"
+        placeholder="e.g senftraxx/GuestOverview.com"
+        v-model="qrText"
+      />
 
-      <input type="text" placeholder="e.g senftraxx/GuestOverview.com" v-model="qrText" />
+      <img class="qr-img" :src="src" alt="QR Code" :width="width" />
 
-      <img :src="src" alt="QR Code" :width="width" />
-
-      <button type="submit">Generate your QR Code</button>
+      <button type="submit">Generiere QR Code</button>
     </form>
   </div>
 </template>
@@ -20,7 +26,7 @@ export default {
     return {
       qrText: '',
       src: SenfTraxxLogo,
-      width: '150'
+      width: '300'
     }
   },
 
@@ -38,15 +44,10 @@ export default {
 </script>
 
 <style scoped>
-form {
-  height: 25rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
+.qr-img {
+  padding-block: 1rem;
 }
-
-input::placeholder {
+.qr-code::placeholder {
   font-size: 0.8rem;
 }
 </style>
