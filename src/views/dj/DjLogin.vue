@@ -10,7 +10,6 @@
     <input type="text" name="dj-name" placeholder="Trage hier deinen DJ Name ein" /><br />
   </form>
   <router-link to="/dj-overview">Einloggen</router-link>
-  <span>&nbsp;|&nbsp;</span>
   <router-link to="/register">Registrieren</router-link>
 </template>
 <!-- Link auf andere Seite ist kein Button ;-) -->
