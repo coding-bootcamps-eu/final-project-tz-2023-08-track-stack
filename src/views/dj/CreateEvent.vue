@@ -30,7 +30,17 @@
     </fieldset>
     <label for="event-qrcode">Firmenfeier</label>
     <hr />
-    <button name="event-qrcode">QR Code generieren</button>
+    <!-- <button name="event-qrcode">QR Code generieren</button> -->
   </form>
+  <QrCodeGenerator />
+
   <router-link to="/events">Event hinzufügen</router-link>
 </template>
+
+<script>
+import QrCodeGenerator from '@/components/QrCodeGenerator.vue'
+
+export default {
+  components: { QrCodeGenerator: QrCodeGenerator }
+}
+</script>
