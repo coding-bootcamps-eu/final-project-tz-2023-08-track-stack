@@ -3,11 +3,9 @@
   <h3>Übersicht DJ</h3>
   <p>Hier bist du auf deinem Dashboard</p>
   <router-link to="/create-event">Event erstellen</router-link>
-  <span>&nbsp;|&nbsp;</span>
   <router-link to="/events">Events verwalten</router-link>
   <hr />
   <router-link to="/create-playlist">Playlist erstellen</router-link>
-  <span>&nbsp;|&nbsp;</span>
   <router-link to="/playlists">Playlists verwalten</router-link>
   <hr />
   <router-link to="/wishlist">Zur Wunschliste</router-link>

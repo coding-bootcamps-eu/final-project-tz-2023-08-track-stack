@@ -4,6 +4,5 @@
   <p>hier bist du auf deinem Dashboard</p>
 
   <router-link to="/wishsong">Song wünschen</router-link>
-  <span>&nbsp;|&nbsp;</span>
   <router-link to="/wishlist">Zur Wunschliste</router-link>
 </template>
