@@ -2,7 +2,7 @@
   <h2>DJ_Register</h2>
   <h3>Register DJ</h3>
   <p>Hier kannst du dich als DJ registrieren</p>
-  <form action="$router.push('djoverview')">
+  <form @submit.prevent>
     <label for="dj-name">DJ Name:</label>
     <input type="text" name="dj-name" /><br />
     <label for="dj-firstname">Vorname:</label>
@@ -13,7 +13,10 @@
     <input type="text" name="dj-email" /><br />
     <label for="dj-phone">Handynummer:</label>
     <input type="text" name="dj-phone" /><br />
-    <input @click="$router.push('djoverview')" type="submit" value="Registrierung abschließen" />
+    <input
+      @click="this.$router.push({ path: '/dj-overview' })"
+      type="submit"
+      value="Registrierung abschließen"
+    />
   </form>
-  <router-link to="/dj-overview">Registrierung abschließen</router-link>
 </template>
