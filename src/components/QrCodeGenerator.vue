@@ -14,6 +14,8 @@
       <img class="qr-img" :src="src" alt="QR Code" :width="width" />
 
       <button type="submit">Generiere QR Code</button>
+
+      <button @click="downloadQR">Download QR Code</button>
     </form>
   </div>
 </template>
@@ -38,6 +40,34 @@ export default {
       this.qrText = ''
 
       return eventQrCodeImage
+    },
+
+    // !!! Neues Thema !!! Wenn ihr euch über Canvas informieren wollt: https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial
+
+    downloadQR() {
+      // Create a temporary canvas element
+      const canvas = document.createElement('canvas')
+      const context = canvas.getContext('2d')
+
+      // Set canvas dimensions
+      canvas.width = 150
+      canvas.height = 150
+
+      // Load the image onto the canvas
+      const img = new Image()
+      img.crossOrigin = 'Anonymous'
+      img.onload = () => {
+        context.drawImage(img, 0, 0, 150, 150)
+
+        // Trigger the download
+        const link = document.createElement('a')
+        link.download = 'senftraxx_qr_code.png'
+        link.href = canvas.toDataURL('image/png')
+        link.click()
+
+        this.src = SenfTraxxLogo
+      }
+      img.src = this.src
     }
   }
 }
