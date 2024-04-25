@@ -24,13 +24,13 @@
       <table>
         <thead>
           <tr>
-            <th v-for="(column, index) in previewData[0]" :key="index">
-              {{ column }}
-            </th>
+            <th>Index</th>
+            <th>Titel</th>
+            <th>Künstler</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(row, rowIndex) in previewData.slice(1)" :key="rowIndex">
+          <tr v-for="(row, rowIndex) in previewData.slice(0)" :key="rowIndex">
             <td v-for="(cell, cellIndex) in row" :key="cellIndex">
               {{ cell }}
             </td>
