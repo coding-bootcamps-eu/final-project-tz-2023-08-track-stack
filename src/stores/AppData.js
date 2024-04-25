@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
 
-export const PlaylistStore = defineStore('playlistStore', {
+export const AppData = defineStore('appData', {
   state() {
     return {
-      apiTracks: [],
+      appDatas: [],
       tracks: [
         { id: 1, titel: 'Pokemon Theme Song', artist: 'Jason Paige', vote: false },
 
@@ -12,14 +12,14 @@ export const PlaylistStore = defineStore('playlistStore', {
         { id: 3, titel: 'Get Up And Dance', artist: 'Freedom', vote: false }
       ]
     }
+  },
+
+  actions: {
+    async getApiData() {
+      const response = await fetch('http://localhost:3000/appData')
+      const apiData = await response.json()
+
+      this.appDatas = apiData
+    }
   }
-
-  // actions: {
-  //   async getApiTracks() {
-  //     const response = await fetch('http://.../tracks')
-  //     const apiDataTracks = await response.json()
-
-  //     this.apiTracks = apiDataTracks
-  //   }
-  // }
 })

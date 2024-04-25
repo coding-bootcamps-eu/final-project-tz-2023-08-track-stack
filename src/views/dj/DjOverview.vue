@@ -12,3 +12,12 @@
   <hr />
   <router-link to="/profil">Profil bearbeiten</router-link>
 </template>
+
+<script>
+import { AppData } from '@/stores/AppData'
+
+const appData = AppData()
+
+// fetch API data
+appData.getApiData()
+</script>
