@@ -1,15 +1,23 @@
 <template>
-  <h2>DJLogin</h2>
-  <h3>Login</h3>
+  <small>DJLogin</small>
+  <h2>Login</h2>
   <p>
-    Herzlich Willkommen bei TrackStack, zum Einloggen gib einfach deinen DJ Namen ein. Bist du das
-    erste Mal hier, kannst du dich hier <router-link to="/register">registrieren</router-link>:
+    Herzlich Willkommen bei TrackStack, zum einloggen gib einfach deinen DJ Namen ein.<br />
+    Bist du das erste Mal hier, kannst du dich hier
+    <router-link to="/register">registrieren</router-link>:
   </p>
   <form>
-    <label for="dj-name">DJ Name</label>
-    <input type="text" name="dj-name" placeholder="Trage hier deinen DJ Name ein" /><br />
+    <div class="grid">
+      <label class="hidden" for="dj-name">DJ Name</label>
+      <input type="text" name="dj-name" placeholder="Trage hier deinen DJ Name ein" />
+      <input
+        @click="this.$router.push({ path: '/dj-overview' })"
+        type="submit"
+        value="einloggen 🙅‍♂️"
+      />
+      <router-link to="/dj-overview"><button class="secondary">einloggen</button></router-link>
+      <router-link to="/register"><button class="secondary">Registrieren</button></router-link>
+    </div>
   </form>
-  <router-link to="/dj-overview">Einloggen</router-link>
-  <router-link to="/register">Registrieren</router-link>
 </template>
 <!-- Link auf andere Seite ist kein Button ;-) -->
