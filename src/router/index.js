@@ -45,8 +45,8 @@ const router = createRouter({
       component: () => import('../views/dj/CreateEvent.vue')
     },
     {
-      path: '/editevent',
-      name: '/editevent',
+      path: '/edit-event',
+      name: '/edit-event',
       component: () => import('../views/dj/EditEvent.vue')
     },
     {

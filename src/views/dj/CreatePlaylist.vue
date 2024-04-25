@@ -1,8 +1,8 @@
 <template>
-  <h2>CreatePlaylist</h2>
-  <h3>Playlist erstellen</h3>
+  <small>CreatePlaylist</small>
+  <h2>Playlist erstellen</h2>
   <p>Hier erstellst du deine Playlist</p>
-  <form>
+  <form @submit.prevent>
     <label for="event-title">Titel:</label>
     <input type="text" name="event-title" />
     <!-- <label for="event-upload">Upload CSV:</label>
@@ -16,8 +16,12 @@
       <!--ModalFunktion hab ich nicht geckeckt -> Workaround mit <details> -->
       <!-- <button class="btn" @click="slotProps.openModal()">Import Data</button> -->
     </usecsv-button>
+    <input
+      @click="this.$router.push({ path: '/events' })"
+      type="submit"
+      value="Playlist hinzufügen"
+    />
   </form>
-
   <details v-if="previewData.length > 0">
     <summary>Daten Vorschau</summary>
     <div>

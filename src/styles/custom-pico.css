@@ -1,0 +1,23 @@
+small {
+  float: right;
+  color: var(--pico-form-element-placeholder-color);
+  background: var(--pico-form-element-background-color);
+
+  border: 1px solid var(--pico-range-active-border-color);
+  padding: 0.5rem;
+  border-radius: var(--pico-border-radius);
+}
+
+form label.hidden {
+  position: absolute;
+  left: -9999px;
+}
+
+/* Buttons */
+
+.btn-play {
+  background: green;
+}
+.btn-deny {
+  background: red;
+}

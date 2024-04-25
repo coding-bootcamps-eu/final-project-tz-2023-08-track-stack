@@ -4,8 +4,8 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import './styles/normalize.css'
-//import './styles/chota.css'
 import './styles/pico.yellow.css'
+import './styles/custom-pico.css'
 
 const app = createApp(App)
 
