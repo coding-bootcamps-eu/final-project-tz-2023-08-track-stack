@@ -10,15 +10,5 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
-  },
-  optimizeDeps: {
-    exclude: ['Modal'] // Das Modal-Element von der Komponentenauflösung ausschließen
-  },
-  vue: {
-    template: {
-      compilerOptions: {
-        isCustomElement: (tag) => tag === 'Modal'
-      }
-    }
   }
 })
