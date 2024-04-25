@@ -48,16 +48,7 @@
             type="radio"
             id="business"
             name="event-image-radio"
-            value="business"
-          />Firmenfeier</label
-        >
-
-        <label for="business"
-          ><input
-            type="radio"
-            id="business"
-            name="event-image-radio"
-            value="business"
+            value="Firmenfeier"
           />Firmenfeier</label
         >
       </div>
