@@ -21,3 +21,10 @@ form label.hidden {
 .btn-deny {
   background: red;
 }
+
+/* Ordered List */
+
+ol {
+  list-style: none;
+  padding-left: 0;
+}

@@ -7,7 +7,6 @@
       <label for="event-title">Titel: <input type="text" name="event-title" /></label>
       <label for="event-date">Datum: <input type="text" name="event-date" /></label>
     </div>
-
     <div class="grid">
       <label for="event-organizer">Veranstalter:<input type="text" name="event-organizer" /></label>
       <label for="event-address">Adresse:<input type="text" name="event-address" /></label>
@@ -22,39 +21,66 @@
     </select>
     <hr />
     <h4>Veranstaltungsfoto</h4>
-    <label for="event-image">Foto auswählen:</label>
+    <label for="event-image">Bildmotiv auswählen:</label>
     <fieldset id="event-image">
       <div class="grid">
-        <label for="birthday"
-          ><input
+        <label for="default">
+          <input
+            type="radio"
+            id="default"
+            name="event-image-radio"
+            value="Default"
+            v-model="selectedEventImage"
+          />Standardbild
+        </label>
+
+        <label for="birthday">
+          <input
             type="radio"
             id="birthday"
             name="event-image-radio"
             value="Geburtstag"
+            v-model="selectedEventImage"
           />Geburtstag
         </label>
 
-        <label for="marriage"
-          ><input
+        <label for="marriage">
+          <input
             type="radio"
             id="marriage"
             name="event-image-radio"
             value="Hochzeit"
+            v-model="selectedEventImage"
           />Hochzeit</label
         >
 
-        <label for="business"
-          ><input
+        <label for="business">
+          <input
             type="radio"
             id="business"
             name="event-image-radio"
             value="Firmenfeier"
+            v-model="selectedEventImage"
           />Firmenfeier</label
+        >
+        <label for="festival">
+          <input
+            type="radio"
+            id="festival"
+            name="event-image-radio"
+            value="Festival"
+            v-model="selectedEventImage"
+          />Festival</label
         >
       </div>
     </fieldset>
+    <div id="event-image">
+      <figure>
+        <img :src="getImagePath(selectedEventImage)" :alt="selectedEventImage" />
+        <figcaption>{{ selectedEventImage }}</figcaption>
+      </figure>
+    </div>
     <hr />
-    <!-- <button name="event-qrcode">QR Code generieren</button> -->
     <h4>QR Code</h4>
     <QrCodeGenerator />
     <hr />
@@ -66,8 +92,28 @@
 import QrCodeGenerator from '@/components/QrCodeGenerator.vue'
 
 export default {
-  components: { QrCodeGenerator: QrCodeGenerator }
+  data() {
+    return {
+      selectedEventImage: 'Default' // Initial
+    }
+  },
+  components: { QrCodeGenerator: QrCodeGenerator },
+
+  methods: {
+    getImagePath(image) {
+      switch (image) {
+        case 'Geburtstag':
+          return '/src/images/header_birthday.jpg'
+        case 'Hochzeit':
+          return '/src/images/header_marriage.jpg'
+        case 'Firmenfeier':
+          return '/src/images/header_business.jpg'
+        case 'Festival':
+          return '/src/images/header_festival.jpg'
+        default:
+          return '/src/images/header_default.jpg'
+      }
+    }
+  }
 }
 </script>
-
-<style scoped></style>
