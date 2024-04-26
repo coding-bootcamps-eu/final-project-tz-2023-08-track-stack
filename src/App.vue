@@ -1,7 +1,7 @@
 <template>
   <!-- Header mit Name/Logo-->
   <header>
-    <a href="/"><img class="img-logo" src="./images/logo_senftraxx.svg" alt="Logo Senftraxx" /></a>
+    <a href="/"><img class="img-logo" src="/images/logo_senftraxx.svg" alt="Logo Senftraxx" /></a>
     <button @click="this.goBack()">zurück</button>
   </header>
   <!-- the choosen View-->

@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import SenfTraxxLogo from '@/images/logo_senftraxx.svg'
+import SenfTraxxLogo from '/images/logo_senftraxx.svg'
 
 export default {
   data() {
