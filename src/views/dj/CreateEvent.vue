@@ -98,20 +98,19 @@ export default {
     }
   },
   components: { QrCodeGenerator: QrCodeGenerator },
-
   methods: {
     getImagePath(image) {
       switch (image) {
         case 'Geburtstag':
-          return '/src/images/header_birthday.jpg'
+          return '/images/header_birthday.jpg'
         case 'Hochzeit':
-          return '/src/images/header_marriage.jpg'
+          return '/images/header_marriage.jpg'
         case 'Firmenfeier':
-          return '/src/images/header_business.jpg'
+          return '/images/header_business.jpg'
         case 'Festival':
-          return '/src/images/header_festival.jpg'
+          return '/images/header_festival.jpg'
         default:
-          return '/src/images/header_default.jpg'
+          return '/images/header_default.jpg'
       }
     }
   }
