@@ -98,7 +98,6 @@ export default {
     }
   },
   components: { QrCodeGenerator: QrCodeGenerator },
-
   methods: {
     getImagePath(image) {
       switch (image) {
