@@ -15,7 +15,7 @@
 
       <button type="submit">Generiere QR Code</button>
 
-      <button @click="downloadQR">Download QR Code</button>
+      <button class="secondary" @click="downloadQR">Download QR Code</button>
     </form>
   </div>
 </template>

@@ -1,16 +1,16 @@
 <template>
-  <h2>CreateEvent</h2>
-  <h3>Event erstellen</h3>
+  <small>CreateEvent</small>
+  <h2>Event erstellen</h2>
   <p>Hier erstellst du deine Veranstaltung</p>
-  <form>
-    <label for="event-title">Titel:</label>
-    <input type="text" name="event-title" />
-    <label for="event-date">Datum:</label>
-    <input type="text" name="event-date" />
-    <label for="event-organizer">Veranstalter:</label>
-    <input type="text" name="event-organizer" />
-    <label for="event-address">Adresse:</label>
-    <input type="text" name="event-address" />
+  <form @submit.prevent>
+    <div class="grid">
+      <label for="event-title">Titel: <input type="text" name="event-title" /></label>
+      <label for="event-date">Datum: <input type="text" name="event-date" /></label>
+    </div>
+    <div class="grid">
+      <label for="event-organizer">Veranstalter:<input type="text" name="event-organizer" /></label>
+      <label for="event-address">Adresse:<input type="text" name="event-address" /></label>
+    </div>
     <hr />
     <h4>Playlist</h4>
     <label for="event-playlist">Playlist auswählen:</label>
@@ -19,34 +19,101 @@
       <option>Playlist 2</option>
       <option>Playlist 3</option>
     </select>
+    <hr />
     <h4>Veranstaltungsfoto</h4>
-    <hr />
-    <label for="event-image">Foto auswählen:</label>
+    <label for="event-image">Bildmotiv auswählen:</label>
     <fieldset id="event-image">
-      <input type="radio" id="birthday" name="event-image-radio" value="Geburtstag" />
-      <label for="html">Geburtstag</label><br />
+      <div class="grid">
+        <label for="default">
+          <input
+            type="radio"
+            id="default"
+            name="event-image-radio"
+            value="Default"
+            v-model="selectedEventImage"
+          />Standardbild
+        </label>
 
-      <input type="radio" id="marriage" name="event-image-radio" value="Hochzeit" />
-      <label for="marriage">Hochzeit</label><br />
+        <label for="birthday">
+          <input
+            type="radio"
+            id="birthday"
+            name="event-image-radio"
+            value="Geburtstag"
+            v-model="selectedEventImage"
+          />Geburtstag
+        </label>
 
-      <input type="radio" id="business" name="event-image-radio" value="business" />
-      <label for="business">Firmenfeier</label>
+        <label for="marriage">
+          <input
+            type="radio"
+            id="marriage"
+            name="event-image-radio"
+            value="Hochzeit"
+            v-model="selectedEventImage"
+          />Hochzeit</label
+        >
+
+        <label for="business">
+          <input
+            type="radio"
+            id="business"
+            name="event-image-radio"
+            value="Firmenfeier"
+            v-model="selectedEventImage"
+          />Firmenfeier</label
+        >
+        <label for="festival">
+          <input
+            type="radio"
+            id="festival"
+            name="event-image-radio"
+            value="Festival"
+            v-model="selectedEventImage"
+          />Festival</label
+        >
+      </div>
     </fieldset>
-    <label for="event-qrcode">Firmenfeier</label>
+    <div id="event-image">
+      <figure>
+        <img :src="getImagePath(selectedEventImage)" :alt="selectedEventImage" />
+        <figcaption>{{ selectedEventImage }}</figcaption>
+      </figure>
+    </div>
     <hr />
-    <!-- <button name="event-qrcode">QR Code generieren</button> -->
     <h4>QR Code</h4>
     <QrCodeGenerator />
+    <hr />
+    <input @click="this.$router.push({ path: '/events' })" type="submit" value="Event hinzufügen" />
   </form>
-  <hr />
-
-  <router-link to="/events">Event hinzufügen</router-link>
 </template>
 
 <script>
 import QrCodeGenerator from '@/components/QrCodeGenerator.vue'
 
 export default {
-  components: { QrCodeGenerator: QrCodeGenerator }
+  data() {
+    return {
+      selectedEventImage: 'Default' // Initial
+    }
+  },
+  components: { QrCodeGenerator: QrCodeGenerator },
+
+  methods: {
+    getImagePath(image) {
+      switch (image) {
+        case 'Geburtstag':
+          return '/src/images/header_birthday.jpg'
+        case 'Hochzeit':
+          return '/src/images/header_marriage.jpg'
+        case 'Firmenfeier':
+          return '/src/images/header_business.jpg'
+        case 'Festival':
+          return '/src/images/header_festival.jpg'
+        default:
+          return '/src/images/header_default.jpg'
+      }
+    }
+  }
 }
 </script>

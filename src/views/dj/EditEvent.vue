@@ -1,8 +1,8 @@
 <template>
-  <h2>EditEvent</h2>
-  <h3>Event bearbeiten</h3>
+  <small>EditEvent</small>
+  <h2>Event bearbeiten</h2>
   <p>Hier erstellst du deine Veranstaltung</p>
-  <form>
+  <form @submit.prevent>
     <label for="event-title">Titel:</label>
     <input type="text" name="event-title" />
     <label for="event-date">Datum:</label>
@@ -30,7 +30,19 @@
     </fieldset>
     <label for="event-qrcode">Firmenfeier</label>
     <hr />
-    <button name="event-qrcode">QR Code generieren</button>
+    <h4>QR Code</h4>
+    <QrCodeGenerator />
+    <input
+      @click="this.$router.push({ path: '/events' })"
+      type="submit"
+      value="Event aktualisieren"
+    />
   </form>
-  <router-link to="/events">Event aktualisieren</router-link>
 </template>
+<script>
+import QrCodeGenerator from '@/components/QrCodeGenerator.vue'
+
+export default {
+  components: { QrCodeGenerator: QrCodeGenerator }
+}
+</script>
