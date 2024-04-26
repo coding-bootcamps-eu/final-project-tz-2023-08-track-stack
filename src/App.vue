@@ -17,7 +17,8 @@
 export default {
   data() {
     return {
-      projectName: 'SENF TRAXX'
+      projectName: 'SENF TRAXX',
+      selectedEventImage: 'Default' // Initial
     }
   }
 }
@@ -30,7 +31,7 @@ header {
 
   background:
     radial-gradient(circle, rgba(0, 0, 255, 0.5), rgba(255, 255, 255, 0.2)),
-    url('/src/images/header_119471366.jpg') center/cover;
+    url('/images/header_default.jpg') center/cover;
   background-size: cover;
   display: flex;
   flex-direction: column;
