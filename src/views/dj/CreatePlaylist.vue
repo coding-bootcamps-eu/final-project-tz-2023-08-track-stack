@@ -43,8 +43,6 @@
       </table>
     </div>
   </details>
-
-  <router-link to="/events">Playlist hinzufügen</router-link>
 </template>
 
 <script>
@@ -71,5 +69,3 @@ export default {
   }
 }
 </script>
-
-<style scoped></style>

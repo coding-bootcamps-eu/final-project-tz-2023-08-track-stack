@@ -6,7 +6,7 @@
     <ol>
       <li>
         <details>
-          <summary>Bootcamp Rock Mix</summary>
+          <summary role="button" class="outline contrast">Bootcamp Rock Mix</summary>
           <section class="grid">
             <input
               id="event-edit"
@@ -21,7 +21,7 @@
       </li>
       <li>
         <details>
-          <summary>Schlagerparty und Ballermann</summary>
+          <summary role="button" class="outline contrast">Schlagerparty und Ballermann</summary>
           <section class="grid">
             <input
               id="event-edit"
@@ -36,7 +36,7 @@
       </li>
       <li>
         <details>
-          <summary>Elektro, Minimal und Housemusic</summary>
+          <summary role="button" class="outline contrast">Elektro, Minimal und Housemusic</summary>
           <section class="grid">
             <input
               id="event-edit"

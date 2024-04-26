@@ -6,7 +6,7 @@
     <ol>
       <li>
         <details>
-          <summary>04.05.2024: Abiparty Dortmund</summary>
+          <summary role="button" class="outline contrast">04.05.2024: Abiparty Dortmund</summary>
           <section class="grid">
             <input
               id="event-edit"
@@ -22,7 +22,9 @@
       </li>
       <li>
         <details>
-          <summary>24.08.2024: 100 Jahre Nolte Küchen</summary>
+          <summary role="button" class="outline contrast">
+            24.08.2024: 100 Jahre Nolte Küchen
+          </summary>
           <section class="grid">
             <input
               id="event-edit"
@@ -37,7 +39,7 @@
       </li>
       <li>
         <details>
-          <summary>12.09.2024: DJ Battle 2024</summary>
+          <summary role="button" class="outline contrast">12.09.2024: DJ Battle 2024</summary>
           <section class="grid">
             <input
               id="event-edit"
