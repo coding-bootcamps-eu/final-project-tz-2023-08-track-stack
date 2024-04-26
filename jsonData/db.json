@@ -1,0 +1,105 @@
+{
+  "appData": [
+    {
+      "app-name": "Senf Traxx",
+      "app-url": "https://cbe-trackstack.netlify.app",
+      "app-footertext": "Ein <strong>Coding Bootcamp Europe</strong> - Abschlussprojekt 2024",
+      "dj": [
+        {
+          "dj-id": 0,
+          "dj-name": "Lukas",
+          "dj-vorname": "Marius",
+          "dj-nachname": "MusterDJ",
+          "dj-email": "marius@musterdj.de",
+          "dj-phone": "0123456789",
+          "events": [
+            {
+              "event-id": 0,
+              "event-date": "12.09.2024",
+              "event-title": "DJ Battle 2024",
+              "event-organizer": "Ultimate Hardcore Rave",
+              "event-address": "Kölnerstr. 12, 12345 Köln",
+              "event-playlist": "playlist1",
+              "event-photo": "Hochzeit",
+              "event-qrcode": "qrcode1",
+              "event-online": "true",
+              "event-guests": [
+                {
+                  "guest-id": 0,
+                  "guest-name": "Timo"
+                },
+                {
+                  "guest-id": 1,
+                  "guest-name": "Gregor"
+                }
+              ],
+              "wishlists": [
+                {
+                  "wishsong-id": 0,
+                  "wishsong-guest": "Timo",
+                  "wishsong-artist": "Shakira",
+                  "wishsong-title": "Whenever, Whenever",
+                  "wishsong-message": "Wünsche ich mir für Eva",
+                  "wishsong-votes": 3,
+                  "wishsong-anonym": true
+                },
+                {
+                  "wishsong-id": 1,
+                  "wishsong-guest": "Gregor",
+                  "wishsong-artist": "Van Halen",
+                  "wishsong-title": "Jump",
+                  "wishsong-message": "Dreh mal lauter",
+                  "wishsong-anonym": false
+                }
+              ]
+            },
+            {
+              "event-id": 1,
+              "event-date": "04.05.2024",
+              "event-title": "Abiparty Dortmund",
+              "event-organizer": "Gymnasium Dortmund",
+              "event-address": "Dortmunderstraße 499, 54321 Dortmund",
+              "event-playlist": "playlist2",
+              "event-photo": "Party",
+              "event-qrcode": "qrcode2",
+              "event-online": "false",
+              "event-guests": [
+                {
+                  "guest-id": 0,
+                  "guest-name": "Timo"
+                },
+                {
+                  "guest-id": 1,
+                  "guest-name": "Gregor"
+                }
+              ],
+              "wishlist": [{}]
+            }
+          ],
+          "playlists": [
+            {
+              "playlist-id": 0,
+              "playlist-title": "Bootcamp Rock Mix",
+              "playlist-date": "timestamp-var",
+              "playlist-csv": "import-var",
+              "playlist-active": true
+            },
+            {
+              "playlist-id": 1,
+              "playlist-title": "Schlagerparty und Ballermann",
+              "playlist-date": "timestamp-var",
+              "playlist-csv": "import-var",
+              "playlist-active": false
+            },
+            {
+              "playlist-id": 2,
+              "playlist-title": "Elektro, Minimal und Housemusic",
+              "playlist-date": "timestamp-var",
+              "playlist-active": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
