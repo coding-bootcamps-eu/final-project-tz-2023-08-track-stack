@@ -1,4 +1,8 @@
 <template>
+  <div>
+    <p>Daten zum testen</p>
+    <p>{{ store.apiData.djs }}</p>
+  </div>
   <small>DjOverview</small>
   <h2>Übersicht DJ</h2>
   <p>Hier bist du auf deinem Dashboard</p>
@@ -17,3 +21,19 @@
     <router-link to="/wishlist"><button class="contrast">Zur Wunschliste</button></router-link>
   </div>
 </template>
+
+<script>
+import { AppData } from '@/stores/AppData.js'
+
+export default {
+  data() {
+    return {
+      store: AppData()
+    }
+  },
+
+  created() {
+    this.store.getApiData()
+  }
+}
+</script>
