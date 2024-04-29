@@ -1,8 +1,9 @@
 <template>
   <div>
     <p>Daten zum testen</p>
-    <p>{{ store.apiData.djs }}</p>
+    <p v-for="dj in store.apiData.djs" :key="dj.djId">{{ dj }}</p>
   </div>
+
   <small>DjOverview</small>
   <h2>Übersicht DJ</h2>
   <p>Hier bist du auf deinem Dashboard</p>
