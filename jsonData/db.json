@@ -1,8 +1,11 @@
 {
   "apiData": {
-    "appName": "Senf Traxx",
-    "appUrl": "https://cbe-trackstack.netlify.app",
-    "appFootertext": "Ein <strong>Coding Bootcamp Europe</strong> - Abschlussprojekt 2024",
+    "appInfos": {
+      "appName": "Senf Traxx",
+      "appUrl": "https://cbe-trackstack.netlify.app",
+      "appFootertext": "Ein <strong>Coding Bootcamp Europe</strong> - Abschlussprojekt 2024"
+    },
+
     "djs": [
       {
         "djId": 0,

@@ -1,7 +1,7 @@
 <template>
   <div>
     <p>Daten zum testen</p>
-    <p v-for="dj in store.apiData.djs" :key="dj.djId">{{ dj }}</p>
+    <p v-for="data in store.apiData" :key="data">{{ data }}</p>
   </div>
 
   <small>DjOverview</small>
