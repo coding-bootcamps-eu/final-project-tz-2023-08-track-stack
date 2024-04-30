@@ -9,18 +9,18 @@
     "djs": [
       {
         "djId": 0,
-        "djName": "Lukas",
-        "djVorname": "Marius",
-        "djNachname": "MusterDJ",
+        "djNickname": "Lukas",
+        "djFirstname": "Marius",
+        "djLastname": "MusterDJ",
         "djEmail": "marius@musterdj.de",
         "djPhone": "0123456789",
         "djLoggedin": false
       },
       {
         "djId": 1,
-        "djName": "DJ Hurricane",
-        "djVorname": "Harry",
-        "djNachname": "Caine",
+        "djNickname": "DJ Hurricane",
+        "djFirstname": "Harry",
+        "djLastname": "Caine",
         "djEmail": "harry@cainedj.de",
         "djPhone": "0987654321",
         "djLoggedin": true
