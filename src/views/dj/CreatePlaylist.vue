@@ -5,23 +5,19 @@
   <form @submit.prevent>
     <label for="event-title">Titel:</label>
     <input type="text" name="event-title" />
-    <!-- <label for="event-upload">Upload CSV:</label>
-    <input type="file" name="event-upload" /> -->
-    <usecsv-button
-      :onData="onData"
-      :onClose="onClose"
-      importerKey="2b88b88f-ed3a-4fae-8e9d-7dd83203eff8"
-    >
-      Import CSV
-      <!--ModalFunktion hab ich nicht geckeckt -> Workaround mit <details> -->
-      <!-- <button class="btn" @click="slotProps.openModal()">Import Data</button> -->
-    </usecsv-button>
+    <!-- FILEREADER -->
+    <label for="event-upload">File Reader:</label>
+    <input type="file" name="event-upload" accept=".csv" @change="handleFileUpload" />
+    <PreviewCSV :previewData="previewData"></PreviewCSV>
     <input
       @click="this.$router.push({ path: '/events' })"
       type="submit"
       value="Playlist hinzufügen"
     />
   </form>
+  <!-- <CsvReader /> -->
+  <CsvReader @csv-loaded="setCsvData" />
+  <!-- <CsvVorschau /> -->
   <details v-if="previewData.length > 0">
     <summary>Daten Vorschau</summary>
     <div>
@@ -43,29 +39,51 @@
       </table>
     </div>
   </details>
+  <!-- <div v-else>
+    <p>CSV wird geladen...</p>
+  </div> -->
 </template>
 
 <script>
-import UseCSVButton from '@usecsv/vuejs3'
-
+import PreviewCSV from '@/components/PreviewCSV.vue'
+import CsvReader from '/src/components/CsvReader.vue'
 export default {
-  components: {
-    'usecsv-button': UseCSVButton
-  },
+  components: { CsvReader, PreviewCSV },
   data() {
     return {
-      previewData: []
+      previewData: [],
+      csvData: []
     }
   },
   methods: {
-    onData: function (data) {
-      console.log('Data:', data)
-      console.log('Rows: ', data.rows)
-      this.previewData = data.rows
+    setCsvData(data) {
+      console.log(data)
+      this.csvData = data
+      this.previewData = data
     },
-    onClose: function () {
-      console.log('Importer is closed')
+    handleFileUpload(event) {
+      const file = event.target.files[0]
+      const reader = new FileReader()
+
+      reader.onload = (e) => {
+        const fileContent = e.target.result
+        console.log('Dateiinhalt:', fileContent)
+        // Verarbeite den Dateiinhalt hier weiter
+        const lines = fileContent.split('\n')
+        const arrayData = lines.map((line) => line.split(','))
+        console.log('ArrayDaten:', arrayData)
+        //'Daten Vorschau'-> wird für Test gefüllt
+        this.previewData = arrayData
+      }
+
+      reader.readAsText(file)
     }
   }
 }
 </script>
+
+<!-- TODOS -->
+<!-- DATEI Auswahl fixen!! -->
+<!-- Axios auf alternative umstellen -->
+
+<!-- CSV-VORSCHAU mit in componente integrieren -->
