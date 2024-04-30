@@ -1,7 +1,11 @@
 <template>
   <div>
     <p>Daten zum testen</p>
-    <p v-for="data in store.apiData" :key="data">{{ data }}</p>
+    <p v-for="data in store.apiData.djs" :key="data" :data="data">{{ data }}</p>
+  </div>
+  <div>
+    <p>Daten zum testen/ Logged in Dj</p>
+    <p v-for="data in store.djLoggedIn" :key="data" :data="data">{{ data }}</p>
   </div>
 
   <small>DjOverview</small>

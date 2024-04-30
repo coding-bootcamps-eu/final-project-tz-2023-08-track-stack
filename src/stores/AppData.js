@@ -7,6 +7,13 @@ export const AppData = defineStore('appData', {
     }
   },
 
+  // z.B: eingeloggten Dj bekommen
+  getters: {
+    djLoggedIn() {
+      return this.apiData.djs.filter((t) => t.djLoggedin)
+    }
+  },
+
   actions: {
     async getApiData() {
       const res = await fetch('http://localhost:3000/apiData')
@@ -14,3 +21,7 @@ export const AppData = defineStore('appData', {
     }
   }
 })
+
+export default {
+  props: ['data']
+}
