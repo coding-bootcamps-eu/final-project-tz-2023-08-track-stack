@@ -1,3 +1,4 @@
+<!-- Im Parent CSV Daten an :previewData übergeben  <PreviewCSV :previewData="csvData"></PreviewCSV> -->
 <template>
   <details v-if="previewData">
     <summary>Daten Vorschau</summary>
@@ -27,6 +28,7 @@
 
 <script>
 export default {
+  name: 'PreviewCSV',
   props: {
     previewData: {
       type: Array,
@@ -40,4 +42,4 @@ export default {
 }
 </script>
 
-//previewdata soll slot werden
+<!-- //mapping -->
