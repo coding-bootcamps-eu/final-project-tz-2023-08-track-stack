@@ -13,7 +13,7 @@
     <PreviewCSV :previewData="csvData"></PreviewCSV>
 
     <input
-      @click="this.$router.push({ path: '/events' })"
+      @click="this.$router.push({ path: '/playlists' })"
       type="submit"
       value="Playlist hinzufügen"
     />
