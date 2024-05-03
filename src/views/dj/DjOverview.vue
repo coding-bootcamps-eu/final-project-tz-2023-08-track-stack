@@ -1,16 +1,19 @@
 <template>
   <div>
     <p>Daten zum testen</p>
-    <p v-for="data in store.apiData.playlists" :key="data" :data="data">{{ data }}</p>
+    <p v-for="data in store.apiData.playlists" :key="data" :data="data">
+      {{ data }}<button @click="deleteSong()">delete</button>
+    </p>
   </div>
   <div>
     <p>Logged in Dj</p>
     <p v-for="data in store.djLoggedIn" :key="data">{{ data }}</p>
 
-    <form @submit.prevent="handeleSubmit()">
+    <form @submit.prevent="addNewSong()">
       <p>Du hast {{ store.totalPlaylists }} Playlists</p>
       <input type="text" v-model="newSongArtist" placeholder="Artist" />
       <input type="text" v-model="newSongTitle" placeholder="Song Title" />
+
       <button>add</button>
     </form>
 
@@ -68,15 +71,22 @@ export default {
   },
 
   methods: {
-    handeleSubmit() {
+    addNewSong() {
       if (this.newSongArtist.length && this.newSongTitle.length > 0) {
         this.store.addSong({
           artist: this.newSongArtist,
-          title: this.newSongTitle
+          title: this.newSongTitle,
+          id: new Date().getTime()
         })
         this.newSongArtist = ''
         this.newSongTitle = ''
       }
+    },
+
+    deleteSong() {
+      this.store = this.store.filter((song) => {
+        return song.id !== id
+      })
     }
   }
 }
