@@ -55,7 +55,7 @@ export default {
     this.store.getApiData()
   },
 
-  // to check if the dj exists when loggin in. you can also transfer to an other view instead of an alert, or both.
+  // to check if the dj exists when loggin in. you can also transfer to an other view instead of an alert.
   computed: {
     djLogin() {
       if (this.store.apiData.djs.find((dj) => dj.djNickname === this.nickname)) {
