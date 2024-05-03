@@ -1,105 +1,110 @@
 {
-  "appData": [
-    {
-      "app-name": "Senf Traxx",
-      "app-url": "https://cbe-trackstack.netlify.app",
-      "app-footertext": "Ein <strong>Coding Bootcamp Europe</strong> - Abschlussprojekt 2024",
-      "dj": [
-        {
-          "dj-id": 0,
-          "dj-name": "Lukas",
-          "dj-vorname": "Marius",
-          "dj-nachname": "MusterDJ",
-          "dj-email": "marius@musterdj.de",
-          "dj-phone": "0123456789",
-          "events": [
-            {
-              "event-id": 0,
-              "event-date": "12.09.2024",
-              "event-title": "DJ Battle 2024",
-              "event-organizer": "Ultimate Hardcore Rave",
-              "event-address": "Kölnerstr. 12, 12345 Köln",
-              "event-playlist": "playlist1",
-              "event-photo": "Hochzeit",
-              "event-qrcode": "qrcode1",
-              "event-online": "true",
-              "event-guests": [
-                {
-                  "guest-id": 0,
-                  "guest-name": "Timo"
-                },
-                {
-                  "guest-id": 1,
-                  "guest-name": "Gregor"
-                }
-              ],
-              "wishlists": [
-                {
-                  "wishsong-id": 0,
-                  "wishsong-guest": "Timo",
-                  "wishsong-artist": "Shakira",
-                  "wishsong-title": "Whenever, Whenever",
-                  "wishsong-message": "Wünsche ich mir für Eva",
-                  "wishsong-votes": 3,
-                  "wishsong-anonym": true
-                },
-                {
-                  "wishsong-id": 1,
-                  "wishsong-guest": "Gregor",
-                  "wishsong-artist": "Van Halen",
-                  "wishsong-title": "Jump",
-                  "wishsong-message": "Dreh mal lauter",
-                  "wishsong-anonym": false
-                }
-              ]
-            },
-            {
-              "event-id": 1,
-              "event-date": "04.05.2024",
-              "event-title": "Abiparty Dortmund",
-              "event-organizer": "Gymnasium Dortmund",
-              "event-address": "Dortmunderstraße 499, 54321 Dortmund",
-              "event-playlist": "playlist2",
-              "event-photo": "Party",
-              "event-qrcode": "qrcode2",
-              "event-online": "false",
-              "event-guests": [
-                {
-                  "guest-id": 0,
-                  "guest-name": "Timo"
-                },
-                {
-                  "guest-id": 1,
-                  "guest-name": "Gregor"
-                }
-              ],
-              "wishlist": [{}]
-            }
-          ],
-          "playlists": [
-            {
-              "playlist-id": 0,
-              "playlist-title": "Bootcamp Rock Mix",
-              "playlist-date": "timestamp-var",
-              "playlist-csv": "import-var",
-              "playlist-active": true
-            },
-            {
-              "playlist-id": 1,
-              "playlist-title": "Schlagerparty und Ballermann",
-              "playlist-date": "timestamp-var",
-              "playlist-csv": "import-var",
-              "playlist-active": false
-            },
-            {
-              "playlist-id": 2,
-              "playlist-title": "Elektro, Minimal und Housemusic",
-              "playlist-date": "timestamp-var",
-              "playlist-active": false
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  "apiData": {
+    "appInfos": {
+      "appName": "Senf Traxx",
+      "appUrl": "https://cbe-trackstack.netlify.app",
+      "appFootertext": "Ein <strong>Coding Bootcamp Europe</strong> - Abschlussprojekt 2024"
+    },
+
+    "djs": [
+      {
+        "djId": 0,
+        "djNickname": "Lukas",
+        "djFirstname": "Marius",
+        "djLastname": "MusterDJ",
+        "djEmail": "marius@musterdj.de",
+        "djPhone": "0123456789",
+        "djLoggedin": false
+      },
+      {
+        "djId": 1,
+        "djNickname": "DJ Hurricane",
+        "djFirstname": "Harry",
+        "djLastname": "Caine",
+        "djEmail": "harry@cainedj.de",
+        "djPhone": "0987654321",
+        "djLoggedin": true
+      }
+    ],
+    "guests": [
+      {
+        "guestId": 0,
+        "guestName": "Timo",
+        "guestLoggedin": true
+      },
+      {
+        "guestId": 1,
+        "guestName": "Gregor",
+        "guestLoggedin": false
+      }
+    ],
+    "events": [
+      {
+        "eventId": 0,
+        "eventDate": "12.09.2024",
+        "eventTitle": "DJ Battle 2024",
+        "eventOrganizer": "Ultimate Hardcore Rave",
+        "eventAddress": "Kölnerstr. 12, 12345 Köln",
+        "eventPlaylist": "playlist1",
+        "eventPhoto": "Hochzeit",
+        "eventQrcode": "qrcode1",
+        "eventOnline": true,
+        "wishlist": [{}]
+      },
+      {
+        "eventId": 1,
+        "eventDate": "04.05.2024",
+        "eventTitle": "Abiparty Dortmund",
+        "eventOrganizer": "Gymnasium Dortmund",
+        "eventAddress": "Dortmunderstraße 499, 54321 Dortmund",
+        "eventPlaylist": "playlist2",
+        "eventPhoto": "Party",
+        "eventQrcode": "qrcode2",
+        "eventOnline": false,
+        "wishlist": [{}]
+      }
+    ],
+    "wishlists": [
+      {
+        "wishsongId": 0,
+        "wishsongGuest": "Timo",
+        "wishsongArtist": "Shakira",
+        "wishsongTitle": "Whenever, Whenever",
+        "wishsongMessage": "Wünsche ich mir für Eva",
+        "wishsongTime": "23:55",
+        "wishsongVotes": 3,
+        "wishsongAnonym": true
+      },
+      {
+        "wishsongId": 1,
+        "wishsongGuest": "Gregor",
+        "wishsongArtist": "Van Halen",
+        "wishsongTitle": "Jump",
+        "wishsongMessage": "Dreh mal lauter",
+        "wishsongAnonym": false
+      }
+    ],
+    "playlists": [
+      {
+        "playlistId": 0,
+        "playlistTitle": "Bootcamp Rock Mix",
+        "playlistDate": "timestamp-var",
+        "playlistCsv": "import-var",
+        "playlistActive": true
+      },
+      {
+        "playlistId": 1,
+        "playlistTitle": "Schlagerparty und Ballermann",
+        "playlistDate": "timestamp-var",
+        "playlistCsv": "import-var",
+        "playlistActive": false
+      },
+      {
+        "playlistId": 2,
+        "playlistTitle": "Elektro, Minimal und Housemusic",
+        "playlistDate": "timestamp-var",
+        "playlistActive": false
+      }
+    ]
+  }
 }
