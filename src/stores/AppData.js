@@ -7,21 +7,27 @@ export const AppData = defineStore('appData', {
     }
   },
 
-  // z.B: eingeloggten Dj bekommen
   getters: {
+    // e.g. filter for logged in DJs
     djLoggedIn() {
-      return this.apiData.djs.filter((t) => t.djLoggedin)
+      return this.apiData.djs.filter((dj) => dj.djLoggedin)
+    },
+
+    // e.g. show the total of playlists
+    totalPlaylists() {
+      return this.apiData.playlists.length
     }
   },
 
   actions: {
+    // fetch the API to get the data
     async getApiData() {
       const res = await fetch('http://localhost:3000/apiData')
       this.apiData = await res.json()
+    },
+
+    addSong(song) {
+      this.apiData.playlists.push(song)
     }
   }
 })
-
-export default {
-  props: ['data']
-}
