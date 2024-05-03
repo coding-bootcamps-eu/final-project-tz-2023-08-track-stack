@@ -5,12 +5,11 @@
   <form @submit.prevent>
     <label for="event-title">Titel:</label>
     <input type="text" name="event-title" />
-
     <!-- FILEREADER -->
     <file-reader-csv @csv-data-uploaded="handleCsvData"></file-reader-csv>
 
     <!-- FilePreview -->
-    <PreviewCSV :previewData="csvData"></PreviewCSV>
+    <PreviewCSV :previewData="csvArrayData"></PreviewCSV>
 
     <input
       @click="this.$router.push({ path: '/events' })"
@@ -27,12 +26,15 @@ export default {
   components: { PreviewCSV, FileReaderCsv },
   data() {
     return {
-      csvData: []
+      csvArrayData: [],
+      csvObjData: []
     }
   },
   methods: {
-    handleCsvData(arrayData) {
-      this.csvData = arrayData
+    //erhält CSV daten als Array und als Obj
+    handleCsvData(arrayData, objData) {
+      this.csvArrayData = arrayData
+      this.csvObjData = objData
     }
   }
 }
