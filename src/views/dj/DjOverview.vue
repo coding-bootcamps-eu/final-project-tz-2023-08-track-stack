@@ -1,11 +1,9 @@
 <template>
   <div>
     <p>Daten zum testen</p>
-    <p v-for="data in store.apiData.playlists" :key="data" :data="data">
-      {{ data }}<button @click="deleteSong()">delete</button>
-    </p>
+    <p v-for="user of store.apiData" :key="id">{{ user }}</p>
   </div>
-  <div>
+  <!-- <div>
     <p>Logged in Dj</p>
     <p v-for="data in store.djLoggedIn" :key="data">{{ data }}</p>
 
@@ -20,7 +18,7 @@
     <p>{{ this.store.apiData.djs.find((dj) => dj.djNickname === this.nickname) }}</p>
     <input type="text" v-model="nickname" placeholder="your nickname" />
     <button @click="djLogin">login</button>
-  </div>
+  </div> -->
 
   <small>DjOverview</small>
   <h2>Übersicht DJ</h2>
@@ -47,47 +45,47 @@ import { AppData } from '@/stores/AppData.js'
 export default {
   data() {
     return {
-      store: AppData(),
-      nickname: '',
-      newSongArtist: '',
-      newSongTitle: ''
+      store: AppData()
+      // nickname: '',
+      // newSongArtist: '',
+      // newSongTitle: ''
     }
   },
 
   created() {
     this.store.getApiData()
-  },
-
-  // to check if the dj exists when loggin in. you can also transfer to an other view instead of an alert.
-  computed: {
-    djLogin() {
-      if (this.store.apiData.djs.find((dj) => dj.djNickname === this.nickname)) {
-        alert('Welcome ' + this.nickname + ',  you are logged in!')
-      } else {
-        alert('Username not found. Please register.')
-      }
-      this.nickname = ''
-    }
-  },
-
-  methods: {
-    addNewSong() {
-      if (this.newSongArtist.length && this.newSongTitle.length > 0) {
-        this.store.addSong({
-          artist: this.newSongArtist,
-          title: this.newSongTitle,
-          id: new Date().getTime()
-        })
-        this.newSongArtist = ''
-        this.newSongTitle = ''
-      }
-    },
-
-    deleteSong() {
-      this.store = this.store.filter((song) => {
-        return song.id !== id
-      })
-    }
   }
+
+  // // to check if the dj exists when loggin in. you can also transfer to an other view instead of an alert.
+  // computed: {
+  //   djLogin() {
+  //     if (this.store.apiData.djs.find((dj) => dj.djNickname === this.nickname)) {
+  //       alert('Welcome ' + this.nickname + ',  you are logged in!')
+  //     } else {
+  //       alert('Username not found. Please register.')
+  //     }
+  //     this.nickname = ''
+  //   }
+  // },
+
+  // methods: {
+  //   addNewSong() {
+  //     if (this.newSongArtist.length && this.newSongTitle.length > 0) {
+  //       this.store.addSong({
+  //         artist: this.newSongArtist,
+  //         title: this.newSongTitle,
+  //         id: new Date().getTime()
+  //       })
+  //       this.newSongArtist = ''
+  //       this.newSongTitle = ''
+  //     }
+  //   },
+
+  //   deleteSong() {
+  //     this.store = this.store.filter((song) => {
+  //       return song.id !== id
+  //     })
+  //   }
+  // }
 }
 </script>
