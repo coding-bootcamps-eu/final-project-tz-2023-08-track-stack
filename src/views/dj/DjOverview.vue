@@ -1,6 +1,5 @@
 <template>
   <small>DjOverview</small>
-
   <h2>
     Übersicht DJ
     <span id="loggedDjWelcome">{{ loggedDj }}</span>
@@ -30,13 +29,19 @@ export default {
     }
   },
   mounted() {
-    // Beim Laden der Komponente den DJ-Namen aus dem localStorage abrufen
-    this.getLoggedDjFromLocalStorage()
+    //Überprüfen ob DJ eingeloggt
+    this.checkForLoggedDj()
   },
   methods: {
-    getLoggedDjFromLocalStorage() {
-      // Den DJ-Namen aus dem localStorage abrufen
-      this.loggedDj = localStorage.getItem('loggedDj')
+    checkForLoggedDj() {
+      const djName = localStorage.getItem('loggedDj')
+      if (!djName) {
+        this.$router.push({ path: '/login' }) // Wenn leer, leite den Benutzer zurück
+        console.log('leer')
+      } else {
+        console.log('DJ DA')
+        this.loggedDj = djName // Wenn nicht leer, setze den DJ-Namen
+      }
     }
   }
 }

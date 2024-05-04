@@ -12,7 +12,7 @@
       <input
         type="text"
         name="dj-name"
-        placeholder="Trage hier deinen DJ Name ein, ES GEHT GERADE NUR 'maadin'"
+        :placeholder="placeholderText"
         v-model="eingabeDjName"
         @input="this.isDjNameValid = true"
       />
@@ -29,9 +29,14 @@
 export default {
   data() {
     return {
+      placeholderText: "Trage hier deinen DJ Name ein, ES GEHT GERADE NUR 'maadin'",
       eingabeDjName: '',
       isDjNameValid: true
     }
+  },
+  mounted() {
+    // Löschen des activeDJ
+    localStorage.setItem('loggedDj', '')
   },
   methods: {
     submitForm() {
@@ -50,6 +55,10 @@ export default {
 
 <style scoped>
 .noValidDj {
+  color: red;
+}
+/* Platzhaltertext-Styling */
+input::placeholder {
   color: red;
 }
 </style>
