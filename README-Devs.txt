@@ -7,8 +7,3 @@ npm install @usecsv/vuejs3
 
 lieber das, aber geht noch nicht
 https://www.npmjs.com/package/@webdev-7567/vue-csv-import
-
-
-* Fake API:
-  1. json server installieren: npm install -g json-server
-  2. server starten: json-server -w ./jsonData/db.json (-w steht für "watch". Somit wird die Datei beobachtet und funktioniert mit der uns bekannten REST Methode.)
