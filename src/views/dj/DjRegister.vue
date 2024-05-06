@@ -29,9 +29,13 @@
 </template>
 
 <script>
+import { useDjStore } from '@/stores/DjStore'
+import { getDjNamesFromApiToStore } from '@/components/GetDjNamesFromApiToStore'
+
 export default {
   data() {
     return {
+      //registrierteDjs: [], //const registrierteDjs = useDjStore().regDjs
       djName: '',
       vorname: '',
       nachname: '',
@@ -40,10 +44,8 @@ export default {
     }
   },
   methods: {
-    submitForm() {
-      // Daten sammeln
-      //username is REQUIRED!!!
-      //username==djName
+    async submitForm() {
+      // Daten sammeln, username is REQUIRED!!!
       const dataToSend = {
         username: this.djName,
         vorname: this.vorname,
@@ -51,29 +53,37 @@ export default {
         email: this.email,
         phone: this.phone
       }
+      //APi fragen ob username schon vergeben
+      await getDjNamesFromApiToStore()
+      console.log(useDjStore().regDjs)
 
-      //An API senden
-      fetch('http://localhost:3000/users', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(dataToSend)
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error('Fehler beim Senden der Daten')
-          }
-          // Weiterleitung zum Login
-          this.$router.push({ path: '/login' })
+      //Wenn JA => Nachricht: Username schon vergeben
+      if (useDjStore().regDjs.includes(this.djName)) {
+        console.log('Dublikat')
+        ///HIER NOCH STYLEN+NACHRICHT!!!!!!!!!!!!!!!!!!!!
+      }
+
+      //Wenn NEIN => Neuen Dj an API senden
+      if (!useDjStore().regDjs.includes(this.djName)) {
+        fetch('http://localhost:3000/users', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(dataToSend)
         })
-        .catch((error) => {
-          console.error('Fehler:', error)
-        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error('Fehler beim Senden der Daten')
+            }
+            // Weiterleitung zum Login
+            this.$router.push({ path: '/login' })
+          })
+          .catch((error) => {
+            console.error('Fehler:', error)
+          })
+      }
     }
   }
 }
 </script>
-
-<!-- ToDo -->
-<!-- Dublikate -->

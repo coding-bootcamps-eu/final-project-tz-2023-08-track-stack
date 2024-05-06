@@ -27,6 +27,7 @@
 
 <script>
 import { useDjStore } from '@/stores/DjStore'
+import { getDjNamesFromApiToStore } from '@/components/GetDjNamesFromApiToStore'
 
 export default {
   data() {
@@ -38,13 +39,13 @@ export default {
   },
   mounted() {
     // Löschen des activeDJ
-    useDjStore().setActiveDj('')
-    // Get all registrated Djs
-    this.getDjNamesFromApi()
+    useDjStore().resetActiveDj()
+    // Get all registrated Djs to the Store
+    getDjNamesFromApiToStore()
   },
   methods: {
     submitForm() {
-      const registrierteDjs = useDjStore().djs
+      const registrierteDjs = useDjStore().regDjs
       console.log('Registrierte Djs:', registrierteDjs)
       // if no user
       if (!registrierteDjs.includes(this.eingabeDjName)) {
@@ -54,29 +55,6 @@ export default {
         useDjStore().setActiveDj(this.eingabeDjName) // Eingeloggter DJ in PiniaStore hinterlegt
         this.$router.push({ path: '/dj-overview' })
       }
-    },
-    getDjNamesFromApi() {
-      fetch('http://localhost:3000/users', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error('Fehler beim Abrufen der Benutzernamen')
-          }
-          return response.json() // Die Antwort als JSON parsen
-        })
-        .then((data) => {
-          // Filtere die Benutzernamen aus den empfangenen Daten
-          const usernames = data.map((user) => user.username)
-          // useDjStore().djs wir mit den ApiDaten überschrieben
-          useDjStore().setAllDjsFromApi(usernames)
-        })
-        .catch((error) => {
-          console.error('Fehler:', error)
-        })
     }
   }
 }
