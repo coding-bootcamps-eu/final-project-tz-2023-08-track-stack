@@ -9,13 +9,13 @@ import './styles/custom-pico.css'
 
 const app = createApp(App)
 
+app.use(createPinia())
+app.use(router)
+
+app.mount('#app')
+
 //---Global Functions
 app.config.globalProperties.goBack = function () {
   // Verwende $router, um zurückzunavigieren
   this.$router.go(-1)
 }
-
-app.use(createPinia())
-app.use(router)
-
-app.mount('#app')

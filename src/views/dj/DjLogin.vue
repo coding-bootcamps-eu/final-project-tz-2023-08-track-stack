@@ -26,28 +26,57 @@
 </template>
 
 <script>
+import { useDjStore } from '@/stores/DjStore'
+
 export default {
   data() {
     return {
-      placeholderText: "Trage hier deinen DJ Name ein, ES GEHT GERADE NUR 'maadin'",
+      placeholderText: 'Trage hier deinen DJ Name ein',
       eingabeDjName: '',
       isDjNameValid: true
     }
   },
   mounted() {
     // Löschen des activeDJ
-    localStorage.setItem('loggedDj', '')
+    useDjStore().setActiveDj('')
+    // Get all registrated Djs
+    this.getDjNamesFromApi()
   },
   methods: {
     submitForm() {
+      const registrierteDjs = useDjStore().djs
+      console.log('Registrierte Djs:', registrierteDjs)
       // if no user
-      if (this.eingabeDjName != 'maadin') {
+      if (!registrierteDjs.includes(this.eingabeDjName)) {
         this.isDjNameValid = false
       } else {
         //if user
-        localStorage.setItem('loggedDj', this.eingabeDjName) // Benutzer in localStorage speichern
+        useDjStore().setActiveDj(this.eingabeDjName) // Eingeloggter DJ in PiniaStore hinterlegt
         this.$router.push({ path: '/dj-overview' })
       }
+    },
+    getDjNamesFromApi() {
+      fetch('http://localhost:3000/users', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Fehler beim Abrufen der Benutzernamen')
+          }
+          return response.json() // Die Antwort als JSON parsen
+        })
+        .then((data) => {
+          // Filtere die Benutzernamen aus den empfangenen Daten
+          const usernames = data.map((user) => user.username)
+          // useDjStore().djs wir mit den ApiDaten überschrieben
+          useDjStore().setAllDjsFromApi(usernames)
+        })
+        .catch((error) => {
+          console.error('Fehler:', error)
+        })
     }
   }
 }
@@ -57,15 +86,9 @@ export default {
 .noValidDj {
   color: red;
 }
-/* Platzhaltertext-Styling */
-input::placeholder {
-  color: red;
-}
 </style>
 
 <!-- ToDo -->
-<!-- Eingabe Login -->
-<!-- Login: Überprüfe ob User vorhanden -->
-<!-- Login: Kein User -> Nachricht=DU BIST NICHT REGISTRIERT -->
-<!-- Login: User -> DjOverview mit Anzeige wer eingeloggt ist -->
-<!-- Login: User -> ActiveUser:UserID in Localstorage (UNSICHER aber egal) -->
+
+<!-- Casesensitiv???? -->
+<!-- invalidDj -> Display:none , sodass nix verrutscht -->

@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import { useDjStore } from '@/stores/DjStore'
+
 export default {
   data() {
     return {
@@ -34,12 +36,10 @@ export default {
   },
   methods: {
     checkForLoggedDj() {
-      const djName = localStorage.getItem('loggedDj')
+      const djName = useDjStore().getActiveDj
       if (!djName) {
         this.$router.push({ path: '/login' }) // Wenn leer, leite den Benutzer zurück
-        console.log('leer')
       } else {
-        console.log('DJ DA')
         this.loggedDj = djName // Wenn nicht leer, setze den DJ-Namen
       }
     }
