@@ -5,7 +5,8 @@
   <form @submit.prevent="submitForm">
     <div class="grid">
       <label for="dj-name">DJ Name:</label>
-      <input type="text" v-model="djName" />
+      <span class="noValidDj" v-if="!isDjNameValid"> DJ-Name existiert bereits. </span>
+      <input type="text" v-model="djName" @input="this.isDjNameValid = true" />
     </div>
     <div class="grid">
       <label for="dj-firstname">Vorname:</label>
@@ -35,7 +36,7 @@ import { getDjNamesFromApiToStore } from '@/components/GetDjNamesFromApiToStore'
 export default {
   data() {
     return {
-      //registrierteDjs: [], //const registrierteDjs = useDjStore().regDjs
+      isDjNameValid: true,
       djName: '',
       vorname: '',
       nachname: '',
@@ -53,14 +54,15 @@ export default {
         email: this.email,
         phone: this.phone
       }
+      if (this.djName == '') {
+        this.isDjNameValid = false
+      }
       //APi fragen ob username schon vergeben
       await getDjNamesFromApiToStore()
-      console.log(useDjStore().regDjs)
 
       //Wenn JA => Nachricht: Username schon vergeben
       if (useDjStore().regDjs.includes(this.djName)) {
-        console.log('Dublikat')
-        ///HIER NOCH STYLEN+NACHRICHT!!!!!!!!!!!!!!!!!!!!
+        this.isDjNameValid = false
       }
 
       //Wenn NEIN => Neuen Dj an API senden
@@ -87,3 +89,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.noValidDj {
+  color: red;
+}
+</style>
