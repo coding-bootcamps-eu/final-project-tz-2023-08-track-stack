@@ -38,13 +38,13 @@ export default {
   },
   mounted() {
     // Löschen des activeDJ
-    useDjStore().setActiveDj('')
+    useDjStore().resetActiveDj()
     // Get all registrated Djs
     this.getDjNamesFromApi()
   },
   methods: {
     submitForm() {
-      const registrierteDjs = useDjStore().djs
+      const registrierteDjs = useDjStore().regDjs
       console.log('Registrierte Djs:', registrierteDjs)
       // if no user
       if (!registrierteDjs.includes(this.eingabeDjName)) {
@@ -71,7 +71,7 @@ export default {
         .then((data) => {
           // Filtere die Benutzernamen aus den empfangenen Daten
           const usernames = data.map((user) => user.username)
-          // useDjStore().djs wir mit den ApiDaten überschrieben
+          // useDjStore().djs wird mit den ApiDaten überschrieben
           useDjStore().setAllDjsFromApi(usernames)
         })
         .catch((error) => {
