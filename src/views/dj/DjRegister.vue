@@ -103,13 +103,11 @@ export default {
 </script>
 
 <style scoped>
+.required,
 .noValidDj {
   color: red;
 }
 
-.required {
-  color: red;
-}
 input[required] {
   background-color: #fffbea;
 }
