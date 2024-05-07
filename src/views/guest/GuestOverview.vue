@@ -1,6 +1,6 @@
 <template>
   <small>View: GuestOverview</small>
-  <h2>Hallo NAME!</h2>
+  <h2>Hallo {{ this.guestData.name }}!</h2>
   <p>
     Hier bist du auf deinem Dashboard. Du kannst dir Wünsche erfüllen oder auf bestehende Wünsche
     deine Stimme abgeben.
@@ -10,4 +10,31 @@
     <router-link to="/wishlist"><button>Zur Wunschliste</button></router-link>
   </div>
 </template>
-<style></style>
+
+<script>
+export default {
+  data() {
+    return {
+      guestData: null // Hier werden die Daten aus dem Local Storage gespeichert
+    }
+  },
+
+  created() {
+    // Die gespeicherten Daten aus dem Local Storage holen
+    this.getGuestDataFromLocalStorage()
+  },
+
+  methods: {
+    getGuestDataFromLocalStorage() {
+      // Versuche, die gespeicherten Daten aus dem Local Storage abzurufen
+      const guestDataInLocalStorage = localStorage.getItem('guestData')
+
+      // Überprüfen, ob gespeicherte Daten da sind
+      if (guestDataInLocalStorage) {
+        // Die gespeicherten Daten in JavaScript-Daten umwandeln
+        this.guestData = JSON.parse(guestDataInLocalStorage)
+      }
+    }
+  }
+}
+</script>
