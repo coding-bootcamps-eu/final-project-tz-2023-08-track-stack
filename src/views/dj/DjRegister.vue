@@ -4,29 +4,36 @@
   <p>Hier kannst du dich als DJ registrieren</p>
   <form @submit.prevent="submitForm">
     <div class="grid">
-      <label for="dj-name">DJ Name:</label>
+      <label for="dj-name">DJ Name: <span class="required">*</span></label>
       <span class="noValidDj" v-if="!isDjNameValid"> DJ-Name existiert bereits. </span>
-      <input type="text" v-model="djName" @input="this.isDjNameValid = true" />
+      <input
+        type="text"
+        name="dj-name"
+        required="required"
+        v-model="djName"
+        @input="this.isDjNameValid = true"
+      />
     </div>
     <div class="grid">
-      <label for="dj-firstname">Vorname:</label>
-      <input type="text" v-model="vorname" />
+      <label for="firstname">Vorname:</label>
+      <input type="text" name="firstname" v-model="vorname" />
     </div>
     <div class="grid">
-      <label for="dj-lastname">Nachname:</label>
-      <input type="text" v-model="nachname" />
+      <label for="lastname">Nachname:</label>
+      <input type="text" name="lastname" v-model="nachname" />
     </div>
     <div class="grid">
-      <label for="dj-email">E-Mail-Adresse:</label>
-      <input type="text" v-model="email" />
+      <label for="email">E-Mail-Adresse: <span class="required">*</span></label>
+      <input type="email" name="email" required="required" v-model="email" />
     </div>
     <div class="grid">
-      <label for="dj-phone">Handynummer:</label>
-      <input type="text" v-model="phone" />
+      <label for="phone">Handynummer:</label>
+      <input type="tel" name="phone" v-model="phone" />
     </div>
 
-    <input type="submit" value="Registrierung abschließen" />
+    <input type="submit" value="Registrierung abschließen" :disabled="!isFormValid" />
   </form>
+  <sup><span class="required">*</span> Bitte fülle sämtliche Pflichtfelder aus.</sup>
 </template>
 
 <script>
@@ -42,6 +49,11 @@ export default {
       nachname: '',
       email: '',
       phone: ''
+    }
+  },
+  computed: {
+    isFormValid() {
+      return this.djName !== '' && this.email !== '' // Hier kannst du weitere Validierungen hinzufügen
     }
   },
   methods: {
@@ -79,7 +91,7 @@ export default {
               throw new Error('Fehler beim Senden der Daten')
             }
             // Weiterleitung zum Login
-            this.$router.push({ path: '/login' })
+            this.$router.push({ path: '/dj-overview' })
           })
           .catch((error) => {
             console.error('Fehler:', error)
@@ -93,5 +105,12 @@ export default {
 <style scoped>
 .noValidDj {
   color: red;
+}
+
+.required {
+  color: red;
+}
+input[required] {
+  background-color: #fffbea;
 }
 </style>
