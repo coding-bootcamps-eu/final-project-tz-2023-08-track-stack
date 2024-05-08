@@ -4,15 +4,19 @@
   <p>Hier kannst du dich als DJ registrieren</p>
   <form @submit.prevent="submitForm">
     <div class="grid">
-      <label for="dj-name">DJ Name: <span class="required">*</span></label>
-      <span class="noValidDj" v-if="!isDjNameValid"> DJ-Name existiert bereits. </span>
+      <label for="login">Login: <span class="required">*</span></label>
+      <span class="noValidDj" v-if="!isLoginValid"> Dieser Login existiert bereits. </span>
       <input
         type="text"
-        name="dj-name"
+        name="login"
         required="required"
-        v-model="djName"
-        @input="this.isDjNameValid = true"
+        v-model="login"
+        @input="this.isLoginValid = true"
       />
+    </div>
+    <div class="grid">
+      <label for="dj-name">Vorname:</label>
+      <input type="text" name="dj-name" v-model="djName" />
     </div>
     <div class="grid">
       <label for="firstname">Vorname:</label>
@@ -43,7 +47,8 @@ import { getDjNamesFromApiToStore } from '@/components/GetDjNamesFromApiToStore'
 export default {
   data() {
     return {
-      isDjNameValid: true,
+      isLoginValid: true,
+      login: '',
       djName: '',
       vorname: '',
       nachname: '',
@@ -53,32 +58,40 @@ export default {
   },
   computed: {
     isFormValid() {
-      return this.djName !== '' && this.email !== '' // Hier kannst du weitere Validierungen hinzufügen
+      return (
+        this.login.trim() !== '' && // Login darf nicht leer sein oder nur Leerzeichen enthalten
+        this.login.trim() == this.login && // Login darf keine Leerzeichen am Anfang oder Ende haben
+        this.email !== '' // Email darf nicht leer sein
+
+        // Hier kannst du weitere Validierungen hinzufügen
+      )
     }
   },
   methods: {
     async submitForm() {
       // Daten sammeln, username is REQUIRED!!!
       const dataToSend = {
-        username: this.djName,
+        username: this.login,
+        djName: this.djName,
         vorname: this.vorname,
         nachname: this.nachname,
         email: this.email,
         phone: this.phone
       }
-      if (this.djName == '') {
-        this.isDjNameValid = false
+      if (this.login == '') {
+        this.isLoginValid = false
       }
-      //APi fragen ob username schon vergeben
-      await getDjNamesFromApiToStore()
 
+      //APi fragen ob LoginName schon vergeben
+      //Hol die neusten LoginNamen
+      await getDjNamesFromApiToStore()
       //Wenn JA => Nachricht: Username schon vergeben
-      if (useDjStore().regDjs.includes(this.djName)) {
-        this.isDjNameValid = false
+      if (useDjStore().regDjs.includes(this.login)) {
+        this.isLoginValid = false
       }
 
       //Wenn NEIN => Neuen Dj an API senden
-      if (!useDjStore().regDjs.includes(this.djName)) {
+      if (!useDjStore().regDjs.includes(this.login)) {
         fetch('http://localhost:3000/users', {
           method: 'POST',
           headers: {

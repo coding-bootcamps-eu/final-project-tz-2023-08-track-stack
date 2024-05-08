@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 export const useDjStore = defineStore('dj', {
   state: () => ({
     regDjs: ['martin', 'irina', 'lars'],
-    activeDj: { name: '_', id: '_' }
+    activeDj: { login: '', id: '' }
   }),
   //================================
   // get Information from the state
@@ -14,7 +14,7 @@ export const useDjStore = defineStore('dj', {
     },
     // Dj who is logged in
     getActiveDj(state) {
-      return state.activeDj.name
+      return state.activeDj.login
     }
   },
   //================================
@@ -30,16 +30,17 @@ export const useDjStore = defineStore('dj', {
     },
 
     //setzte einen eingeloggten Dj
-    setActiveDj(djName) {
-      this.activeDj.name = djName
-      console.log('activeDJ-NAME:' + this.activeDj.name)
-      console.log('activeDJ-ID:' + this.activeDj.id)
+    setActiveDj(login) {
+      this.activeDj.login = login
+      // console.log('activeDJ-login:' + this.activeDj.login)
+      // console.log('activeDJ-ID:' + this.activeDj.id)
       //HIER MUSS VLLT NOCH REST REIN?
     },
 
     resetActiveDj() {
-      this.activeDj = { name: '', id: '' } // Setze den activeDj zurück
-      console.log('resetingActiveDJ:' + this.activeDj)
+      this.activeDj = { login: '', id: '' } // Setze den activeDj zurück
+      console.log('reset ActiveDJ')
+      // console.log('resetingActiveDJ:' + this.activeDj)
     }
   }
 })
@@ -49,6 +50,5 @@ export const useDjStore = defineStore('dj', {
 //Pinistore füttern:
 
 //IDEE: Active DJ
-// VOLLSTÄNDIG holen von api-> zugreifbar machen-> zugriff ID/name/email/....
+// VOLLSTÄNDIG holen von api-> zugreifbar machen-> zugriff ID/login/email/....
 // brauchen ja nicht die daten von jedem!
-// activeDj wird Objekt!
