@@ -23,13 +23,12 @@ export default {
         // filtere leere Zeilen heraus
         const nonEmptyLines = lines.filter((line) => line.trim() !== '')
         // trenne an Kommas
-        const arrayData = nonEmptyLines.map((line) => line.split(','))
-
+        const arrayData = nonEmptyLines.map((line) => line.split(';'))
         // Array to Obj
         const dataAsObjects = arrayData.slice(1).map((row) => {
           return {
-            Titel: row[0], // Der erste Wert in der Zeile ist der Titel
-            Künstler: row[1] // Der zweite Wert in der Zeile ist der Künstler
+            artist: row[0], // Der erste Wert in der Zeile ist der Titel
+            title: row[1] // Der zweite Wert in der Zeile ist der Künstler
           }
         })
 
