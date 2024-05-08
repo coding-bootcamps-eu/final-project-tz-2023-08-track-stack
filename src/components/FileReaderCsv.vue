@@ -24,7 +24,7 @@ export default {
         const nonEmptyLines = lines.filter((line) => line.trim() !== '')
         // trenne an Kommas
         const arrayData = nonEmptyLines.map((line) => line.split(','))
-        console.log('ArrayDaten:', arrayData)
+
         // Array to Obj
         const dataAsObjects = arrayData.slice(1).map((row) => {
           return {
@@ -33,7 +33,8 @@ export default {
           }
         })
 
-        console.log(dataAsObjects)
+        //console.log('ArrayDatenCSV:', arrayData)
+        //console.log('ObjDatenCSV:', dataAsObjects)
 
         //emit to parent als Array und als Obj
         this.$emit('csv-data-uploaded', arrayData, dataAsObjects)
