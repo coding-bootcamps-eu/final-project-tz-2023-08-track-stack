@@ -53,7 +53,7 @@ export default {
         this.isDjNameValid = false
       } else {
         //if user
-        useDjStore().setActiveDj(this.eingabeDjName) // Eingeloggter DJ in PiniaStore hinterlegen
+        localStorage.setItem('activeDj', JSON.stringify(this.eingabeDjName)) // Eingeloggter DJ in localStorage hinterlegen
         this.$router.push({ path: '/dj-overview' })
       }
     }

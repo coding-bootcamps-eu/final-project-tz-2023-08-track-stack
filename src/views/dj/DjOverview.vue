@@ -2,7 +2,7 @@
   <small>DjOverview</small>
   <h2>
     Übersicht DJ
-    <span id="loggedDjWelcome">{{ loggedDj }}</span>
+    <active-dj></active-dj>
   </h2>
   <p>Hier bist du auf deinem Dashboard</p>
   <div class="grid">
@@ -22,36 +22,18 @@
 </template>
 
 <script>
-import { useDjStore } from '@/stores/DjStore'
+import ActiveDj from '@/components/ActiveDj.vue'
+import { initDj } from '@/components/InitDj'
 
 export default {
+  components: { ActiveDj },
   data() {
-    return {
-      loggedDj: ''
-    }
+    return {}
   },
   mounted() {
-    //Überprüfen ob DJ eingeloggt
-    this.checkForLoggedDj()
+    //Pinia bekommt Dj aus LocalStore//Überprüfen ob DJ eingeloggt
+    initDj()
   },
-  methods: {
-    checkForLoggedDj() {
-      console.log('ActiveDJ: ', useDjStore().activeDj)
-      const djName = useDjStore().getActiveDj
-      if (!djName) {
-        console.log('Kein Aktiver DJ => back to Login!')
-        this.$router.push({ path: '/login' }) // Wenn leer, leite den Benutzer zurück
-      } else {
-        this.loggedDj = djName // Wenn nicht leer, setze den DJ-Namen
-      }
-    }
-  }
+  methods: {}
 }
 </script>
-
-<style scoped>
-#loggedDjWelcome {
-  color: rgb(25, 255, 36);
-  font-size: 2rem;
-}
-</style>
