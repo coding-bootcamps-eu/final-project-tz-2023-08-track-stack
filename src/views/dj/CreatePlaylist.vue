@@ -86,6 +86,3 @@ export default {
 </script>
 
 <!-- TODOS -->
-<!-- erst in Api wegen ID vergabe -->
-<!-- POST: UserId, Title, Songs-->
-<!-- dann zurück in PiniaStore -->
