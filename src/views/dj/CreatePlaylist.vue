@@ -58,9 +58,9 @@ export default {
     submitPlaylist() {
       const dataToSend = {
         //title,djId,songs REQUIRED
-        title: 'titel',
-        djId: 'c2dfc86e-53da-4404-8afd-7497853b8496',
-        songs: []
+        title: this.playlistTitle,
+        djId: this.activeDJ.id,
+        songs: this.csvObjData
       }
 
       fetch('http://localhost:3000/playlists', {
