@@ -29,6 +29,11 @@ export default {
     }
   },
 
+  created() {
+    // Beim laden der Seite überprüfen, ob Name im Local Storage bereits gespeichert ist
+    this.checkIfNameInLocalStorage()
+  },
+
   methods: {
     submitGuestForm() {
       // Überprüfen, ob ein Name eingegeben wurde
@@ -43,10 +48,19 @@ export default {
         }
         localStorage.setItem('guestData', JSON.stringify(guestData))
 
-        // Weiter zur Gästeübersicht
+        // Weiter zur guest-overview
         this.$router.push({ path: '/guest-overview' })
       } else {
         alert('Bitte gib deinen Namen ein.')
+      }
+    },
+
+    // Prüfe, ob ein Name im Local Storage gespeichert ist. Soll zur Absicherung dienen, dass sich der Gast nicht unter verschiedenen Namen einloggen kann.
+    checkIfNameInLocalStorage() {
+      const guestData = localStorage.getItem('guestData')
+      if (guestData) {
+        // Wenn Name gespeichert ist, wird Gast sofort zur "guest-overview" weitergeleitet
+        this.$router.push({ path: '/guest-overview' })
       }
     }
   }
