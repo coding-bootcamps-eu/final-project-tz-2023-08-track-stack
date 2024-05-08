@@ -36,8 +36,10 @@ export default {
   },
   methods: {
     checkForLoggedDj() {
+      console.log('ActiveDJ: ', useDjStore().activeDj)
       const djName = useDjStore().getActiveDj
       if (!djName) {
+        console.log('Kein Aktiver DJ => back to Login!')
         this.$router.push({ path: '/login' }) // Wenn leer, leite den Benutzer zurück
       } else {
         this.loggedDj = djName // Wenn nicht leer, setze den DJ-Namen

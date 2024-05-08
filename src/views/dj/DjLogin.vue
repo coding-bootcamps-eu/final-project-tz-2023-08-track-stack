@@ -32,7 +32,7 @@ import { getDjNamesFromApiToStore } from '@/components/GetDjNamesFromApiToStore'
 export default {
   data() {
     return {
-      placeholderText: 'Trage hier deinen DJ Name ein',
+      placeholderText: 'Trage hier deinen Login-Namen ein',
       eingabeDjName: '',
       isDjNameValid: true
     }
@@ -46,13 +46,14 @@ export default {
   methods: {
     submitForm() {
       const registrierteDjs = useDjStore().regDjs
-      console.log('Registrierte Djs:', registrierteDjs)
+
       // if no user
       if (!registrierteDjs.includes(this.eingabeDjName)) {
+        console.log('Registrierte Djs:', registrierteDjs)
         this.isDjNameValid = false
       } else {
         //if user
-        useDjStore().setActiveDj(this.eingabeDjName) // Eingeloggter DJ in PiniaStore hinterlegt
+        useDjStore().setActiveDj(this.eingabeDjName) // Eingeloggter DJ in PiniaStore hinterlegen
         this.$router.push({ path: '/dj-overview' })
       }
     }
