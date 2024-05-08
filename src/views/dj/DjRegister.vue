@@ -15,7 +15,7 @@
       />
     </div>
     <div class="grid">
-      <label for="dj-name">Vorname:</label>
+      <label for="dj-name">Dj-Name:</label>
       <input type="text" name="dj-name" v-model="djName" />
     </div>
     <div class="grid">

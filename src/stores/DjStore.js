@@ -2,8 +2,18 @@ import { defineStore } from 'pinia'
 
 export const useDjStore = defineStore('dj', {
   state: () => ({
-    regDjs: ['martin', 'irina', 'lars'],
-    activeDj: { login: '', id: '' }
+    regDjs: ['martin', 'irina', 'lars'], // Alle Registrierten Djs
+    activeDj: {
+      login: '',
+      id: '',
+      djName: '',
+      vorname: '',
+      nachname: '',
+      email: '',
+      phone: '',
+      createdAt: Number
+    },
+    playlists: [] //{ id: '', eventId: '', userId: '', titel: '', songs: [] }
   }),
   //================================
   // get Information from the state
@@ -32,8 +42,10 @@ export const useDjStore = defineStore('dj', {
     //setzte einen eingeloggten Dj
     setActiveDj(login) {
       this.activeDj.login = login
-      // console.log('activeDJ-login:' + this.activeDj.login)
-      // console.log('activeDJ-ID:' + this.activeDj.id)
+      this.activeDj.id = 'fakeID'
+      this.activeDj.djName = 'fakeName'
+
+      //Waaa sorry lars, glaub ich grätsche hier grad voll rein :D
       //HIER MUSS VLLT NOCH REST REIN?
     },
 
