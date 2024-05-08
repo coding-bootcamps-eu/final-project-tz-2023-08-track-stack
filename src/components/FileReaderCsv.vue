@@ -23,7 +23,7 @@ export default {
         // filtere leere Zeilen heraus
         const nonEmptyLines = lines.filter((line) => line.trim() !== '')
         // trenne an Kommas
-        const arrayData = nonEmptyLines.map((line) => line.split(','))
+        const arrayData = nonEmptyLines.map((line) => line.split(':'))
 
         // Array to Obj
         const dataAsObjects = arrayData.slice(1).map((row) => {
