@@ -1,9 +1,8 @@
 <template>
-  <small>DjOverview</small>
-  <h2>
-    Übersicht DJ
-    <active-dj></active-dj>
-  </h2>
+  <small>
+    <active-dj><!--Zeigt aktuellen DJ an--></active-dj> @ CreatePlaylist</small
+  >
+  <h2>Übersicht DJ</h2>
   <p>Hier bist du auf deinem Dashboard</p>
   <div class="grid">
     <router-link to="/create-event"><button>Event erstellen</button></router-link>

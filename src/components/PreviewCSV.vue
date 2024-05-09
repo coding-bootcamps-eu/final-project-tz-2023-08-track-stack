@@ -1,7 +1,7 @@
 <!-- Im Parent CSV Daten an :previewData übergeben  <PreviewCSV :previewData="csvData"></PreviewCSV> -->
 <template>
   <details v-if="previewData.length > 0" class="preview-details">
-    <summary class="summary">Daten Vorschau</summary>
+    <summary role="button" class="outline contrast summary">Vorschau anzeigen</summary>
     <div class="preview-table-container">
       <table class="preview-table">
         <thead>
@@ -44,11 +44,6 @@ export default {
 .preview-details {
   /* display: inline-block; Ändert das Anzeigeverhalten zu inline-block */
   /* cursor: pointer; Zeige den Cursor als Zeiger an */
-  padding: 8px 16px; /* Abstand oben/unten 8px, links/rechts 16px */
-  border: none; /* Kein Rahmen */
-  border-radius: 4px; /* Abrundung der Ecken */
-  background-color: #151f16; /* Hintergrundfarbe */
-  color: white; /* Textfarbe */
   transition: background-color 0.3s ease; /* Übergangseffekt für Hintergrundfarbe */
 }
 
@@ -74,8 +69,10 @@ export default {
 }
 
 .summary {
+  padding: 1rem;
   font-weight: bold;
   cursor: pointer;
+  margin-bottom: 2rem;
 }
 
 .summary::-webkit-details-marker {
@@ -93,13 +90,14 @@ export default {
 
 .preview-table th,
 .preview-table td {
-  border: 1px solid #dddddd;
+  border: 1px solid var(--pico-primary-background);
   padding: 8px;
   text-align: left;
 }
 
 .preview-table th {
-  background-color: #363636;
+  background-color: var(--pico-primary-background);
+  color: var(--pico-primary-inverse);
 }
 </style>
 
