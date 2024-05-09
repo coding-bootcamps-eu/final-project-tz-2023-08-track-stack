@@ -30,7 +30,7 @@
   </form>
   <router-link to="/dj-overview"><button>Zurück zur Übersicht</button></router-link>
   <hr />
-  <h3>Komplette Daten aus API inkl. Songs</h3>
+  <h3>Komplette Daten aus API inklusive Songs</h3>
   <div v-for="playlist in playlists" :key="playlist.id">
     <div>Title: {{ playlist.eventId }}</div>
     <div>Event ID: {{ playlist.eventId }}</div>
