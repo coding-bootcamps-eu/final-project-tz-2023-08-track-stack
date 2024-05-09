@@ -1,38 +1,35 @@
 <template>
-  <small>DJ_Register</small>
+  <small>
+    <active-dj><!--Zeigt aktuellen DJ an--></active-dj> @ DjRegister</small
+  >
   <h2>Register DJ</h2>
   <p>Hier kannst du dich als DJ registrieren</p>
   <form @submit.prevent="submitForm">
     <div class="grid">
-      <label for="login">Login: <span class="required">*</span></label>
-      <span class="noValidDj" v-if="!isLoginValid"> Dieser Login existiert bereits. </span>
-      <input
-        type="text"
-        name="login"
-        required="required"
-        v-model="login"
-        @input="this.isLoginValid = true"
-      />
+      <label for="username"
+        >Username: <span class="required">*</span>
+        <span class="noValidDj" v-if="!isLoginValid"> Dieser Login existiert bereits. </span>
+        <input
+          type="text"
+          name="username"
+          required="required"
+          v-model="username"
+          @input="this.isLoginValid = true"
+      /></label>
+      <label for="djname"
+        >Dj-Name: <span class="required">*</span
+        ><input type="text" name="djname" required="required" v-model="djname"
+      /></label>
     </div>
     <div class="grid">
-      <label for="dj-name">Dj-Name:</label>
-      <input type="text" name="dj-name" v-model="djName" />
-    </div>
-    <div class="grid">
-      <label for="firstname">Vorname:</label>
-      <input type="text" name="firstname" v-model="vorname" />
-    </div>
-    <div class="grid">
-      <label for="lastname">Nachname:</label>
-      <input type="text" name="lastname" v-model="nachname" />
-    </div>
-    <div class="grid">
-      <label for="email">E-Mail-Adresse: <span class="required">*</span></label>
-      <input type="email" name="email" required="required" v-model="email" />
-    </div>
-    <div class="grid">
-      <label for="phone">Handynummer:</label>
-      <input type="tel" name="phone" v-model="phone" />
+      <label for="email"
+        >E-Mail-Adresse: <span class="required">*</span>
+        <input type="email" name="email" autofill="email" required="required" v-model="email"
+      /></label>
+
+      <label for="phone"
+        >Handynummer: <input type="tel" name="phone" autofill="phone" v-model="phone"
+      /></label>
     </div>
 
     <input type="submit" value="Registrierung abschließen" :disabled="!isFormValid" />
@@ -48,10 +45,8 @@ export default {
   data() {
     return {
       isLoginValid: true,
-      login: '',
+      username: '',
       djName: '',
-      vorname: '',
-      nachname: '',
       email: '',
       phone: ''
     }
@@ -59,8 +54,8 @@ export default {
   computed: {
     isFormValid() {
       return (
-        this.login.trim() !== '' && // Login darf nicht leer sein oder nur Leerzeichen enthalten
-        this.login.trim() == this.login && // Login darf keine Leerzeichen am Anfang oder Ende haben
+        this.username.trim() !== '' && // Login darf nicht leer sein oder nur Leerzeichen enthalten
+        this.username.trim() == this.username && // Login darf keine Leerzeichen am Anfang oder Ende haben
         this.email !== '' // Email darf nicht leer sein
 
         // Hier kannst du weitere Validierungen hinzufügen
@@ -71,14 +66,12 @@ export default {
     async submitForm() {
       // Daten sammeln, username is REQUIRED!!!
       const dataToSend = {
-        username: this.login,
-        djName: this.djName,
-        vorname: this.vorname,
-        nachname: this.nachname,
+        username: this.username,
+        djname: this.djname,
         email: this.email,
         phone: this.phone
       }
-      if (this.login == '') {
+      if (this.username == '') {
         this.isLoginValid = false
       }
 
@@ -86,12 +79,12 @@ export default {
       //Hol die neusten LoginNamen
       await getDjNamesFromApiToStore()
       //Wenn JA => Nachricht: Username schon vergeben
-      if (useDjStore().regDjs.includes(this.login)) {
+      if (useDjStore().regDjs.includes(this.username)) {
         this.isLoginValid = false
       }
 
       //Wenn NEIN => Neuen Dj an API senden
-      if (!useDjStore().regDjs.includes(this.login)) {
+      if (!useDjStore().regDjs.includes(this.username)) {
         fetch('http://localhost:3000/users', {
           method: 'POST',
           headers: {

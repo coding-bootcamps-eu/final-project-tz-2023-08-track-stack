@@ -1,7 +1,7 @@
 <!-- Eine Komponente die man sich einfach oben in ne View einfügen kann, um den eingeloggten User im Blick zu behalten -->
 
 <template>
-  <span id="activDJ">{{ activeDJ.login }}</span>
+  <span id="activDJ">{{ activeDJ.username }}</span>
 </template>
 
 <script>
