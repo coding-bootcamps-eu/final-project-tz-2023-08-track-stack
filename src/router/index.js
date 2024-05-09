@@ -35,9 +35,9 @@ const router = createRouter({
       component: () => import('../views/dj/PlaylistsView.vue')
     },
     {
-      path: '/profil',
-      name: 'profil',
-      component: () => import('../views/dj/ChangeProfil.vue')
+      path: '/edit-profile',
+      name: 'edit-profile',
+      component: () => import('../views/dj/EditProfile.vue')
     },
     {
       path: '/create-event',

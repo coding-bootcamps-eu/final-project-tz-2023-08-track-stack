@@ -4,11 +4,9 @@ export const useDjStore = defineStore('dj', {
   state: () => ({
     regDjs: ['martin', 'irina', 'lars'], // Alle Registrierten Djs
     activeDj: {
-      login: '',
+      username: '',
       id: '',
-      djName: '',
-      vorname: '',
-      nachname: '',
+      djname: '',
       email: '',
       phone: '',
       createdAt: Number
@@ -24,7 +22,7 @@ export const useDjStore = defineStore('dj', {
     },
     // Dj who is logged in
     getActiveDj(state) {
-      return state.activeDj.login
+      return state.activeDj.username
     }
   },
   //================================
@@ -40,17 +38,17 @@ export const useDjStore = defineStore('dj', {
     },
 
     //setzte einen eingeloggten Dj
-    setActiveDj(login) {
-      this.activeDj.login = login
+    setActiveDj(username) {
+      this.activeDj.username = username
       this.activeDj.id = 'fakeID'
-      this.activeDj.djName = 'fakeName'
+      this.activeDj.djname = 'fakeName'
 
       //Waaa sorry lars, glaub ich grätsche hier grad voll rein :D
       //HIER MUSS VLLT NOCH REST REIN?
     },
 
     resetActiveDj() {
-      this.activeDj = { login: '', id: '' } // Setze den activeDj zurück
+      this.activeDj = { username: '', id: '' } // Setze den activeDj zurück
       console.log('reset ActiveDJ')
       // console.log('resetingActiveDJ:' + this.activeDj)
     }

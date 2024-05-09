@@ -1,5 +1,7 @@
 <template>
-  <small>DJLogin</small>
+  <small>
+    <active-dj><!--Zeigt aktuellen DJ an--></active-dj> @ DjLogin</small
+  >
   <h2>Login</h2>
   <p>
     Herzlich Willkommen bei TrackStack, zum einloggen gib einfach deinen DJ Namen ein.<br />
@@ -8,10 +10,10 @@
   </p>
   <form @submit.prevent="submitForm">
     <div class="grid">
-      <label class="hidden" for="dj-name">DJ Name</label>
+      <label class="hidden" for="username">DJ Name</label>
       <input
         type="text"
-        name="dj-name"
+        name="username"
         :placeholder="placeholderText"
         v-model="eingabeDjName"
         @input="this.isDjNameValid = true"
