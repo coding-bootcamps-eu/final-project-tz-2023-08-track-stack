@@ -14,9 +14,6 @@ export const useDjStoreLars = defineStore('djLars', {
         }
         const data = await response.json()
         this.djs = data
-        // Setze den aktiven DJ hier basierend auf dem LocalStorage
-        const activeDjUsername = localStorage.getItem('activeDj')
-        this.activeDj = this.djs.find((dj) => dj.username === activeDjUsername)
       } catch (error) {
         console.error(error)
       }
