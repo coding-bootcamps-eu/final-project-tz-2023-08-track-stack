@@ -49,6 +49,7 @@ export const useDjStore = defineStore('dj', {
 
     resetActiveDj() {
       this.activeDj = { username: '', id: '' } // Setze den activeDj zurück
+      localStorage.setItem('activeDj', '')
       console.log('reset ActiveDJ')
       // console.log('resetingActiveDJ:' + this.activeDj)
     }
