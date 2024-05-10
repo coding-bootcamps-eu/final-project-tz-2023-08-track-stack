@@ -1,12 +1,45 @@
 <template>
-  <active-dj><!--Zeigt aktuellen DJ an--></active-dj>
-
-  <small>CreatePlaylist</small>
+  <small>
+    <active-dj><!--Zeigt aktuellen DJ an--></active-dj> @ CreatePlaylist</small
+  >
   <h2>Playlist erstellen</h2>
-  <p>Hier erstellst du deine Playlist</p>
+
+  <nav>
+    <ul>
+      <li>Hier erstellst du deine Playlist für das Event.</li>
+    </ul>
+    <ul>
+      <li>
+        <details class="dropdown">
+          <summary>Download Test CSV</summary>
+          <ul dir="rtl">
+            <li>
+              <a href="/csv-sample/song_csv_comma.csv" download>Download CSV mit Komma getrennt</a>
+            </li>
+            <li>
+              <a href="/csv-sample/song_csv_semicolon.csv" download
+                >Download CSV mit Semikolon getrennt</a
+              >
+            </li>
+            <li>
+              <a href="/csv-sample/song_csv_critical.csv" download
+                >Download CSV mit Anführungszeichen und Umlauten</a
+              >
+            </li>
+          </ul>
+        </details>
+      </li>
+    </ul>
+  </nav>
+  <hr />
   <form @submit.prevent="submitPlaylist">
-    <label for="playlist-title">Titel:</label>
-    <input type="text" name="playlist-title" v-model="playlistTitle" />
+    <label class="hidden" for="playlist-title">Titel:</label>
+    <input
+      type="text"
+      name="playlist-title"
+      placeholder="Bitte vergebe einen aussagekräftigen Titel "
+      v-model="playlistTitle"
+    />
     <!-- FILEREADER -->
     <file-reader-csv @csv-data-uploaded="handleCsvData"></file-reader-csv>
 
