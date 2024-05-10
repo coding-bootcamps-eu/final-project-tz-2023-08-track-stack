@@ -1,7 +1,5 @@
 <template>
-  <small>
-    <active-dj><!--Zeigt aktuellen DJ an--></active-dj> @ DjLogin</small
-  >
+  <small> <active-dj></active-dj> @ DjLogin</small>
   <h2>Login</h2>
   <p>
     Herzlich Willkommen bei TrackStack, zum einloggen gib einfach deinen DJ Namen ein.<br />
@@ -28,10 +26,12 @@
 </template>
 
 <script>
+import ActiveDj from '@/components/ActiveDj.vue'
 import { useDjStore } from '@/stores/DjStore'
 import { getDjNamesFromApiToStore } from '@/components/GetDjNamesFromApiToStore'
 
 export default {
+  components: { ActiveDj },
   data() {
     return {
       placeholderText: 'Trage hier deinen Login-Namen ein',

@@ -1,4 +1,7 @@
 <template>
+
+  <!-- <span id="activDJ">{{ activeDJ.username }}</span> -->
+
   <span id="activDJ">{{ activeDJ }}</span>
 </template>
 
@@ -6,9 +9,16 @@
 import { useDjStore } from '@/stores/DjStore'
 
 export default {
-  computed: {
-    activeDJ() {
-      return useDjStore().activeDj.username
+  //computed: {
+  //  activeDJ() {
+   //   return useDjStore().activeDj.username
+
+  data() {
+    // const loggedInDj = useDjStore().activeDj
+    const loggedInDj = localStorage.getItem('activeDj')
+
+    return {
+      activeDJ: loggedInDj
     }
   }
 }
