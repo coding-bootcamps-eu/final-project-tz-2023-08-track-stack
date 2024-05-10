@@ -46,7 +46,7 @@ export default {
     return {
       isLoginValid: true,
       username: '',
-      djName: '',
+      djname: '',
       email: '',
       phone: ''
     }
