@@ -16,7 +16,7 @@
       /></label>
       <label for="djname"
         >Dj-Name: <span class="required">*</span
-        ><input type="text" name="djname" required="required" v-model="djName"
+        ><input type="text" name="djname" required="required" v-model="djname"
       /></label>
     </div>
     <div class="grid">
