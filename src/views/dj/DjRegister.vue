@@ -1,7 +1,5 @@
 <template>
-  <small>
-    <active-dj><!--Zeigt aktuellen DJ an--></active-dj> @ DjRegister</small
-  >
+  <small> <active-dj></active-dj> @ DjRegister</small>
   <h2>Register DJ</h2>
   <p>Hier kannst du dich als DJ registrieren</p>
   <form @submit.prevent="submitForm">
@@ -18,7 +16,7 @@
       /></label>
       <label for="djname"
         >Dj-Name: <span class="required">*</span
-        ><input type="text" name="djname" required="required" v-model="djname"
+        ><input type="text" name="djname" required="required" v-model="djName"
       /></label>
     </div>
     <div class="grid">
@@ -38,15 +36,17 @@
 </template>
 
 <script>
+import ActiveDj from '@/components/ActiveDj.vue'
 import { useDjStore } from '@/stores/DjStore'
 import { getDjNamesFromApiToStore } from '@/components/GetDjNamesFromApiToStore'
 
 export default {
+  components: { ActiveDj },
   data() {
     return {
       isLoginValid: true,
       username: '',
-      djName: '',
+      djname: '',
       email: '',
       phone: ''
     }
