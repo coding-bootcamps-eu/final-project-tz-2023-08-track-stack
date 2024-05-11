@@ -1,5 +1,5 @@
 <template>
-  <small>EventsView</small>
+  <small><active-dj>nicht eingeloggt</active-dj> @ EventsView</small>
   <h2>Events verwalten</h2>
   <p>Hier verwaltest du deine Veranstaltungen</p>
   <form @submit.prevent>
@@ -56,3 +56,10 @@
   </form>
   <router-link to="/dj-overview"><button>Zurück zur Übersicht</button></router-link>
 </template>
+<script>
+import ActiveDj from '@/components/ActiveDj.vue'
+
+export default {
+  components: { ActiveDj }
+}
+</script>

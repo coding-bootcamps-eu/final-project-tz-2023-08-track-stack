@@ -1,7 +1,5 @@
 <template>
-  <small>
-    <active-dj><!--Zeigt aktuellen DJ an--></active-dj> @ EditProfile</small
-  >
+  <small><active-dj>nicht eingeloggt</active-dj> @ EditProfile</small>
   <h2>Profil verwalten</h2>
 
   <div v-if="djs.length === 0">Loading...</div>
@@ -40,9 +38,8 @@
 </template>
 
 <script>
-import { useDjStoreLars } from '@/stores/DjStoreLars'
+import { useDjStore } from '@/stores/DjStore'
 import ActiveDj from '@/components/ActiveDj.vue'
-import { initDj } from '@/components/InitDj'
 
 export default {
   components: { ActiveDj },
@@ -53,9 +50,8 @@ export default {
     }
   },
   async mounted() {
-    await useDjStoreLars().fetchDjs() // Fetch DJs data from API when component is mounted
-    this.djs = useDjStoreLars().djs
-    initDj()
+    await useDjStore().fetchDjs() // Fetch DJs data from API when component is mounted
+    this.djs = useDjStore().djs
   }
 }
 </script>

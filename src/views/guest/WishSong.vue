@@ -1,5 +1,6 @@
 <template>
-  <small>View: WishSong</small>
+  <small><active-dj>nicht eingeloggt</active-dj> @ WishSong</small>
+
   <h2>Wünsch dir was!</h2>
   <p>Hier kannst du dir einen Song wünschen.</p>
   <form @submit.prevent>
@@ -42,6 +43,14 @@
     </div>
   </form>
 </template>
+
+<script>
+import ActiveDj from '@/components/ActiveDj.vue'
+
+export default {
+  components: { ActiveDj }
+}
+</script>
 <style scoped>
 .song-suggestions {
   color: var(--pico-form-element-placeholder-color);

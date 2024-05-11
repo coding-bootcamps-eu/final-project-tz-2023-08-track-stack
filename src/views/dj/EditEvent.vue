@@ -1,5 +1,5 @@
 <template>
-  <small>EditEvent</small>
+  <small><active-dj>nicht eingeloggt</active-dj> @ EditEvent</small>
   <h2>Event bearbeiten</h2>
   <p>Hier erstellst du deine Veranstaltung</p>
   <form @submit.prevent>
@@ -41,8 +41,9 @@
 </template>
 <script>
 import QrCodeGenerator from '@/components/QrCodeGenerator.vue'
+import ActiveDj from '@/components/ActiveDj.vue'
 
 export default {
-  components: { QrCodeGenerator: QrCodeGenerator }
+  components: { ActiveDj, QrCodeGenerator: QrCodeGenerator }
 }
 </script>

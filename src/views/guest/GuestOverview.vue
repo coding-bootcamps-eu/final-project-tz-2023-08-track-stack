@@ -1,5 +1,6 @@
 <template>
-  <small>View: GuestOverview</small>
+  <small><active-dj>nicht eingeloggt</active-dj> @ GuestOverview</small>
+
   <h2>Hallo {{ this.guestData.name }}!</h2>
   <p>
     Hier bist du auf deinem Dashboard. Du kannst dir Wünsche erfüllen oder auf bestehende Wünsche
@@ -12,7 +13,10 @@
 </template>
 
 <script>
+import ActiveDj from '@/components/ActiveDj.vue'
+
 export default {
+  components: { ActiveDj },
   data() {
     return {
       guestData: null // Hier werden die Daten aus dem Local Storage gespeichert

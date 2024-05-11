@@ -1,7 +1,5 @@
 <template>
-  <small>
-    <active-dj><!--Zeigt aktuellen DJ an--></active-dj> @ DjOverview</small
-  >
+  <small><active-dj>nicht eingeloggt</active-dj> @ DjOverview</small>
   <h2>Übersicht DJ</h2>
   <p>Hier bist du auf deinem Dashboard</p>
   <div class="grid">
@@ -22,17 +20,8 @@
 
 <script>
 import ActiveDj from '@/components/ActiveDj.vue'
-import { initDj } from '@/components/InitDj'
 
 export default {
-  components: { ActiveDj },
-  data() {
-    return {}
-  },
-  mounted() {
-    //Pinia bekommt Dj aus LocalStore//Überprüfen ob DJ eingeloggt
-    initDj()
-  },
-  methods: {}
+  components: { ActiveDj }
 }
 </script>

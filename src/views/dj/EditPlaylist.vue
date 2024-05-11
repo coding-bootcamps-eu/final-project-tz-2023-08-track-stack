@@ -1,5 +1,5 @@
 <template>
-  <small>EditPlaylist</small>
+  <small><active-dj>nicht eingeloggt</active-dj> @ EditPlaylist</small>
   <h2>Playlist ändern</h2>
   <p>Hier änderst du deine Playlist</p>
   <form @submit.prevent>
@@ -14,3 +14,11 @@
     />
   </form>
 </template>
+
+<script>
+import ActiveDj from '@/components/ActiveDj.vue'
+
+export default {
+  components: { ActiveDj }
+}
+</script>
