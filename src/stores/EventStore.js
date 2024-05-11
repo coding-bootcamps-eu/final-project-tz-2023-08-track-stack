@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia'
 
-export const usePlaylistStore = defineStore('events', {
+export const useEventStore = defineStore('events', {
   state: () => ({
-    events: [] // Hier werden die Playlist-Daten gespeichert
+    events: [] // Hier werden die Event-Daten gespeichert
   }),
 
   actions: {
@@ -12,7 +12,7 @@ export const usePlaylistStore = defineStore('events', {
         if (!response.ok) {
           throw new Error('Failed to fetch events from API')
         }
-        this.playlists = await response.json()
+        this.events = await response.json()
       } catch (error) {
         console.error(error)
       }
