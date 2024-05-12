@@ -12,7 +12,8 @@ export const usePlaylistStore = defineStore('playlist', {
         if (!response.ok) {
           throw new Error('Failed to fetch playlists from API')
         }
-        this.playlists = await response.json()
+        const data = await response.json()
+        this.playlists = data
       } catch (error) {
         console.error(error)
       }
