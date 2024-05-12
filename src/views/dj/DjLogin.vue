@@ -30,9 +30,11 @@
 </template>
 
 <script>
+import ActiveDj from '@/components/ActiveDj.vue'
 import { useDjStore } from '@/stores/DjStore'
 
 export default {
+  components: { ActiveDj },
   data() {
     return {
       placeholderText: 'Trage hier deinen Login-Namen ein',
