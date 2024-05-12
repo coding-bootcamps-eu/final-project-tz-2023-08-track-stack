@@ -1,12 +1,12 @@
 <template>
-  <small><active-dj>nicht eingeloggt</active-dj> @ DjRegister</small>
+  <small> <active-dj></active-dj> @ DjRegister</small>
   <h2>Register DJ</h2>
   <p>Hier kannst du dich als DJ registrieren</p>
   <form @submit.prevent="submitForm">
     <div class="grid">
       <label for="username"
         >Username: <span class="required">*</span>
-        <span class="error" v-if="!isLoginValid"> Dieser Login existiert bereits. </span>
+        <span class="noValidDj" v-if="!isLoginValid"> Dieser Login existiert bereits. </span>
         <input
           type="text"
           name="username"
@@ -36,9 +36,12 @@
 </template>
 
 <script>
+import ActiveDj from '@/components/ActiveDj.vue'
 import { useDjStore } from '@/stores/DjStore'
+import { getDjNamesFromApiToStore } from '@/components/GetDjNamesFromApiToStore'
 
 export default {
+  components: { ActiveDj },
   data() {
     return {
       isLoginValid: true,
@@ -61,39 +64,44 @@ export default {
   },
   methods: {
     async submitForm() {
-      // Daten sammeln
+      // Daten sammeln, username is REQUIRED!!!
       const dataToSend = {
         username: this.username,
         djname: this.djname,
         email: this.email,
         phone: this.phone
       }
-
-      // Überprüfen, ob der Benutzername bereits vergeben ist
-      await useDjStore().fetchDjs() // Aktualisiere die Liste der registrierten DJs vom Server
-      if (useDjStore().djs.some((dj) => dj.username === this.username)) {
+      if (this.username == '') {
         this.isLoginValid = false
-        return // Beende die Methode, wenn der Benutzername bereits vergeben ist
       }
 
-      // Senden der Daten an die API
-      try {
-        const response = await fetch('http://localhost:3000/users', {
+      //APi fragen ob LoginName schon vergeben
+      //Hol die neusten LoginNamen
+      await getDjNamesFromApiToStore()
+      //Wenn JA => Nachricht: Username schon vergeben
+      if (useDjStore().regDjs.includes(this.username)) {
+        this.isLoginValid = false
+      }
+
+      //Wenn NEIN => Neuen Dj an API senden
+      if (!useDjStore().regDjs.includes(this.username)) {
+        fetch('http://localhost:3000/users', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(dataToSend)
         })
-
-        if (!response.ok) {
-          throw new Error('Fehler beim Senden der Daten')
-        }
-
-        // Weiterleitung zur Login-Seite
-        this.$router.push({ path: '/login' })
-      } catch (error) {
-        console.error('Fehler:', error)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error('Fehler beim Senden der Daten')
+            }
+            // Weiterleitung zum Login
+            this.$router.push({ path: '/dj-overview' })
+          })
+          .catch((error) => {
+            console.error('Fehler:', error)
+          })
       }
     }
   }
@@ -102,7 +110,7 @@ export default {
 
 <style scoped>
 .required,
-.error {
+.noValidDj {
   color: red;
 }
 
