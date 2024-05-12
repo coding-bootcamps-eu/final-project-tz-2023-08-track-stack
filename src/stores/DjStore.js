@@ -23,7 +23,7 @@ export const useDjStore = defineStore('dj', {
     // lade einen bestimmten DJ aus der Api in den State
     async setActiveDj(id) {
       try {
-        const response = await fetch('http://localhost:3000/users/' + id)
+        const response = await fetch(`http://localhost:3000/users/${id}`)
         if (!response.ok) {
           throw new Error('Failed to fetch active DJ from API')
         }
@@ -31,6 +31,7 @@ export const useDjStore = defineStore('dj', {
         this.activeDjId = data.id
       } catch (error) {
         console.error(error)
+        console.error('Fehler beim Festlegen des aktiven DJs:', error)
       }
     },
     // lade die aktive DJ-ID aus dem LocalStorage
