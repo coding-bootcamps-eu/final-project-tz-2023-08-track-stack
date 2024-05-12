@@ -42,7 +42,7 @@ export default {
       isDjNameValid: true
     }
   },
-  async mounted() {
+  async created() {
     // Lösche beim Login die aktuelle ID aus dem LocalStorage
     localStorage.removeItem('activeDjId')
 
