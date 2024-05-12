@@ -1,7 +1,5 @@
 <template>
-  <small>
-    <active-dj><!--Zeigt aktuellen DJ an--></active-dj> @ CreatePlaylist</small
-  >
+  <small><active-dj>nicht eingeloggt</active-dj> @ CreatePlaylist</small>
   <h2>Playlist erstellen</h2>
 
   <nav>
@@ -55,7 +53,6 @@ import PreviewCSV from '@/components/PreviewCSV.vue'
 import FileReaderCsv from '@/components/FileReaderCsv.vue'
 import { useDjStore } from '@/stores/DjStore'
 import ActiveDj from '@/components/ActiveDj.vue'
-import { initDj } from '@/components/InitDj'
 
 export default {
   components: { PreviewCSV, FileReaderCsv, ActiveDj },
@@ -69,9 +66,6 @@ export default {
       playlists: playlistsFromStore,
       playlistTitle: ''
     }
-  },
-  mounted() {
-    initDj()
   },
   computed: {
     isFormValid() {

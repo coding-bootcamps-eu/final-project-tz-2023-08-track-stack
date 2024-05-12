@@ -1,5 +1,6 @@
 <template>
-  <small>View: Wishlist</small>
+  <small><active-dj>nicht eingeloggt</active-dj> @ WishList</small>
+
   <h2>Wunschliste</h2>
   <p>Hier siehst du was der gewünscht wird.</p>
 
@@ -85,6 +86,15 @@
     </router-link>
   </div>
 </template>
+
+<script>
+import ActiveDj from '@/components/ActiveDj.vue'
+
+export default {
+  components: { ActiveDj }
+}
+</script>
+
 <style scoped>
 li {
   align-content: center;

@@ -2,7 +2,7 @@
   <!-- Header mit Name/Logo-->
   <header>
     <a href="/"><img class="img-logo" src="/images/logo_hulaloop.svg" alt="Logo Senftraxx" /></a>
-    <button @click="this.goBack()">zurück</button>
+    <button v-if="isLoggedIn" @click="logout()">logout</button>
   </header>
   <!-- the choosen View-->
   <body>
@@ -19,6 +19,21 @@ export default {
     return {
       projectName: 'Hulaloop',
       selectedEventImage: 'Default' // Initial
+    }
+  },
+  computed: {
+    isLoggedIn() {
+      // Überprüfung, ob LocalStorage gesetzt ist
+      return localStorage.getItem('activeDjId') !== null
+    }
+  },
+  methods: {
+    logout() {
+      // remove activeDjId from localstorage
+      localStorage.removeItem('activeDjId')
+
+      // redirect to login page
+      this.$router.push({ path: '/login' })
     }
   }
 }

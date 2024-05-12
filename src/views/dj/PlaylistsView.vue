@@ -1,7 +1,5 @@
 <template>
-  <small>
-    <active-dj><!--Zeigt aktuellen DJ an--></active-dj> @ PlaylistView</small
-  >
+  <small><active-dj>nicht eingeloggt</active-dj> @ PlaylistView</small>
   <h2>Playlisten verwalten</h2>
 
   <p>Hier verwaltest du deine Playlisten</p>
@@ -43,7 +41,6 @@
 <script>
 import { usePlaylistStore } from '@/stores/PlaylistStore'
 import ActiveDj from '@/components/ActiveDj.vue'
-import { initDj } from '@/components/InitDj'
 
 export default {
   components: { ActiveDj },
@@ -56,7 +53,6 @@ export default {
   async mounted() {
     await usePlaylistStore().fetchPlaylists() // Fetch DJs data from API when component is mounted
     this.playlists = usePlaylistStore().playlists
-    initDj()
   }
 }
 </script>

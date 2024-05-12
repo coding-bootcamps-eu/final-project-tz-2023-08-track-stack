@@ -1,5 +1,5 @@
 <template>
-  <small>CreateEvent</small>
+  <small><active-dj>nicht eingeloggt</active-dj> @ CreateEvent</small>
   <h2>Event erstellen</h2>
   <p>Hier erstellst du deine Veranstaltung</p>
   <form @submit.prevent>
@@ -90,6 +90,7 @@
 
 <script>
 import QrCodeGenerator from '@/components/QrCodeGenerator.vue'
+import ActiveDj from '@/components/ActiveDj.vue'
 
 export default {
   data() {
@@ -97,7 +98,7 @@ export default {
       selectedEventImage: 'Default' // Initial
     }
   },
-  components: { QrCodeGenerator: QrCodeGenerator },
+  components: { ActiveDj, QrCodeGenerator: QrCodeGenerator },
   methods: {
     getImagePath(image) {
       switch (image) {

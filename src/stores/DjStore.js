@@ -2,64 +2,46 @@ import { defineStore } from 'pinia'
 
 export const useDjStore = defineStore('dj', {
   state: () => ({
-    regDjs: ['martin', 'irina', 'lars'], // Alle Registrierten Djs
-    activeDj: {
-      username: '',
-      id: '',
-      djname: '',
-      email: '',
-      phone: '',
-      createdAt: Number
-    },
-    playlists: [] //{ id: '', eventId: '', userId: '', titel: '', songs: [] }
+    djs: [], // leeres Array wird mit fetchDjs befüllt
+    activeDjId: null // Standardwert auf null setzen
   }),
-  //================================
-  // get Information from the state
-  getters: {
-    // Anzahl der Djs, quasi unsere Registrierten Nutzer
-    getDjCount(state) {
-      return state.regDjs.length
-    },
-    // Dj who is logged in
-    getActiveDj(state) {
-      return state.activeDj.username
-    }
-  },
-  //================================
-  // change the state with actions
+
   actions: {
-    //add a new Dj zb. 'Ferdi'
-    addDj(newDj) {
-      this.regDjs.push(newDj)
+    // hole alle DJs aus der Api in den State
+    async fetchDjs() {
+      try {
+        const response = await fetch('http://localhost:3000/users')
+        if (!response.ok) {
+          throw new Error('Failed to fetch DJs from API')
+        }
+        const data = await response.json()
+        this.djs = data
+      } catch (error) {
+        console.error(error)
+      }
     },
-    //überschreibt Djs mit den ApiDaten
-    setAllDjsFromApi(apiDjs) {
-      this.regDjs = apiDjs
+    // lade einen bestimmten DJ aus der Api in den State
+    async setActiveDj(id) {
+      try {
+        const response = await fetch('http://localhost:3000/users/' + id)
+        if (!response.ok) {
+          throw new Error('Failed to fetch active DJ from API')
+        }
+        const data = await response.json()
+        this.activeDjId = data.id
+      } catch (error) {
+        console.error(error)
+      }
     },
-
-    //setzte einen eingeloggten Dj
-    setActiveDj(username) {
-      this.activeDj.username = username
-      this.activeDj.id = 'fakeID'
-      this.activeDj.djname = 'fakeName'
-
-      //Waaa sorry lars, glaub ich grätsche hier grad voll rein :D
-      //HIER MUSS VLLT NOCH REST REIN?
-    },
-
-    resetActiveDj() {
-      this.activeDj = { username: '', id: '' } // Setze den activeDj zurück
-      localStorage.setItem('activeDj', '')
-      console.log('reset ActiveDJ')
-      // console.log('resetingActiveDJ:' + this.activeDj)
+    // lade die aktive DJ-ID aus dem LocalStorage
+    loadActiveDjIdFromLocalStorage() {
+      const activeDjId = localStorage.getItem('activeDjId')
+      if (activeDjId) {
+        this.activeDjId = activeDjId
+      } else {
+        // Setzen Sie den Standardwert basierend auf Ihrer Anwendungslogik
+        this.activeDjId = null
+      }
     }
   }
 })
-
-// TODOs
-
-//Pinistore füttern:
-
-//IDEE: Active DJ
-// VOLLSTÄNDIG holen von api-> zugreifbar machen-> zugriff ID/login/email/....
-// brauchen ja nicht die daten von jedem!
