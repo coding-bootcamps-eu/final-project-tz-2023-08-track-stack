@@ -1,4 +1,19 @@
+// PlaylistStore.js
+
 import { defineStore } from 'pinia'
+
+async function fetchPlaylistsFromAPI() {
+  try {
+    const response = await fetch('http://localhost:3000/playlists')
+    if (!response.ok) {
+      throw new Error('Failed to fetch playlists from API')
+    }
+    return await response.json()
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
 
 export const usePlaylistStore = defineStore('playlist', {
   state: () => ({
@@ -8,14 +23,20 @@ export const usePlaylistStore = defineStore('playlist', {
   actions: {
     async fetchPlaylists() {
       try {
-        const response = await fetch('http://localhost:3000/playlists')
-        if (!response.ok) {
-          throw new Error('Failed to fetch playlists from API')
-        }
-        const data = await response.json()
-        this.playlists = data
+        const playlists = await fetchPlaylistsFromAPI()
+        this.playlists = playlists
       } catch (error) {
         console.error(error)
+      }
+    },
+
+    async fetchPlaylist(playlistId) {
+      try {
+        const playlists = await fetchPlaylistsFromAPI()
+        return playlists.find((playlist) => playlist.id === playlistId)
+      } catch (error) {
+        console.error(error)
+        throw error
       }
     },
 

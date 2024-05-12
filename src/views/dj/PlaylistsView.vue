@@ -13,12 +13,9 @@
             {{ playlist.djId }}
           </summary>
           <section class="grid">
-            <input
-              id="event-edit"
-              @click="editPlaylist(playlist.id)"
-              type="submit"
-              value="Ändern"
-            />
+            <button type="button" @click="this.$router.push({ path: '/edit-playlist' })">
+              Ändern
+            </button>
             <button @click="deletePlaylist(playlist.id)">Löschen</button>
           </section>
         </details>
@@ -27,6 +24,7 @@
   </form>
   <router-link to="/dj-overview"><button>Zurück zur Übersicht</button></router-link>
 </template>
+
 <script>
 import { usePlaylistStore } from '@/stores/PlaylistStore'
 import ActiveDj from '@/components/ActiveDj.vue'
@@ -39,13 +37,20 @@ export default {
       playlists: []
     }
   },
-  async mounted() {
-    await usePlaylistStore().fetchPlaylists() // Fetch playlists data from API when component is mounted
-    this.playlists = usePlaylistStore().playlists
+
+  created() {
+    this.fetchPlaylists()
   },
+
   methods: {
+    async fetchPlaylists() {
+      await usePlaylistStore().fetchPlaylists()
+      this.playlists = usePlaylistStore().playlists
+    },
+
     async deletePlaylist(playlistId) {
       await usePlaylistStore().deletePlaylist(playlistId)
+      this.fetchPlaylists() // Erneut fetchen nach Löschvorgang
     }
   }
 }
