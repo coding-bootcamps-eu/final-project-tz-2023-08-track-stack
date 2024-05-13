@@ -30,9 +30,11 @@
 </template>
 
 <script>
+import ActiveDj from '@/components/ActiveDj.vue'
 import { useDjStore } from '@/stores/DjStore'
 
 export default {
+  components: { ActiveDj },
   data() {
     return {
       placeholderText: 'Trage hier deinen Login-Namen ein',
@@ -40,7 +42,7 @@ export default {
       isDjNameValid: true
     }
   },
-  async mounted() {
+  async created() {
     // Lösche beim Login die aktuelle ID aus dem LocalStorage
     localStorage.removeItem('activeDjId')
 
