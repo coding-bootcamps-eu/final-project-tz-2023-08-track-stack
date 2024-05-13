@@ -25,13 +25,15 @@ export const useDjStore = defineStore('dj', {
       try {
         const response = await fetch(`http://localhost:3000/users/${id}`)
         if (!response.ok) {
-          throw new Error('Failed to fetch active DJ from API')
+          throw new Error('Fehler beim Abrufen des aktiven DJs von der API')
         }
         const data = await response.json()
         this.activeDjId = data.id
       } catch (error) {
+
         console.error(error)
         console.error('Fehler beim Festlegen des aktiven DJs:', error)
+
       }
     },
     // lade die aktive DJ-ID aus dem LocalStorage
@@ -39,9 +41,6 @@ export const useDjStore = defineStore('dj', {
       const activeDjId = localStorage.getItem('activeDjId')
       if (activeDjId) {
         this.activeDjId = activeDjId
-      } else {
-        // Setzen Sie den Standardwert basierend auf Ihrer Anwendungslogik
-        this.activeDjId = null
       }
     }
   }

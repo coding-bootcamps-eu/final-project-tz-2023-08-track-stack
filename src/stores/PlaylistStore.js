@@ -52,6 +52,7 @@ export const usePlaylistStore = defineStore('playlist', {
 
         // Remove the deleted playlist from the local state
         this.playlists = this.playlists.filter((playlist) => playlist.id !== playlistId)
+
       } catch (error) {
         console.error(error)
       }
