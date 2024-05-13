@@ -30,8 +30,10 @@ export const useDjStore = defineStore('dj', {
         const data = await response.json()
         this.activeDjId = data.id
       } catch (error) {
+
+        console.error(error)
         console.error('Fehler beim Festlegen des aktiven DJs:', error)
-        // Hier kannst du geeignete Maßnahmen ergreifen, z.B. eine Fehlermeldung anzeigen
+
       }
     },
     // lade die aktive DJ-ID aus dem LocalStorage
