@@ -3,7 +3,8 @@ import { defineStore } from 'pinia'
 export const useDjStore = defineStore('dj', {
   state: () => ({
     djs: [], // leeres Array wird mit fetchDjs befüllt
-    activeDjId: null // Standardwert auf null setzen
+    activeDjId: null, // Standardwert auf null setzen
+    activeDj: null
   }),
 
   actions: {
@@ -21,21 +22,21 @@ export const useDjStore = defineStore('dj', {
       }
     },
     // lade einen bestimmten DJ aus der Api in den State
-    async setActiveDj(id) {
+    async fetchDj(id) {
       try {
         const response = await fetch(`http://localhost:3000/users/${id}`)
         if (!response.ok) {
           throw new Error('Fehler beim Abrufen des aktiven DJs von der API')
         }
         const data = await response.json()
-        this.activeDjId = data.id
+        this.activeDjId = data
+        console.log('dj: ', data)
       } catch (error) {
-
         console.error(error)
         console.error('Fehler beim Festlegen des aktiven DJs:', error)
-
       }
     },
+
     // lade die aktive DJ-ID aus dem LocalStorage
     loadActiveDjIdFromLocalStorage() {
       const activeDjId = localStorage.getItem('activeDjId')
