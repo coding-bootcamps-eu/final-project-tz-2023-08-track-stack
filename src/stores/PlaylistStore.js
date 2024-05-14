@@ -21,9 +21,9 @@ export const usePlaylistStore = defineStore('playlist', {
       }
     },
 
-    async fetchPlaylist(playlistId) {
+    async fetchPlaylist(djId) {
       try {
-        const response = await fetch(`http://localhost:3000/playlists/${playlistId}`)
+        const response = await fetch(`http://localhost:3000/playlists/${djId}`)
         if (!response.ok) {
           throw new Error('Failed to fetch playlist from API')
         }
