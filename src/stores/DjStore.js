@@ -4,7 +4,8 @@ export const useDjStore = defineStore('dj', {
   state: () => ({
     djs: [], // leeres Array wird mit fetchDjs befüllt
     activeDjId: null, // Standardwert auf null setzen
-    activeDj: null
+    activeDj: null, // der Aktive User
+    updateData: {} // Userdaten zum Updaten @updateUserData(), Daten von @EditProfil
   }),
 
   actions: {
@@ -29,8 +30,8 @@ export const useDjStore = defineStore('dj', {
           throw new Error('Fehler beim Abrufen des aktiven DJs von der API')
         }
         const data = await response.json()
-        this.activeDjId = data
-        console.log('dj: ', data)
+        this.activeDj = data
+        // console.log('dj: ', data)
       } catch (error) {
         console.error(error)
         console.error('Fehler beim Festlegen des aktiven DJs:', error)
@@ -42,6 +43,42 @@ export const useDjStore = defineStore('dj', {
       const activeDjId = localStorage.getItem('activeDjId')
       if (activeDjId) {
         this.activeDjId = activeDjId
+      }
+    },
+    // lade den activDj in den PiniaStore, über die Id aus dem localStorage
+    async fetchActiveDj() {
+      await this.fetchDj(localStorage.getItem('activeDjId'))
+    },
+
+    // Update den ActiveDj
+    async updateUserData() {
+      console.log('UpdateData: ', this.updateData)
+      if (this.activeDj.id) {
+        const url = 'http://localhost:3000/users/' + this.activeDj.id
+
+        //Data to Update/Send
+        const data = this.updateData
+        //Was wenn nicht alles ausgefüllt? Dann Autocomplete || V-model mit Daten
+
+        try {
+          const response = await fetch(url, {
+            method: 'PUT', // Verwende die PUT-Methode für Aktualisierungen
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data) // Konvertiere das Datenobjekt in JSON
+          })
+          if (!response.ok) {
+            throw new Error('Error @ Update Request')
+          }
+
+          const responseData = await response.json()
+          console.log('Update erfolgreich:', responseData) // UpdateNachricht
+        } catch (error) {
+          console.error('Fehler beim Update:', error) //Ausgabe Fehler
+        }
+      } else {
+        console.error('Update fehlgeschlagen: Kein Aktiver Dj gefunden!')
       }
     }
   }
