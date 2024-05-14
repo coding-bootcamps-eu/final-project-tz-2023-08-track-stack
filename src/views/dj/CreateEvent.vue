@@ -2,14 +2,23 @@
   <small><active-dj>nicht eingeloggt</active-dj> @ CreateEvent</small>
   <h2>Event erstellen</h2>
   <p>Hier erstellst du deine Veranstaltung</p>
-  <form @submit.prevent>
+  <form @submit.prevent="addEvent()">
     <div class="grid">
-      <label for="event-title">Titel: <input type="text" name="event-title" /></label>
-      <label for="event-date">Datum: <input type="text" name="event-date" /></label>
+      <label for="event-title"
+        >Titel: <input type="text" name="event-title" v-model="title"
+      /></label>
+      <label for="event-description"
+        >Beschreibung: <input type="text" name="event-description" v-model="description"
+      /></label>
+      <label for="event-date">Datum: <input type="text" name="event-date" v-model="date" /></label>
     </div>
     <div class="grid">
-      <label for="event-organizer">Veranstalter:<input type="text" name="event-organizer" /></label>
-      <label for="event-address">Adresse:<input type="text" name="event-address" /></label>
+      <label for="event-organizer"
+        >Veranstalter:<input type="text" name="event-organizer" v-model="organizer"
+      /></label>
+      <label for="event-address"
+        >Adresse:<input type="text" name="event-address" v-model="address"
+      /></label>
     </div>
     <hr />
     <h4>Playlist</h4>
@@ -84,32 +93,56 @@
     <h4>QR Code</h4>
     <QrCodeGenerator />
     <hr />
-    <input @click="this.$router.push({ path: '/events' })" type="submit" value="Event hinzufügen" />
+    <input type="submit" value="Event hinzufügen" />
+    <!-- @click="this.$router.push({ path: '/events' })" -->
   </form>
 </template>
 
 <script>
 import QrCodeGenerator from '@/components/QrCodeGenerator.vue'
 import { usePlaylistStore } from '@/stores/PlaylistStore'
+import { useDjStore } from '@/stores/DjStore'
 import ActiveDj from '@/components/ActiveDj.vue'
 
 export default {
   data() {
     return {
-      selectedEventImage: 'Default', // Initial
+      title: '',
+      description: '', //ist für die Api erforderlich
+      date: '',
+      organizer: '',
+      address: '',
       selectedPlaylistId: null,
-      playlists: []
+
+      playlists: [],
+
+      selectedEventImage: 'Default' // Initial
     }
   },
+
   components: { ActiveDj, QrCodeGenerator: QrCodeGenerator },
+
   created() {
     this.fetchPlaylists()
   },
+
   methods: {
     async fetchPlaylists() {
+      //nur Playlists vom eingeloggten (activeDj) Dj anzeigen
+      const localStorageDjId = localStorage.getItem('activeDjId')
+      if (!localStorageDjId) {
+        // Wenn activeDjId nicht im localStorage vorhanden ist
+        return
+      }
+
       await usePlaylistStore().fetchPlaylists()
-      this.playlists = usePlaylistStore().playlists
+
+      // Die playlists anhand der localStorageDjId filtern
+      this.playlists = usePlaylistStore().playlists.filter(
+        (playlist) => playlist.djId === localStorageDjId
+      )
     },
+
     getImagePath(image) {
       switch (image) {
         case 'Geburtstag':
@@ -124,10 +157,44 @@ export default {
           return '/images/header_default.jpg'
       }
     },
-    addEvent() {
+
+    async addEvent() {
       // Hier kannst du die Logik zum Hinzufügen des Events implementieren
-      console.log('Event hinzugefügt mit Playlist ID:', this.selectedPlaylistId)
-      // Beispiel: this.$router.push({ path: '/events' })
+      try {
+        const activeDjId = localStorage.getItem('activeDjId')
+        if (!activeDjId) {
+          throw new Error('Aktiver DJ nicht festgelegt.')
+        }
+
+        const dataToSend = {
+          title: this.title,
+          description: this.description,
+          djId: activeDjId,
+          playlistId: this.selectedPlaylistId,
+          address: this.address,
+          startDate: this.date,
+          organizer: this.organizer,
+          eventImage: this.selectedEventImage
+        }
+
+        const response = await fetch('http://localhost:3000/events', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(dataToSend)
+        })
+
+        if (!response.ok) {
+          throw new Error('Fehler beim Senden der Daten')
+        }
+        console.log('Event hinzugefügt mit Playlist ID:', this.selectedPlaylistId)
+
+        // Erfolgreiches Senden der Daten, Weiterleitung zur Events View
+        this.$router.push({ path: '/events' })
+      } catch (error) {
+        console.error('Fehler:', error)
+      }
     }
   }
 }
