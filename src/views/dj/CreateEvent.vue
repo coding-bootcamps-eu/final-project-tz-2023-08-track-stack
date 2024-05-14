@@ -4,12 +4,18 @@
   <p>Hier erstellst du deine Veranstaltung</p>
   <form @submit.prevent>
     <div class="grid">
-      <label for="event-title">Titel: <input type="text" name="event-title" /></label>
-      <label for="event-date">Datum: <input type="text" name="event-date" /></label>
+      <label for="event-title"
+        >Titel: <input type="text" name="event-title" v-model="title"
+      /></label>
+      <label for="event-date">Datum: <input type="text" name="event-date" v-model="date" /></label>
     </div>
     <div class="grid">
-      <label for="event-organizer">Veranstalter:<input type="text" name="event-organizer" /></label>
-      <label for="event-address">Adresse:<input type="text" name="event-address" /></label>
+      <label for="event-organizer"
+        >Veranstalter:<input type="text" name="event-organizer" v-model="organizer"
+      /></label>
+      <label for="event-address"
+        >Adresse:<input type="text" name="event-address" v-model="address"
+      /></label>
     </div>
     <hr />
     <h4>Playlist</h4>
@@ -96,20 +102,41 @@ import ActiveDj from '@/components/ActiveDj.vue'
 export default {
   data() {
     return {
-      selectedEventImage: 'Default', // Initial
+      title: '',
+      date: '',
+      organizer: '',
+      address: '',
       selectedPlaylistId: null,
-      playlists: []
+
+      playlists: [],
+
+      selectedEventImage: 'Default' // Initial
     }
   },
+
   components: { ActiveDj, QrCodeGenerator: QrCodeGenerator },
+
   created() {
     this.fetchPlaylists()
   },
+
   methods: {
     async fetchPlaylists() {
+      //nur Playlists vom eingeloggten (activeDj) Dj anzeigen
+      const localStorageDjId = localStorage.getItem('activeDjId')
+      if (!localStorageDjId) {
+        // Wenn activeDjId nicht im localStorage vorhanden ist
+        return
+      }
+
       await usePlaylistStore().fetchPlaylists()
-      this.playlists = usePlaylistStore().playlists
+
+      // Die playlists anhand der localStorageDjId filtern
+      this.playlists = usePlaylistStore().playlists.filter(
+        (playlist) => playlist.djId === localStorageDjId
+      )
     },
+
     getImagePath(image) {
       switch (image) {
         case 'Geburtstag':
@@ -124,8 +151,10 @@ export default {
           return '/images/header_default.jpg'
       }
     },
+
     addEvent() {
       // Hier kannst du die Logik zum Hinzufügen des Events implementieren
+
       console.log('Event hinzugefügt mit Playlist ID:', this.selectedPlaylistId)
       // Beispiel: this.$router.push({ path: '/events' })
     }
