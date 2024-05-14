@@ -14,10 +14,10 @@
     <hr />
     <h4>Playlist</h4>
     <label for="event-playlist">Playlist auswählen:</label>
-    <select name="event-playlist">
-      <option>Playlist 1</option>
-      <option>Playlist 2</option>
-      <option>Playlist 3</option>
+    <select name="event-playlist" v-model="selectedPlaylistId">
+      <option v-for="playlist in playlists" :key="playlist.id" :value="playlist.id">
+        {{ playlist.title }}
+      </option>
     </select>
     <hr />
     <h4>Veranstaltungsfoto</h4>
@@ -90,16 +90,26 @@
 
 <script>
 import QrCodeGenerator from '@/components/QrCodeGenerator.vue'
+import { usePlaylistStore } from '@/stores/PlaylistStore'
 import ActiveDj from '@/components/ActiveDj.vue'
 
 export default {
   data() {
     return {
-      selectedEventImage: 'Default' // Initial
+      selectedEventImage: 'Default', // Initial
+      selectedPlaylistId: null,
+      playlists: []
     }
   },
   components: { ActiveDj, QrCodeGenerator: QrCodeGenerator },
+  created() {
+    this.fetchPlaylists()
+  },
   methods: {
+    async fetchPlaylists() {
+      await usePlaylistStore().fetchPlaylists()
+      this.playlists = usePlaylistStore().playlists
+    },
     getImagePath(image) {
       switch (image) {
         case 'Geburtstag':
@@ -113,6 +123,11 @@ export default {
         default:
           return '/images/header_default.jpg'
       }
+    },
+    addEvent() {
+      // Hier kannst du die Logik zum Hinzufügen des Events implementieren
+      console.log('Event hinzugefügt mit Playlist ID:', this.selectedPlaylistId)
+      // Beispiel: this.$router.push({ path: '/events' })
     }
   }
 }
