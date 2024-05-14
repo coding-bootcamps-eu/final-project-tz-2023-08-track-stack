@@ -9,8 +9,8 @@
         <details>
           <summary role="button" class="outline contrast">
             <h4>{{ playlist.title }}</h4>
-            - Event ID: {{ playlist.eventId }} - User ID: {{ playlist.userId }} - DJ ID:
-            {{ playlist.djId }}
+            - Playlist ID: {{ playlist.id }} <br />
+            - DJ ID: {{ playlist.djId }}
           </summary>
           <section class="grid">
             <button type="button" @click="this.$router.push({ path: '/edit-playlist' })">
@@ -44,8 +44,19 @@ export default {
 
   methods: {
     async fetchPlaylists() {
+      //nur Playlists vom eingeloggten (activeDj) Dj anzeigen
+      const localStorageDjId = localStorage.getItem('activeDjId')
+      if (!localStorageDjId) {
+        // Wenn activeDjId nicht im localStorage vorhanden ist
+        return
+      }
+
       await usePlaylistStore().fetchPlaylists()
-      this.playlists = usePlaylistStore().playlists
+
+      // Die playlists anhand der localStorageDjId filtern
+      this.playlists = usePlaylistStore().playlists.filter(
+        (playlist) => playlist.djId === localStorageDjId
+      )
     },
 
     async deletePlaylist(playlistId) {
