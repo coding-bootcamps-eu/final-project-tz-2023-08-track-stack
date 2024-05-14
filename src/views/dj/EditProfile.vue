@@ -55,6 +55,8 @@ export default {
     //lade den ActiveDj in den Store
     await useDjStore().fetchActiveDj()
     this.dj = useDjStore().activeDj
+    //setze updateData im Store auf die DefaultWerte des ActiveDj
+    useDjStore().updateData = useDjStore().activeDj
   },
   methods: {
     updateUserName(event) {
