@@ -101,7 +101,6 @@
 <script>
 import QrCodeGenerator from '@/components/QrCodeGenerator.vue'
 import { usePlaylistStore } from '@/stores/PlaylistStore'
-import { useDjStore } from '@/stores/DjStore'
 import ActiveDj from '@/components/ActiveDj.vue'
 
 export default {
@@ -159,8 +158,9 @@ export default {
     },
 
     async addEvent() {
-      // Hier kannst du die Logik zum Hinzufügen des Events implementieren
+      // Erstelle ein Event und bekomme die EventId in die Konsole ausgegeben
       try {
+        //activeDj aus dem locale storage holen
         const activeDjId = localStorage.getItem('activeDjId')
         if (!activeDjId) {
           throw new Error('Aktiver DJ nicht festgelegt.')
@@ -188,10 +188,16 @@ export default {
         if (!response.ok) {
           throw new Error('Fehler beim Senden der Daten')
         }
+        //hier die Rückantwort der Api erhalten und die Event ID bekommen
+        const eventData = await response.json()
+        const eventId = eventData.id
+
         console.log('Event hinzugefügt mit Playlist ID:', this.selectedPlaylistId)
 
+        console.log('Neues Event hinzugefügt mit der ID:', eventId)
+
         // Erfolgreiches Senden der Daten, Weiterleitung zur Events View
-        this.$router.push({ path: '/events' })
+        // this.$router.push({ path: '/events' })
       } catch (error) {
         console.error('Fehler:', error)
       }
