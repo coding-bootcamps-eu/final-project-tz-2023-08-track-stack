@@ -4,9 +4,9 @@
   <p>Hier verwaltest du deine Veranstaltungen</p>
   <form @submit.prevent>
     <ol>
-      <li>
+      <li v-for="event in events" :key="events.id">
         <details>
-          <summary role="button" class="outline contrast">04.05.2024: Abiparty Dortmund</summary>
+          <summary role="button" class="outline contrast">{{ event.title }}</summary>
           <section class="grid">
             <input
               id="event-edit"
@@ -20,7 +20,7 @@
           </section>
         </details>
       </li>
-      <li>
+      <!-- <li>
         <details>
           <summary role="button" class="outline contrast">
             24.08.2024: 100 Jahre Nolte Küchen
@@ -51,15 +51,43 @@
             <button id="event-delete">Löschen</button>
           </section>
         </details>
-      </li>
+      </li> -->
     </ol>
   </form>
   <router-link to="/dj-overview"><button>Zurück zur Übersicht</button></router-link>
 </template>
+
 <script>
 import ActiveDj from '@/components/ActiveDj.vue'
+import { useEventStore } from '@/stores/EventStore'
 
 export default {
-  components: { ActiveDj }
+  components: { ActiveDj },
+
+  data() {
+    return {
+      events: []
+    }
+  },
+
+  created() {
+    this.fetchEvents()
+  },
+
+  methods: {
+    async fetchEvents() {
+      //nur Events vom eingeloggten (activeDj) Dj anzeigen
+      const localStorageDjId = localStorage.getItem('activeDjId')
+      if (!localStorageDjId) {
+        // Wenn activeDjId nicht im localStorage vorhanden ist
+        return
+      }
+
+      await useEventStore().fetchEvents()
+
+      // Die Events anhand der localStorageDjId filtern
+      this.events = useEventStore().events.filter((event) => event.djId === localStorageDjId)
+    }
+  }
 }
 </script>
