@@ -76,17 +76,8 @@ export default {
 
   methods: {
     async fetchEvents() {
-      //nur Events vom eingeloggten (activeDj) Dj anzeigen
-      const localStorageDjId = localStorage.getItem('activeDjId')
-      if (!localStorageDjId) {
-        // Wenn activeDjId nicht im localStorage vorhanden ist
-        return
-      }
-
-      await useEventStore().fetchEvents()
-
-      // Die Events anhand der localStorageDjId filtern
-      this.events = useEventStore().events.filter((event) => event.djId === localStorageDjId)
+      await useEventStore().fetchAndFilterEvents()
+      this.events = useEventStore().events
     }
   }
 }
