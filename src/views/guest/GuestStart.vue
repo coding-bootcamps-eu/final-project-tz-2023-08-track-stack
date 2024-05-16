@@ -65,6 +65,38 @@ export default {
         // Wenn Name gespeichert ist, wird Gast sofort zur "guest-overview" weitergeleitet
         this.$router.push({ path: '/guest-overview' })
       }
+    },
+
+    getEventIdFromUrl() {
+      const currentUrl = window.location.href
+
+      // Dann extrahierst du die Event-ID aus der URL
+      //Hier wird nach dem Index gesucht, an dem die Zeichenfolge 'eventId=' in der aktuellen URL vorkommt.
+      const eventIdIndex = currentUrl.indexOf('eventId=')
+      //Wenn die Zeichenfolge 'eventId=' in der URL gefunden wird (eventIdIndex ist nicht -1), dann wird die Event-ID extrahiert, indem sie aus der URL geschnitten wird. Beachte, dass 8 addiert werden, da 'eventId=' aus 8 Zeichen besteht.
+      const eventId = eventIdIndex !== -1 ? currentUrl.slice(eventIdIndex + 8) : null
+
+      // GET-Request an die API senden
+      if (eventId) {
+        const apiUrl = `http://localhost:3000/events/${eventId}`
+
+        fetch(apiUrl)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error('Fehler beim Abrufen der Event-Daten')
+            }
+            return response.json()
+          })
+          .then((eventData) => {
+            // Hier erhältst du die Daten des Events
+            console.log('Event-Daten:', eventData)
+          })
+          .catch((error) => {
+            console.error('Fehler:', error)
+          })
+      } else {
+        console.error('Event-ID nicht in der URL gefunden')
+      }
     }
   }
 }
