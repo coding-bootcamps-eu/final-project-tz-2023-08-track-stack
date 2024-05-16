@@ -16,7 +16,7 @@
             <!-- <button type="button" @click="this.$router.push({ path: '/edit-playlist' })"> -->
             <button type="button" @click="editPlaylist(playlist.id)">Ändern</button>
 
-            <button @click="deletePlaylist(playlist.id)">Löschen</button>
+            <button type="button" @click="deletePlaylist(playlist.id)">Löschen</button>
           </section>
         </details>
       </li>

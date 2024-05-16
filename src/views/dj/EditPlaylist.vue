@@ -78,6 +78,8 @@ export default {
       // Speichere die CSV-Daten in entsprechenden Variablen
       this.csvArrayData = arrayData
       this.csvObjData = objData
+      // Aktualisiere die Playlist-Vorschau mit den Songs aus der CSV-Datei
+      this.playlist.songs = objData
     }
   }
 }
