@@ -13,9 +13,9 @@
             - DJ ID: {{ playlist.djId }}
           </summary>
           <section class="grid">
-            <button type="button" @click="this.$router.push({ path: '/edit-playlist' })">
-              Ändern
-            </button>
+            <!-- <button type="button" @click="this.$router.push({ path: '/edit-playlist' })"> -->
+            <button type="button" @click="editPlaylist(playlist.id)">Ändern</button>
+
             <button @click="deletePlaylist(playlist.id)">Löschen</button>
           </section>
         </details>
@@ -43,6 +43,9 @@ export default {
   },
 
   methods: {
+    editPlaylist(playlistId) {
+      this.$router.push({ path: '/edit-playlist', query: { playlistId: playlistId } })
+    },
     async fetchPlaylists() {
       //nur Playlists vom eingeloggten (activeDj) Dj anzeigen
       const localStorageDjId = localStorage.getItem('activeDjId')

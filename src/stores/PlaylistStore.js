@@ -34,6 +34,32 @@ export const usePlaylistStore = defineStore('playlist', {
       }
     },
 
+    async updatePlaylistInApi(playlistData) {
+      try {
+        const response = await fetch(`http://localhost:3000/playlists/${playlistData.id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(playlistData)
+        })
+
+        if (!response.ok) {
+          throw new Error('Failed to update playlist in API')
+        }
+
+        // Annahme: Die API antwortet mit den aktualisierten Playlist-Daten
+        const updatedPlaylist = await response.json()
+
+        // Hier könntest du die aktualisierte Playlist in den lokalen State aktualisieren, falls erforderlich
+
+        return updatedPlaylist
+      } catch (error) {
+        console.error(error)
+        throw error
+      }
+    },
+
     async deletePlaylist(playlistId) {
       try {
         const response = await fetch(`http://localhost:3000/playlists/${playlistId}`, {
