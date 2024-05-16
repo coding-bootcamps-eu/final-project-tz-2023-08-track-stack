@@ -91,15 +91,20 @@
     </div>
     <hr />
     <h4>QR Code</h4>
-    <QrCodeGenerator />
     <hr />
+    <!-- eventId als Prop übergeben -->
+    <QrCodeGenerator2 :eventId="eventId" />
     <input type="submit" value="Event hinzufügen" />
-    <!-- @click="this.$router.push({ path: '/events' })" -->
   </form>
+  <input
+    type="submit"
+    value="Weiter zu Event Verwalten"
+    @click="this.$router.push({ path: '/events' })"
+  />
 </template>
 
 <script>
-import QrCodeGenerator from '@/components/QrCodeGenerator.vue'
+import QrCodeGenerator2 from '@/components/QrCodeGenerator2.vue'
 import { usePlaylistStore } from '@/stores/PlaylistStore'
 import ActiveDj from '@/components/ActiveDj.vue'
 
@@ -112,6 +117,7 @@ export default {
       organizer: '',
       address: '',
       selectedPlaylistId: null,
+      eventId: '',
 
       playlists: [],
 
@@ -119,7 +125,7 @@ export default {
     }
   },
 
-  components: { ActiveDj, QrCodeGenerator: QrCodeGenerator },
+  components: { ActiveDj, QrCodeGenerator2 },
 
   created() {
     this.fetchPlaylists()
@@ -158,8 +164,9 @@ export default {
     },
 
     async addEvent() {
-      // Hier kannst du die Logik zum Hinzufügen des Events implementieren
+      // Erstelle ein Event und bekomme die EventId in die Konsole ausgegeben
       try {
+        //activeDj aus dem locale storage holen
         const activeDjId = localStorage.getItem('activeDjId')
         if (!activeDjId) {
           throw new Error('Aktiver DJ nicht festgelegt.')
@@ -187,10 +194,17 @@ export default {
         if (!response.ok) {
           throw new Error('Fehler beim Senden der Daten')
         }
-        console.log('Event hinzugefügt mit Playlist ID:', this.selectedPlaylistId)
+        //hier die Rückantwort der Api erhalten und die Event ID bekommen
+        const eventData = await response.json()
+        const eventId = eventData.id
 
-        // Erfolgreiches Senden der Daten, Weiterleitung zur Events View
-        this.$router.push({ path: '/events' })
+        //Die eventId in einer Variablen speichern und an data übergeben
+        this.eventId = eventId
+
+        console.log('Neues Event hinzugefügt mit Playlist ID:', this.selectedPlaylistId)
+        console.log('Neues Event hinzugefügt mit der ID:', eventId)
+
+        alert('Das Event würde hinzugefügt. Der QR Code wird jetzt generiert.')
       } catch (error) {
         console.error('Fehler:', error)
       }

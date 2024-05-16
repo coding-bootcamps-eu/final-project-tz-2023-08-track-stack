@@ -7,7 +7,7 @@
         class="qr-input"
         name="qr-code"
         type="text"
-        placeholder="e.g senftraxx/GuestOverview.com"
+        placeholder="e.g Holaloop/GuestOverview.com"
         v-model="qrText"
       />
 
@@ -21,13 +21,11 @@
 </template>
 
 <script>
-import SenfTraxxLogo from '/images/logo_senftraxx.svg'
-
 export default {
   data() {
     return {
       qrText: '',
-      src: SenfTraxxLogo,
+      src: '/images/logo_hulaloop.svg',
       width: '300'
     }
   },
