@@ -15,7 +15,7 @@
         <file-reader-csv @csv-data-uploaded="handleCsvData"></file-reader-csv>
 
         <!-- FilePreview -->
-        <PreviewCSV :previewData="csvArrayData"></PreviewCSV>
+        <PreviewCSV :previewData="playlist.songs"></PreviewCSV>
 
         <div class="grid">
           <input type="submit" value="Playlist aktualisieren" />
@@ -40,8 +40,7 @@ export default {
     return {
       playlistId: null,
       playlist: {
-        csvArrayData: [],
-        csvObjData: [],
+        songs: [], // Hier werden die CSV-Daten gespeichert
         title: '' // Hier wird der Titel der Playlist gespeichert
       }
     }
@@ -61,10 +60,8 @@ export default {
   methods: {
     async updatePlaylist() {
       try {
-        // Annahme: Du hast bereits die Playlist-Daten in deinem Komponenten-Data-Objekt `playlist`
-
-        // Lösche zuerst alle Songs aus der Playlist
-        //this.playlist.songs = []
+        // Aktualisiere die Songs in der Playlist mit den Daten aus der Preview
+        this.playlist.songs = this.csvObjData // Oder entsprechend der Variablen, die deine CSV-Daten speichert
 
         // Rufe die `updatePlaylistInApi`-Aktion aus dem PlaylistStore auf, um die Playlist in der API zu aktualisieren
         await usePlaylistStore().updatePlaylistInApi(this.playlist)
@@ -78,6 +75,7 @@ export default {
       }
     },
     handleCsvData(arrayData, objData) {
+      // Speichere die CSV-Daten in entsprechenden Variablen
       this.csvArrayData = arrayData
       this.csvObjData = objData
     }
