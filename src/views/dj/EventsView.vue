@@ -4,7 +4,7 @@
   <p>Hier verwaltest du deine Veranstaltungen</p>
   <form @submit.prevent>
     <ol>
-      <li v-for="event in events" :key="events.id">
+      <li v-for="event in events" :key="event.id">
         <details>
           <summary role="button" class="outline contrast">{{ event.title }}</summary>
           <section class="grid">

@@ -37,8 +37,10 @@
 
 <script>
 import { useDjStore } from '@/stores/DjStore'
+import ActiveDj from '@/components/ActiveDj.vue'
 
 export default {
+  components: { ActiveDj },
   data() {
     return {
       isLoginValid: true,

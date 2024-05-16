@@ -101,7 +101,6 @@
 <script>
 import QrCodeGenerator from '@/components/QrCodeGenerator.vue'
 import { usePlaylistStore } from '@/stores/PlaylistStore'
-import { useDjStore } from '@/stores/DjStore'
 import ActiveDj from '@/components/ActiveDj.vue'
 
 export default {

@@ -1,4 +1,5 @@
 <template>
+  <slot v-if="!activeDjId"></slot>
   <span class="activedj">
     {{ activeDjId }}
   </span>
