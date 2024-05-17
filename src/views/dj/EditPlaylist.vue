@@ -42,7 +42,8 @@ export default {
       playlist: {
         songs: [], // Hier werden die CSV-Daten gespeichert
         title: '' // Hier wird der Titel der Playlist gespeichert
-      }
+      },
+      csvObjData: null // Initialisiere csvObjData als null
     }
   },
   async created() {
@@ -60,8 +61,10 @@ export default {
   methods: {
     async updatePlaylist() {
       try {
-        // Aktualisiere die Songs in der Playlist mit den Daten aus der Preview
-        this.playlist.songs = this.csvObjData // Oder entsprechend der Variablen, die deine CSV-Daten speichert
+        // Aktualisiere die Songs nur, wenn csvObjData nicht null ist
+        if (this.csvObjData) {
+          this.playlist.songs = this.csvObjData
+        }
 
         // Rufe die `updatePlaylistInApi`-Aktion aus dem PlaylistStore auf, um die Playlist in der API zu aktualisieren
         await usePlaylistStore().updatePlaylistInApi(this.playlist)
