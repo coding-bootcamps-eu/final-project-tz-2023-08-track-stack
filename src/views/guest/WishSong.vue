@@ -56,7 +56,7 @@ export default {
       try {
         // Eine Playlist mit ihrer ID fetchen
         const response = await fetch(
-          `http://localhost:3000/playlists/df2689c4-a6e8-4c91-8d5a-ac422aa04404`
+          `http://localhost:3000/playlists/a95ebe38-d482-4ae5-9937-5a8490d0c1f4`
         )
         if (response.ok) {
           const playlistFromApi = await response.json()
