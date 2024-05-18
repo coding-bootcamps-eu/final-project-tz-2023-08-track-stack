@@ -22,6 +22,7 @@
 
 <script>
 import ActiveDj from '@/components/ActiveDj.vue'
+import { useEventStore } from '@/stores/EventStore'
 
 export default {
   components: { ActiveDj },
@@ -33,8 +34,8 @@ export default {
   },
 
   created() {
-    // Beim laden der Seite überprüfen, ob Name im Local Storage bereits gespeichert ist
-    this.checkIfNameInLocalStorage()
+    // Beim laden der Seite überprüfen, ob Name im Local Storage bereits gespeichert ist und die eventId abgreifen und das eventObjekt abrufen.
+    this.checkIfNameInLocalStorage(), this.getEventIdFromUrl()
   },
 
   methods: {
@@ -70,15 +71,20 @@ export default {
     getEventIdFromUrl() {
       const currentUrl = window.location.href
 
-      // Dann extrahierst du die Event-ID aus der URL
+      //Extrahiere die Event-ID aus der URL
       //Hier wird nach dem Index gesucht, an dem die Zeichenfolge 'eventId=' in der aktuellen URL vorkommt.
       const eventIdIndex = currentUrl.indexOf('eventId=')
+
       //Wenn die Zeichenfolge 'eventId=' in der URL gefunden wird (eventIdIndex ist nicht -1), dann wird die Event-ID extrahiert, indem sie aus der URL geschnitten wird. Beachte, dass 8 addiert werden, da 'eventId=' aus 8 Zeichen besteht.
       const eventId = eventIdIndex !== -1 ? currentUrl.slice(eventIdIndex + 8) : null
+      console.log('EventID: ' + eventId)
 
       // GET-Request an die API senden
       if (eventId) {
         const apiUrl = `http://localhost:3000/events/${eventId}`
+
+        //Den Store aufrufen
+        const eventStore = useEventStore()
 
         fetch(apiUrl)
           .then((response) => {
@@ -89,6 +95,11 @@ export default {
           })
           .then((eventData) => {
             // Hier erhältst du die Daten des Events
+            // Die eventData wird an den Store übergeben
+            eventStore.setEventDataFromGuestStart(eventData)
+
+            // Ebenfalls werden die eventData im local Storage gespeichert (bleiben persistent)
+            localStorage.setItem('eventData', JSON.stringify(eventData))
             console.log('Event-Daten:', eventData)
           })
           .catch((error) => {

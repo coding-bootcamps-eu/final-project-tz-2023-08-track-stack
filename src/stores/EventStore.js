@@ -2,7 +2,8 @@ import { defineStore } from 'pinia'
 
 export const useEventStore = defineStore('events', {
   state: () => ({
-    events: [] // Hier werden die Event-Daten des activeDjs gespeichert
+    events: [], // Hier werden die Event-Daten des activeDjs gespeichert
+    eventData: null
   }),
 
   actions: {
@@ -23,6 +24,10 @@ export const useEventStore = defineStore('events', {
       } catch (error) {
         console.error(error)
       }
+    },
+
+    setEventDataFromGuestStart(data) {
+      this.eventData = data
     }
   }
 })
