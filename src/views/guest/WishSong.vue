@@ -12,12 +12,22 @@
       v-model="inputSongSearch"
       @input="getSuggestionFromApi"
     />
-
-    <div v-if="suggestions.length > 0" class="dropdown">
-      <p v-for="(song, index) in suggestions" :key="index" @click="selectSong(song)">
-        {{ song.title }} - {{ song.artist }}
-      </p>
-    </div>
+    <article v-if="suggestions.length > 0" class="dropdown">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Interpret</th>
+            <th scope="col">Titel</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(song, index) in suggestions" :key="index" @click="selectSong(song)">
+            <td>{{ song.artist }}</td>
+            <td>{{ song.title }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </article>
 
     <textarea type="text" placeholder="Möchtest du jemanden grüßen oder hast eine Bitte?"></textarea
     ><br />
@@ -56,7 +66,7 @@ export default {
       try {
         // Eine Playlist mit ihrer ID fetchen
         const response = await fetch(
-          `http://localhost:3000/playlists/df2689c4-a6e8-4c91-8d5a-ac422aa04404`
+          `http://localhost:3000/playlists/36c8b241-173f-487a-8203-71fb9be40d5d`
         )
         if (response.ok) {
           const playlistFromApi = await response.json()
@@ -92,25 +102,26 @@ export default {
 
 <style scoped>
 .dropdown {
-  position: relative;
-  display: inline-block;
+  border: var(--pico-border-width) solid var(--pico-border-color);
+  --pico-border-color: var(--pico-form-element-border-color);
 }
 
-.dropdown p {
-  list-style-type: none;
+.dropdown th {
+  color: var(--pico-primary-background);
+  padding: 0.25rem;
+}
+.dropdown td {
   margin: 0;
-  margin-bottom: 1.2rem;
-  padding: 0;
+  width: 50%;
+  padding: 0.25rem;
   position: relative;
-  background-color: rgb(23, 23, 35);
-  width: 100%;
-  height: 2.5rem;
   z-index: 1;
-  /* border: 1px solid #ddd; */
+  border: 1px solid var(--pico-form-element-background-color);
   cursor: pointer;
 }
 
-.dropdown p:hover {
-  background-color: darkgray;
+.dropdown tr:hover td {
+  background-color: var(--pico-primary-background);
+  color: var(--pico-background-color);
 }
 </style>
