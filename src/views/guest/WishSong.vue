@@ -66,8 +66,7 @@ export default {
       try {
         // Eine Playlist mit ihrer ID fetchen
         const response = await fetch(
-          `http://localhost:3000/playlists/36c8b241-173f-487a-8203-71fb9be40d5d`
-        )
+          `http://localhost:3000/playlists/a95ebe38-d482-4ae5-9937-5a8490d0c1f4`)
         if (response.ok) {
           const playlistFromApi = await response.json()
           const searchText = this.inputSongSearch.toLowerCase()

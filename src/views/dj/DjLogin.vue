@@ -69,6 +69,7 @@ export default {
       } else {
         // Wenn der DJ registriert ist, die ID im localStorage speichern weiterleiten
         localStorage.setItem('activeDjId', foundDj.id)
+        useDjStore().activeDjId = foundDj.id
         this.$router.push({ path: '/dj-overview' })
       }
     }
