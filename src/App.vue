@@ -1,6 +1,11 @@
 <template>
   <!-- Header mit Name/Logo-->
-  <header>
+  <header
+    :style="{
+      background: `radial-gradient(circle, rgba(0, 0, 255, 0.5), rgba(255, 255, 255, 0.2)),
+    url('/images/header_default.jpg') center/cover`
+    }"
+  >
     <a href="/"><img class="img-logo" src="/images/logo_hulaloop.svg" alt="Logo Senftraxx" /></a>
     <button v-if="isLoggedIn" @click="logout()">logout</button>
   </header>
@@ -14,6 +19,7 @@
 </template>
 
 <script>
+import { useDjStore } from '@/stores/DjStore'
 export default {
   data() {
     return {
@@ -24,14 +30,14 @@ export default {
   computed: {
     isLoggedIn() {
       // Überprüfung, ob LocalStorage gesetzt ist
-      return localStorage.getItem('activeDjId') !== null
+      return useDjStore().activeDjId !== null || localStorage.getItem('activeDjId') !== null
     }
   },
   methods: {
     logout() {
       // remove activeDjId from localstorage
       localStorage.removeItem('activeDjId')
-
+      useDjStore().activeDjId = null
       // redirect to login page
       this.$router.push({ path: '/login' })
     }
@@ -43,10 +49,6 @@ export default {
 header {
   width: 100%;
   color: white;
-
-  background:
-    radial-gradient(circle, rgba(0, 0, 255, 0.5), rgba(255, 255, 255, 0.2)),
-    url('/images/header_default.jpg') center/cover;
   background-size: cover;
   display: flex;
   flex-direction: column;
