@@ -90,8 +90,7 @@
       </figure>
     </div>
     <hr />
-    <h4>QR Code</h4>
-    <hr />
+    <p>Bitte füge zuerst das Event hinzu, anschließend wird der QR Code und der Link generiert.</p>
     <!-- eventId als Prop übergeben -->
     <QrCodeGenerator2 :eventId="eventId" />
     <input type="submit" value="Event hinzufügen" />
@@ -100,6 +99,11 @@
     type="submit"
     value="Weiter zu Event Verwalten"
     @click="this.$router.push({ path: '/events' })"
+  />
+  <input
+    type="submit"
+    value="Zurück zur Übersicht"
+    @click="this.$router.push({ path: '/dj-overview' })"
   />
 </template>
 
@@ -180,7 +184,7 @@ export default {
           address: this.address,
           startDate: this.date,
           organizer: this.organizer,
-          eventImage: this.selectedEventImage
+          eventImage: this.getImagePath(this.selectedEventImage)
         }
 
         const response = await fetch('http://localhost:3000/events', {
@@ -204,7 +208,7 @@ export default {
         console.log('Neues Event hinzugefügt mit Playlist ID:', this.selectedPlaylistId)
         console.log('Neues Event hinzugefügt mit der ID:', eventId)
 
-        alert('Das Event würde hinzugefügt. Der QR Code wird jetzt generiert.')
+        // alert('Das Event würde hinzugefügt. Der QR Code wird jetzt generiert.')
       } catch (error) {
         console.error('Fehler:', error)
       }
