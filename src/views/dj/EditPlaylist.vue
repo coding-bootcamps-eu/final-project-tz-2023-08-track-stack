@@ -11,11 +11,10 @@
         <label for="event-title">Titel:</label>
         <input type="text" name="event-title" v-model="playlist.title" />
 
-        <!-- FileReader -->
         <file-reader-csv @csv-data-uploaded="handleCsvData"></file-reader-csv>
 
-        <!-- FilePreview -->
-        <PreviewCSV :previewData="playlist.songs"></PreviewCSV>
+        <!-- Übergabe der Header an PreviewCSV -->
+        <PreviewCSV :previewData="csvArrayData" :headers="csvHeaders"></PreviewCSV>
 
         <div class="grid">
           <input type="submit" value="Playlist aktualisieren" />
@@ -38,51 +37,57 @@ export default {
 
   data() {
     return {
-      playlistId: null,
-      playlist: {
-        songs: [], // Hier werden die CSV-Daten gespeichert
-        title: '' // Hier wird der Titel der Playlist gespeichert
-      },
-      csvObjData: null // Initialisiere csvObjData als null
+      csvArrayData: [],
+      csvObjData: null,
+      csvHeaders: []
     }
   },
-  async created() {
-    // Lade die aktive DJ-ID aus dem LocalStorage
-    useDjStore().loadActiveDjIdFromLocalStorage()
-
-    const playlistId = this.$route.query.playlistId
-
-    // Annahme: Du hast eine Methode fetchPlaylistById, die die Playlist-Daten anhand der ID abruft
-    const playlistData = await usePlaylistStore().fetchPlaylist(playlistId)
-
-    // Setze die Playlist-Daten im data-Objekt
-    this.playlist = playlistData
+  computed: {
+    playlist() {
+      const playlistStore = usePlaylistStore()
+      return playlistStore.currentPlaylist
+    }
   },
+
+  async created() {
+    const djStore = useDjStore()
+    djStore.loadActiveDjIdFromLocalStorage()
+
+    const playlistStore = usePlaylistStore()
+    playlistStore.loadCurrentPlaylistIdFromLocalStorage()
+    const playlistId = playlistStore.currentPlaylistId
+
+    if (playlistId) {
+      await playlistStore.fetchPlaylist(playlistId)
+    }
+  },
+
   methods: {
     async updatePlaylist() {
       try {
-        // Aktualisiere die Songs nur, wenn csvObjData nicht null ist
         if (this.csvObjData) {
           this.playlist.songs = this.csvObjData
         }
 
-        // Rufe die `updatePlaylistInApi`-Aktion aus dem PlaylistStore auf, um die Playlist in der API zu aktualisieren
         await usePlaylistStore().updatePlaylistInApi(this.playlist)
-
-        // Erfolgreich aktualisiert, führe weitere Aktionen aus, z.B. Navigation oder Benachrichtigung
         alert('Playlist erfolgreich aktualisiert')
       } catch (error) {
         console.error('Fehler beim Aktualisieren der Playlist:', error)
-        // Behandlung des Fehlers, z.B. Benachrichtigung des Benutzers
         alert('Fehler beim Aktualisieren der Playlist')
       }
     },
+
     handleCsvData(arrayData, objData) {
-      // Speichere die CSV-Daten in entsprechenden Variablen
-      this.csvArrayData = arrayData
-      this.csvObjData = objData
-      // Aktualisiere die Playlist-Vorschau mit den Songs aus der CSV-Datei
-      this.playlist.songs = objData
+      if (arrayData.length > 0) {
+        this.csvHeaders = arrayData[0]
+        this.csvArrayData = arrayData.slice(1)
+        this.csvObjData = objData.slice(1)
+      } else {
+        this.csvHeaders = []
+        this.csvArrayData = []
+        this.csvObjData = []
+      }
+      this.playlist.songs = this.csvObjData
     }
   }
 }
