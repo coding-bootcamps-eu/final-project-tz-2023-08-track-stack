@@ -31,7 +31,7 @@
     <label for="event-qrcode">Firmenfeier</label>
     <hr />
     <h4>QR Code</h4>
-    <QrCodeGenerator />
+    <QrCodeGenerator2 />
     <input
       @click="this.$router.push({ path: '/events' })"
       type="submit"
@@ -40,10 +40,10 @@
   </form>
 </template>
 <script>
-import QrCodeGenerator from '@/components/QrCodeGenerator.vue'
+import QrCodeGenerator2 from '@/components/QrCodeGenerator.vue'
 import ActiveDj from '@/components/ActiveDj.vue'
 
 export default {
-  components: { ActiveDj, QrCodeGenerator: QrCodeGenerator }
+  components: { ActiveDj, QrCodeGenerator2: QrCodeGenerator2 }
 }
 </script>
