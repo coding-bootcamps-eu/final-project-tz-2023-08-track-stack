@@ -184,7 +184,7 @@ export default {
           address: this.address,
           startDate: this.date,
           organizer: this.organizer,
-          eventImage: this.selectedEventImage
+          eventImage: this.getImagePath(this.selectedEventImage)
         }
 
         const response = await fetch('http://localhost:3000/events', {

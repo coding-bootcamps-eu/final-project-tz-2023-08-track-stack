@@ -35,7 +35,7 @@ export default {
 
   created() {
     // Beim laden der Seite überprüfen, ob Name im Local Storage bereits gespeichert ist und die eventId abgreifen und das eventObjekt abrufen.
-    this.checkIfNameInLocalStorage(), this.getEventIdFromUrl()
+    this.checkIfNameInLocalStorage(), this.getEventDataFromUrl()
   },
 
   methods: {
@@ -68,7 +68,7 @@ export default {
       }
     },
 
-    getEventIdFromUrl() {
+    getEventDataFromUrl() {
       const currentUrl = window.location.href
 
       //Extrahiere die Event-ID aus der URL
