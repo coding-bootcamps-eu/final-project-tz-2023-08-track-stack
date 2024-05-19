@@ -40,7 +40,7 @@
   </form>
 </template>
 <script>
-import QrCodeGenerator2 from '@/components/QrCodeGenerator.vue'
+import QrCodeGenerator2 from '@/components/QrCodeGenerator2.vue'
 import ActiveDj from '@/components/ActiveDj.vue'
 
 export default {
