@@ -1,13 +1,28 @@
-// PlaylistStore.js
-
 import { defineStore } from 'pinia'
 
 export const usePlaylistStore = defineStore('playlist', {
   state: () => ({
-    playlists: [] // Hier werden die Playlist-Daten gespeichert
+    playlists: [],
+    currentPlaylistId: null,
+    currentPlaylist: {
+      title: '',
+      songs: []
+    }
   }),
 
   actions: {
+    setCurrentPlaylistId(playlistId) {
+      this.currentPlaylistId = playlistId
+      localStorage.setItem('currentPlaylistId', playlistId)
+    },
+
+    loadCurrentPlaylistIdFromLocalStorage() {
+      const playlistId = localStorage.getItem('currentPlaylistId')
+      if (playlistId) {
+        this.currentPlaylistId = playlistId
+      }
+    },
+
     async fetchPlaylists() {
       try {
         const response = await fetch('http://localhost:3000/playlists')
@@ -21,13 +36,13 @@ export const usePlaylistStore = defineStore('playlist', {
       }
     },
 
-    async fetchPlaylist(djId) {
+    async fetchPlaylist(playlistId) {
       try {
-        const response = await fetch(`http://localhost:3000/playlists/${djId}`)
+        const response = await fetch(`http://localhost:3000/playlists/${playlistId}`)
         if (!response.ok) {
           throw new Error('Failed to fetch playlist from API')
         }
-        return await response.json()
+        this.currentPlaylist = await response.json()
       } catch (error) {
         console.error(error)
         throw error
@@ -48,11 +63,8 @@ export const usePlaylistStore = defineStore('playlist', {
           throw new Error('Failed to update playlist in API')
         }
 
-        // Annahme: Die API antwortet mit den aktualisierten Playlist-Daten
         const updatedPlaylist = await response.json()
-
-        // Hier könntest du die aktualisierte Playlist in den lokalen State aktualisieren, falls erforderlich
-
+        this.currentPlaylist = updatedPlaylist
         return updatedPlaylist
       } catch (error) {
         console.error(error)
@@ -70,7 +82,6 @@ export const usePlaylistStore = defineStore('playlist', {
           throw new Error('Failed to delete playlist')
         }
 
-        // Remove the deleted playlist from the local state
         this.playlists = this.playlists.filter((playlist) => playlist.id !== playlistId)
       } catch (error) {
         console.error(error)
@@ -91,7 +102,6 @@ export const usePlaylistStore = defineStore('playlist', {
           throw new Error('Failed to create playlist')
         }
 
-        // Fetch playlists again to update the local state
         await this.fetchPlaylists()
       } catch (error) {
         console.error(error)
