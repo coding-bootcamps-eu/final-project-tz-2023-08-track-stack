@@ -1,4 +1,5 @@
 <template>
+  <img :src="this.eventData.eventImage" alt="" />
   <small><active-dj>nicht eingeloggt</active-dj> @ GuestOverview</small>
 
   <h2>Hallo {{ this.guestData.name }}!</h2>
@@ -43,7 +44,7 @@ export default {
     //Die Event Daten aus dem Store holen, nachdem Gast weitergeleitet wurde
     eventData() {
       const eventStore = useEventStore()
-      return eventStore.eventData
+      return eventStore.eventDataForGuest
     }
   },
 
@@ -64,6 +65,7 @@ export default {
       const eventDataFromLocalStorage = localStorage.getItem('eventData')
       if (eventDataFromLocalStorage) {
         const eventStore = useEventStore()
+
         eventStore.setEventDataFromGuestStart(JSON.parse(eventDataFromLocalStorage))
       }
     }
