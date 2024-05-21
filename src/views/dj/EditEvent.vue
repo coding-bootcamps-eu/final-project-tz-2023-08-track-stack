@@ -3,20 +3,29 @@
   <h2>Event bearbeiten</h2>
   <p>Hier erstellst du deine Veranstaltung</p>
   <form @submit.prevent>
-    <label for="event-title">Titel:</label>
-    <input type="text" name="event-title" />
-    <label for="event-date">Datum:</label>
-    <input type="text" name="event-date" />
-    <label for="event-organizer">Veranstalter:</label>
-    <input type="text" name="event-organizer" />
-    <label for="event-address">Adresse:</label>
-    <input type="text" name="event-address" />
-    <label for="event-playlist">Playlist:</label>
-    <select name="event-playlist">
-      <option>Playlist 1</option>
-      <option>Playlist 2</option>
-      <option>Playlist 3</option>
-    </select>
+    <div class="grid">
+      <label for="event-title">Titel: <input type="text" name="event-title" /></label>
+      <label for="event-date"
+        >Datum:
+        <input type="datetime-local" name="event-date" v-model="date" aria-label="Datetime local"
+      /></label>
+    </div>
+    <div class="grid">
+      <label for="event-organizer"
+        >Veranstalter: <input type="text" name="event-organizer"
+      /></label>
+      <label for="event-address"
+        >Veranstaltungsort: <input type="text" name="event-address"
+      /></label>
+    </div>
+    <label for="event-playlist"
+      >Playlist:
+      <select name="event-playlist">
+        <option>Playlist 1</option>
+        <option>Playlist 2</option>
+        <option>Playlist 3</option>
+      </select></label
+    >
     <label for="event-image">Foto:</label>
     <fieldset id="event-image">
       <input type="radio" id="birthday" name="event-image-radio" value="Geburtstag" />

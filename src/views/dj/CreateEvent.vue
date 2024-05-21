@@ -7,11 +7,15 @@
       <label for="event-title"
         >Titel: <input type="text" name="event-title" v-model="title"
       /></label>
-      <label for="event-description"
-        >Beschreibung: <input type="text" name="event-description" v-model="description"
-      /></label>
-      <label for="event-date">Datum: <input type="text" name="event-date" v-model="date" /></label>
+      <label for="event-date"
+        >Datum / Uhrzeit:
+        <input type="datetime-local" name="event-date" v-model="date" aria-label="Datetime local" />
+      </label>
     </div>
+    <label for="event-description"
+      >Beschreibung: <input type="text" name="event-description" v-model="description"
+    /></label>
+
     <div class="grid">
       <label for="event-organizer"
         >Veranstalter:<input type="text" name="event-organizer" v-model="organizer"

@@ -1,4 +1,3 @@
-<!-- Im Parent CSV Daten an :previewData übergeben  <PreviewCSV :previewData="csvData"></PreviewCSV> -->
 <template>
   <details v-if="previewData.length > 0" class="preview-details">
     <summary role="button" class="outline contrast summary">Vorschau anzeigen</summary>
@@ -6,11 +5,19 @@
       <table class="preview-table">
         <thead>
           <tr>
-            <th v-for="(column, columnIndex) in previewData[0]" :key="columnIndex">{{ column }}</th>
+            <th
+              v-for="(header, headerIndex) in headers.length > 0 ? headers : previewData[0]"
+              :key="headerIndex"
+            >
+              {{ header }}
+            </th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(row, rowIndex) in previewData.slice(1)" :key="rowIndex">
+          <tr
+            v-for="(row, rowIndex) in headers.length > 0 ? previewData : previewData.slice(1)"
+            :key="rowIndex"
+          >
             <td v-for="(cell, cellIndex) in row" :key="cellIndex">
               {{ cell }}
             </td>
@@ -19,9 +26,6 @@
       </table>
     </div>
   </details>
-  <!-- <div v-else>
-    <p></p>
-  </div> -->
 </template>
 
 <script>
@@ -42,28 +46,16 @@ export default {
 
 <style scoped>
 .preview-details {
-  /* display: inline-block; Ändert das Anzeigeverhalten zu inline-block */
-  /* cursor: pointer; Zeige den Cursor als Zeiger an */
-  transition: background-color 0.3s ease; /* Übergangseffekt für Hintergrundfarbe */
+  transition: background-color 0.3s ease;
 }
 
-/* Styling für das <details>-Element bei Hover */
-/* .preview-details:hover {
-  background-color: #45a049; Dunklere Hintergrundfarbe bei Hover
-} */
-
-/* Styling für das <details>-Element bei Focus */
 .preview-details:focus {
-  outline: none; /* Entferne den Standard-Umriss */
+  outline: none;
   box-shadow:
     0 0 0 2px #ffffff,
-    0 0 0 4px #4caf50; /* Hervorhebungseffekt */
+    0 0 0 4px #4caf50;
 }
 
-/* Entfernen des standardmäßigen Pfeilsymbols */
-/* summary::-webkit-details-marker {
-  display: none;
-} */
 .preview-details {
   margin-bottom: 10px;
 }
@@ -100,7 +92,3 @@ export default {
   color: var(--pico-primary-inverse);
 }
 </style>
-
-<!-- Todo -->
-
-<!-- //mapping -->
