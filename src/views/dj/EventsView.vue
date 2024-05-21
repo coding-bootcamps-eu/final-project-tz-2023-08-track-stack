@@ -69,3 +69,23 @@ export default {
   }
 }
 </script>
+<style scoped>
+details {
+  border: black 1px solid;
+  padding: 1rem 3rem;
+}
+
+.transparentBackground {
+  border-radius: 5px;
+  background: #ffffffb5;
+}
+@media (prefers-color-scheme: dark) {
+  .trasparentBackground {
+    border-radius: 5px;
+    background: #333333b5;
+  }
+  details {
+    border: white 1px solid;
+  }
+}
+</style>
