@@ -37,7 +37,7 @@ export default {
 
   created() {
     // Die gespeicherten Daten aus dem Local Storage holen
-    this.getGuestDataFromLocalStorage(), this.loadEventDataFromLocalStorage()
+    this.loadGuestDataFromLocalStorage(), this.loadEventDataFromLocalStorage()
   },
 
   computed: {
@@ -49,7 +49,7 @@ export default {
   },
 
   methods: {
-    getGuestDataFromLocalStorage() {
+    loadGuestDataFromLocalStorage() {
       // Versuche, die gespeicherten Daten aus dem Local Storage abzurufen
       const guestDataInLocalStorage = localStorage.getItem('guestData')
 
