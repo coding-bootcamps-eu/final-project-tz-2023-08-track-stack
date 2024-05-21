@@ -35,54 +35,37 @@
   </form>
   <router-link to="/dj-overview"><button>Zurück zur Übersicht</button></router-link>
 </template>
-
 <script>
 import ActiveDj from '@/components/ActiveDj.vue'
 import { useEventStore } from '@/stores/EventStore'
 
 export default {
   components: { ActiveDj },
-
   data() {
     return {
+      // Array zur Speicherung von Veranstaltungsdaten
       events: []
     }
   },
-
   created() {
+    // Beim Erstellen der Komponente werden die Veranstaltungsdaten geladen
     this.fetchEvents()
   },
-
   methods: {
+    // Methode zum Abrufen der Veranstaltungsdaten
     async fetchEvents() {
+      // Verwendung des Event Stores zum Abrufen und Filtern von Veranstaltungen
       await useEventStore().fetchAndFilterEvents()
+      // Aktualisierung der lokalen Daten mit den abgerufenen Veranstaltungen
       this.events = useEventStore().events
     },
+    // Methode zum Löschen einer Veranstaltung
     async deleteEvent(eventId) {
+      // Verwendung des Event Stores zum Löschen der Veranstaltung
       await useEventStore().deleteEvent(eventId)
+      // Aktualisierung der angezeigten Veranstaltungen nach dem Löschen
       this.fetchEvents()
     }
   }
 }
 </script>
-
-<style scoped>
-details {
-  border: black 1px solid;
-  padding: 1rem 3rem;
-}
-
-.transparentBackground {
-  border-radius: 5px;
-  background: #ffffffb5;
-}
-@media (prefers-color-scheme: dark) {
-  .trasparentBackground {
-    border-radius: 5px;
-    background: #333333b5;
-  }
-  details {
-    border: white 1px solid;
-  }
-}
-</style>

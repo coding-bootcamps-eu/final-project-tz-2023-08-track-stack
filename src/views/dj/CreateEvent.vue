@@ -97,18 +97,13 @@
     <p>Bitte füge zuerst das Event hinzu, anschließend wird der QR Code und der Link generiert.</p>
     <!-- eventId als Prop übergeben -->
     <QrCodeGenerator2 :eventId="eventId" />
-    <input type="submit" value="Event hinzufügen" />
+    <hr />
+    <div class="grid">
+      <input type="submit" value="Event hinzufügen" />
+      <router-link to="/events"><button>Weiter zu Event verwalten</button></router-link>
+      <router-link to="/dj-overview"><button class="contrast">zurück</button></router-link>
+    </div>
   </form>
-  <input
-    type="submit"
-    value="Weiter zu Event Verwalten"
-    @click="this.$router.push({ path: '/events' })"
-  />
-  <input
-    type="submit"
-    value="Zurück zur Übersicht"
-    @click="this.$router.push({ path: '/dj-overview' })"
-  />
 </template>
 
 <script>

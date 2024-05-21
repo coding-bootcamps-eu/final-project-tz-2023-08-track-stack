@@ -1,34 +1,40 @@
+// Importieren der defineStore-Funktion aus dem Pinia-Paket
 import { defineStore } from 'pinia'
 
+// Definition des Event Stores mit den Zustandsvariablen und Aktionen
 export const useEventStore = defineStore('event', {
   state: () => ({
     events: [], // Hier werden die Event-Daten des activeDjs gespeichert
-    currentEvent: null,
-    eventDataForGuest: null
+    currentEvent: null, // Das aktuell bearbeitete Event
+    eventDataForGuest: null // Eventdaten für Gäste (nicht eingeloggte DJs)
   }),
 
   actions: {
+    // Aktion zum Abrufen und Filtern von Events des aktiven DJs
     async fetchAndFilterEvents() {
       try {
         const localStorageDjId = localStorage.getItem('activeDjId')
         if (!localStorageDjId) {
-          return // Wenn activeDjId nicht im localStorage vorhanden ist
+          return // Wenn activeDjId nicht im localStorage vorhanden ist, wird die Funktion beendet
         }
         const response = await fetch('http://localhost:3000/events')
         if (!response.ok) {
           throw new Error('Failed to fetch events from API')
         }
         const allEvents = await response.json()
+        // Filtern der Events nach der djId des aktiven DJs
         this.events = allEvents.filter((event) => event.djId === localStorageDjId)
       } catch (error) {
         console.error(error)
       }
     },
 
+    // Aktion zum Setzen von Eventdaten für Gäste
     setEventDataFromGuestStart(data) {
       this.eventDataForGuest = data
     },
 
+    // Aktion zum Laden des aktuellen Events aus dem Local Storage
     loadCurrentEventFromLocalStorage() {
       const eventData = localStorage.getItem('eventData')
       if (eventData) {
@@ -36,6 +42,7 @@ export const useEventStore = defineStore('event', {
       }
     },
 
+    // Aktion zum Abrufen eines bestimmten Events aus der API
     async fetchEvent(eventId) {
       try {
         const response = await fetch(`http://localhost:3000/events/${eventId}`)
@@ -49,6 +56,7 @@ export const useEventStore = defineStore('event', {
       }
     },
 
+    // Aktion zum Aktualisieren eines Events in der API
     async updateEventInApi(eventData) {
       try {
         console.log('Sending data to API:', eventData) // Debugging
@@ -74,6 +82,7 @@ export const useEventStore = defineStore('event', {
       }
     },
 
+    // Aktion zum Löschen eines Events aus der API
     async deleteEvent(eventId) {
       try {
         const response = await fetch(`http://localhost:3000/events/${eventId}`, {
@@ -84,6 +93,7 @@ export const useEventStore = defineStore('event', {
           throw new Error('Failed to delete event')
         }
 
+        // Entfernen des gelöschten Events aus der lokalen Events-Liste
         this.events = this.events.filter((event) => event.id !== eventId)
       } catch (error) {
         console.error(error)
