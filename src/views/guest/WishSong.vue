@@ -3,7 +3,7 @@
 
   <h2>Wünsch dir was!</h2>
   <p>Hier kannst du dir einen Song wünschen.</p>
-  <form @submit.prevent>
+  <form @submit.prevent="submitSong()">
     <label class="hidden" for="song-search">Suche nach Titel oder Interpret:</label><br />
     <input
       type="search"
@@ -12,35 +12,26 @@
       v-model="inputSongSearch"
       @input="getSuggestionFromApi"
     />
-    <article v-if="suggestions.length > 0" class="dropdown">
-      <table>
-        <thead>
-          <tr>
-            <th scope="col">Interpret</th>
-            <th scope="col">Titel</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(song, index) in suggestions" :key="index" @click="selectSong(song)">
-            <td>{{ song.artist }}</td>
-            <td>{{ song.title }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </article>
 
-    <textarea type="text" placeholder="Möchtest du jemanden grüßen oder hast eine Bitte?"></textarea
+    <div v-if="suggestions.length > 0" class="dropdown">
+      <p v-for="(song, index) in suggestions" :key="index" @click="selectSong(song)">
+        {{ song.artist }} - {{ song.title }}
+      </p>
+    </div>
+
+
+    <textarea
+      v-model="message"
+      type="text"
+      placeholder="Möchtest du jemanden grüßen oder hast eine Bitte?"
+    ></textarea
     ><br />
     <label for="anonym"
       ><input type="checkbox" name="anonym" id="anonym" />Ich möchte anonym bleiben</label
     >
     <hr />
     <div class="grid">
-      <input
-        @click="this.$router.push({ path: '/wishlist' })"
-        type="submit"
-        value="Wunsch abschicken"
-      />
+      <input type="submit" value="Wunsch abschicken" />
       <router-link to="/guest-overview"
         ><button class="secondary">Zurück zur Übersicht</button></router-link
       >
@@ -50,6 +41,7 @@
 
 <script>
 import ActiveDj from '@/components/ActiveDj.vue'
+import { useEventStore } from '@/stores/EventStore'
 
 export default {
   components: { ActiveDj },
@@ -57,16 +49,42 @@ export default {
     return {
       inputSongSearch: '',
       suggestions: [],
-      selectedSong: null
+      selectedSong: null,
+      message: '',
+      artist: null,
+      title: null
+    }
+  },
+
+  created() {
+    this.loadEventDataFromLocalStorage()
+  },
+
+  computed: {
+    //Die Event Daten aus dem Store holen
+    eventData() {
+      const eventStore = useEventStore()
+      return eventStore.eventDataForGuest
     }
   },
 
   methods: {
+    loadEventDataFromLocalStorage() {
+      //Event Daten auch aus dem local Storage holen
+      const eventDataFromLocalStorage = localStorage.getItem('eventData')
+      if (eventDataFromLocalStorage) {
+        const eventStore = useEventStore()
+
+        eventStore.setEventDataFromGuestStart(JSON.parse(eventDataFromLocalStorage))
+      }
+    },
+
     async getSuggestionFromApi() {
       try {
         // Eine Playlist mit ihrer ID fetchen
-        const response = await fetch(
-          `http://localhost:3000/playlists/a95ebe38-d482-4ae5-9937-5a8490d0c1f4`)
+
+        const response = await fetch(`http://localhost:3000/playlists/${this.eventData.playlistId}`)
+
         if (response.ok) {
           const playlistFromApi = await response.json()
           const searchText = this.inputSongSearch.toLowerCase()
@@ -85,15 +103,51 @@ export default {
     },
 
     selectSong(song) {
-      this.inputSongSearch = `${song.title} - ${song.artist}`
+      this.inputSongSearch = `${song.artist} - ${song.title}`
       this.selectedSong = song
+      this.artist = `${song.artist}`
+      this.title = `${song.title}`
       this.suggestions = [] // Schließe die Dropdown-Liste, nachdem ein Song ausgewählt wurde
-      console.log(this.selectSong)
+      console.log(this.selectedSong)
     },
 
-    submitSong() {
-      // Hier kann man die ausgewählten Song-Daten weiterverarbeiten
-      console.log('Ausgewählter Song:', this.selectedSong)
+    async submitSong() {
+      try {
+        //guestData aus dem locale storage holen
+        const guestData = localStorage.getItem('guestData')
+        if (!guestData) {
+          throw new Error('Aktiver Gast nicht festgelegt.')
+        }
+
+        const dataToSend = {
+          eventId: this.eventData.id, //required
+          artist: this.artist, //required
+          title: this.title, //required
+          who: guestData,
+          message: this.message
+        }
+
+        const response = await fetch('http://localhost:3000/requests', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(dataToSend)
+        })
+
+        if (!response.ok) {
+          throw new Error('Fehler beim Senden der Daten')
+        }
+
+        //hier die Rückantwort der Api erhalten und den Request bekommen
+        const requestData = await response.json()
+        console.log(requestData)
+
+        // Erfolgreiches Senden der Daten, Weiterleitung zum Login
+        this.$router.push({ path: '/wishlist' })
+      } catch (error) {
+        alert('Fehler: Bitte trage deinen Wunschtitel ein.')
+      }
     }
   }
 }
