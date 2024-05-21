@@ -28,6 +28,22 @@ export const useEventStore = defineStore('events', {
 
     setEventDataFromGuestStart(data) {
       this.eventData = data
+    },
+
+    async deleteEvent(eventId) {
+      try {
+        const response = await fetch(`http://localhost:3000/events/${eventId}`, {
+          method: 'DELETE'
+        })
+
+        if (!response.ok) {
+          throw new Error('Failed to delete Event')
+        }
+
+        this.events = this.events.filter((event) => event.id !== eventId)
+      } catch (error) {
+        console.error(error)
+      }
     }
   }
 })
