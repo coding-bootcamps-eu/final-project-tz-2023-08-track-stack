@@ -17,13 +17,16 @@
             </div>
           </summary>
           <div class="trasparentBackground">
-            <p>{{ event.description }} <br /><br />playlist:</p>
+            <p>{{ event.description }}</p>
           </div>
           <section class="grid">
             <button id="event-edit" @click="this.$router.push({ path: '/edit-event' })">
               Ändern
             </button>
-            <button id="event-status">Online/Offline</button>
+            <button class="contrast btn-play" id="event-status">Online</button>
+
+            <button class="contrast btn-deny">Offline</button>
+
             <button id="event-delete" @click="deleteEvent(event.id)">Löschen</button>
           </section>
         </details>
@@ -69,7 +72,7 @@ details {
   padding: 1rem 3rem;
 }
 
-.trasparentBackground {
+.transparentBackground {
   border-radius: 5px;
   background: #ffffffb5;
 }
