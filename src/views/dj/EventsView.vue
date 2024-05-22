@@ -17,13 +17,16 @@
             </div>
           </summary>
           <div class="trasparentBackground">
-            <p>{{ event.description }} <br /><br />playlist:</p>
+            <p>{{ event.description }}</p>
           </div>
           <section class="grid">
             <button id="event-edit" @click="this.$router.push({ path: '/edit-event' })">
               Ändern
             </button>
-            <button id="event-status">Online/Offline</button>
+            <button class="contrast btn-play" id="event-status">Online</button>
+
+            <button class="contrast btn-deny">Offline</button>
+
             <button id="event-delete" @click="deleteEvent(event.id)">Löschen</button>
           </section>
         </details>
@@ -32,44 +35,47 @@
   </form>
   <router-link to="/dj-overview"><button>Zurück zur Übersicht</button></router-link>
 </template>
-
 <script>
 import ActiveDj from '@/components/ActiveDj.vue'
 import { useEventStore } from '@/stores/EventStore'
 
 export default {
   components: { ActiveDj },
-
   data() {
     return {
+      // Array zur Speicherung von Veranstaltungsdaten
       events: []
     }
   },
-
   created() {
+    // Beim Erstellen der Komponente werden die Veranstaltungsdaten geladen
     this.fetchEvents()
   },
-
   methods: {
+    // Methode zum Abrufen der Veranstaltungsdaten
     async fetchEvents() {
+      // Verwendung des Event Stores zum Abrufen und Filtern von Veranstaltungen
       await useEventStore().fetchAndFilterEvents()
+      // Aktualisierung der lokalen Daten mit den abgerufenen Veranstaltungen
       this.events = useEventStore().events
     },
+    // Methode zum Löschen einer Veranstaltung
     async deleteEvent(eventId) {
+      // Verwendung des Event Stores zum Löschen der Veranstaltung
       await useEventStore().deleteEvent(eventId)
+      // Aktualisierung der angezeigten Veranstaltungen nach dem Löschen
       this.fetchEvents()
     }
   }
 }
 </script>
-
 <style scoped>
 details {
   border: black 1px solid;
   padding: 1rem 3rem;
 }
 
-.trasparentBackground {
+.transparentBackground {
   border-radius: 5px;
   background: #ffffffb5;
 }
