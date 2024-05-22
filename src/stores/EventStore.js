@@ -10,6 +10,19 @@ export const useEventStore = defineStore('event', {
   }),
 
   actions: {
+    // RETURNS:  all Events from Api
+    async fetchAllEvents() {
+      try {
+        const response = await fetch('http://localhost:3000/events')
+        if (!response.ok) {
+          throw new Error('Failed to fetch events from API')
+        }
+        const allEvents = await response.json()
+        return allEvents
+      } catch (error) {
+        console.error(error)
+      }
+    },
     // Aktion zum Abrufen und Filtern von Events des aktiven DJs
     async fetchAndFilterEvents() {
       try {

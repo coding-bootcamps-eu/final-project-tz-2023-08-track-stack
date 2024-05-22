@@ -52,7 +52,7 @@ export default {
     this.fetchEvents()
   },
   methods: {
-    // Methode zum Abrufen der Veranstaltungsdaten
+    // Methode zum Abrufen der Veranstaltungsdaten des aktiven DJs
     async fetchEvents() {
       // Verwendung des Event Stores zum Abrufen und Filtern von Veranstaltungen
       await useEventStore().fetchAndFilterEvents()

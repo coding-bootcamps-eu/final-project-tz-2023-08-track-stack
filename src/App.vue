@@ -6,7 +6,7 @@
     url('/images/header_default.jpg') center/cover`
     }"
   >
-    <a href="/"><img class="img-logo" src="/images/logo_hulaloop.svg" alt="Logo Senftraxx" /></a>
+    <a href="/"><img class="img-logo" src="/images/logo_hulaloop.svg" alt="Logo Hulaloop" /></a>
     <button v-if="isLoggedIn" @click="logout()">logout</button>
   </header>
   <!-- the choosen View-->
