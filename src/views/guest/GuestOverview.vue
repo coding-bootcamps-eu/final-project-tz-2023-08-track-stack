@@ -1,22 +1,38 @@
 <template>
-  <img :src="this.eventData.eventImage" alt="" />
   <small><active-dj>nicht eingeloggt</active-dj> @ GuestOverview</small>
-
   <h2>Hallo {{ this.guestData.name }}!</h2>
   <p>
     Hier bist du auf deinem Dashboard. Du kannst dir Wünsche erfüllen oder auf bestehende Wünsche
     deine Stimme abgeben.
   </p>
-
-  <div v-if="eventData">
-    <h3>Event Details</h3>
-    <p>Title: {{ eventData.title }}</p>
-    <p>Veranstalter: {{ eventData.organizer }}</p>
-    <p>Datum: {{ eventData.startDate }}</p>
-    <p>Adresse: {{ eventData.address }}</p>
-    <p>Information: {{ eventData.description }}</p>
-  </div>
-
+  <article>
+    <h3>{{ eventData.title }}</h3>
+    <section class="grid twothree">
+      <img :src="this.eventData.eventImage" alt="" />
+      <div v-if="eventData">
+        <table>
+          <tbody>
+            <tr>
+              <td><strong>Beschreibung</strong></td>
+              <td>{{ eventData.description }}</td>
+            </tr>
+            <tr>
+              <td><strong>Datum</strong></td>
+              <td>{{ eventData.startDate }}</td>
+            </tr>
+            <tr>
+              <td><strong>Veranstalter</strong></td>
+              <td>{{ eventData.organizer }}</td>
+            </tr>
+            <tr>
+              <td><strong>Adresse</strong></td>
+              <td>{{ eventData.address }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </article>
   <div class="grid">
     <router-link to="/wishsong"><button>Song wünschen</button></router-link>
     <router-link to="/wishlist"><button>Zur Wunschliste</button></router-link>
@@ -72,3 +88,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+.grid.twothree {
+  grid-template-columns: 1fr 3fr;
+}
+</style>
