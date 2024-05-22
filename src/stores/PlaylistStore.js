@@ -1,21 +1,27 @@
 import { defineStore } from 'pinia'
 
+// Definiere einen neuen Pinia Store namens 'playlist'
 export const usePlaylistStore = defineStore('playlist', {
+  // Definiere den Zustand (state) des Stores
   state: () => ({
-    playlists: [],
-    currentPlaylistId: null,
+    playlists: [], // Eine Liste von Playlists
+    currentPlaylistId: null, // Die ID der aktuell ausgewählten Playlist
     currentPlaylist: {
-      title: '',
-      songs: []
+      // Die Daten der aktuell ausgewählten Playlist
+      title: '', // Der Titel der aktuellen Playlist
+      songs: [] // Die Liste von Songs in der aktuellen Playlist
     }
   }),
 
+  // Definiere Aktionen (actions) des Stores
   actions: {
+    // Setzt die aktuelle Playlist-ID und speichert sie im lokalen Speicher
     setCurrentPlaylistId(playlistId) {
       this.currentPlaylistId = playlistId
       localStorage.setItem('currentPlaylistId', playlistId)
     },
 
+    // Lädt die aktuelle Playlist-ID aus dem lokalen Speicher
     loadCurrentPlaylistIdFromLocalStorage() {
       const playlistId = localStorage.getItem('currentPlaylistId')
       if (playlistId) {
@@ -23,6 +29,7 @@ export const usePlaylistStore = defineStore('playlist', {
       }
     },
 
+    // Holt alle Playlists vom API-Server
     async fetchPlaylists() {
       try {
         const response = await fetch('http://localhost:3000/playlists')
@@ -36,6 +43,7 @@ export const usePlaylistStore = defineStore('playlist', {
       }
     },
 
+    // Holt eine spezifische Playlist vom API-Server anhand der Playlist-ID
     async fetchPlaylist(playlistId) {
       try {
         const response = await fetch(`http://localhost:3000/playlists/${playlistId}`)
@@ -49,6 +57,7 @@ export const usePlaylistStore = defineStore('playlist', {
       }
     },
 
+    // Aktualisiert eine Playlist im API-Server
     async updatePlaylistInApi(playlistData) {
       try {
         const response = await fetch(`http://localhost:3000/playlists/${playlistData.id}`, {
@@ -72,6 +81,7 @@ export const usePlaylistStore = defineStore('playlist', {
       }
     },
 
+    // Löscht eine Playlist vom API-Server anhand der Playlist-ID
     async deletePlaylist(playlistId) {
       try {
         const response = await fetch(`http://localhost:3000/playlists/${playlistId}`, {
@@ -82,12 +92,14 @@ export const usePlaylistStore = defineStore('playlist', {
           throw new Error('Failed to delete playlist')
         }
 
+        // Entfernt die gelöschte Playlist aus der lokalen Liste der Playlists
         this.playlists = this.playlists.filter((playlist) => playlist.id !== playlistId)
       } catch (error) {
         console.error(error)
       }
     },
 
+    // Erstellt eine neue Playlist im API-Server
     async createPlaylist(playlistData) {
       try {
         const response = await fetch('http://localhost:3000/playlists', {
@@ -102,6 +114,7 @@ export const usePlaylistStore = defineStore('playlist', {
           throw new Error('Failed to create playlist')
         }
 
+        // Aktualisiert die lokale Liste der Playlists nach dem Erstellen einer neuen Playlist
         await this.fetchPlaylists()
       } catch (error) {
         console.error(error)
