@@ -31,7 +31,7 @@
         <input type="text" name="event-address" v-model="event.address" />
       </label>
       <label for="event-description"
-        >Beschreibung: <input type="text" name="event-description" v-model="description"
+        >Beschreibung: <input type="text" name="event-description" v-model="event.description"
       /></label>
     </div>
 
@@ -97,12 +97,13 @@
     </div>
     <hr />
     <h4>QR Code</h4>
+    <!-- eventId als Prop übergeben -->
     <QrCodeGenerator2 :eventId="eventId" />
 
     <hr />
     <div class="grid">
       <input type="submit" value="Event aktualisieren" />
-      <router-link to="/register"><button class="contrast">zurück</button></router-link>
+      <router-link to="/events"><button class="contrast">zurück</button></router-link>
     </div>
   </form>
   <p v-else>Loading...</p>

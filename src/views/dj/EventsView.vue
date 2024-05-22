@@ -7,25 +7,23 @@
       <li v-for="event in events" :key="event.id">
         <details>
           <summary>
-            <div class="grid">
-              <div
-                :style="{
-                  background: `radial-gradient(circle, rgba(0, 0, 255, 0.5), rgba(255, 255, 255, 0.2)),
-    url('${event.eventImage}') center/cover`
-                }"
-              ></div>
-              <div>
-                <h4>{{ event.title }}</h4>
-                <p>{{ event.description }}</p>
-              </div>
-            </div>
+            {{ event.title }}
           </summary>
-          <section class="grid">
-            <button class="contrast btn-play" id="event-status">Online</button>
-            <button id="event-edit" @click="editEvent(event)">Ändern</button>
-            <button class="contrast btn-deny">Offline</button>
-            <button id="event-delete" @click="deleteEvent(event.id)">Löschen</button>
-          </section>
+          <div class="grid twothree">
+            <div
+              :style="{
+                background: `radial-gradient(circle, rgba(0, 0, 255, 0.5), rgba(255, 255, 255, 0.2)),
+    url('${event.eventImage}') center/cover`
+              }"
+            ></div>
+            <div>
+              <p>{{ event.description }}</p>
+              <section class="grid">
+                <button id="event-edit" @click="editEvent(event.id)">Ändern</button>
+                <button id="event-delete" @click="deleteEvent(event.id)">Löschen</button>
+              </section>
+            </div>
+          </div>
         </details>
       </li>
     </ol>
@@ -58,9 +56,9 @@ export default {
       await eventStore.deleteEvent(eventId)
       this.fetchEvents()
     },
-    editEvent(event) {
+    editEvent(eventId) {
       const eventStore = useEventStore()
-      eventStore.setCurrentEvent(event)
+      eventStore.setCurrentEvent(eventId)
       this.$router.push('/edit-event')
     }
   }
@@ -68,7 +66,7 @@ export default {
 </script>
 
 <style scoped>
-.grid {
+.grid.twothree {
   grid-template-columns: 1fr 3fr;
 }
 details {
