@@ -12,8 +12,7 @@
           <div class="grid twothree">
             <div
               :style="{
-                background: `radial-gradient(circle, rgba(0, 0, 255, 0.5), rgba(255, 255, 255, 0.2)),
-    url('${event.eventImage}') center/cover`
+                background: `url('${event.eventImage}') center/cover`
               }"
             ></div>
             <div>
@@ -53,12 +52,14 @@ export default {
     },
     async deleteEvent(eventId) {
       const eventStore = useEventStore()
-      await eventStore.deleteEvent(eventId)
+      if (confirm('Soll das Event wirklich gelöscht werden?')) {
+        await eventStore.deleteEvent(eventId)
+      }
       this.fetchEvents()
     },
     editEvent(eventId) {
       const eventStore = useEventStore()
-      eventStore.setCurrentEvent(eventId)
+      eventStore.setCurrentEventId(eventId)
       this.$router.push('/edit-event')
     }
   }

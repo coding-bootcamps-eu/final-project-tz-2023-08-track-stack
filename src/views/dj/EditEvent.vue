@@ -30,9 +30,10 @@
         Veranstaltungsort:
         <input type="text" name="event-address" v-model="event.address" />
       </label>
-      <label for="event-description"
-        >Beschreibung: <input type="text" name="event-description" v-model="event.description"
-      /></label>
+      <label for="event-description">
+        Beschreibung:
+        <input type="text" name="event-description" v-model="event.description" />
+      </label>
     </div>
 
     <label for="event-playlist">
@@ -98,7 +99,7 @@
     <hr />
     <h4>QR Code</h4>
     <!-- eventId als Prop übergeben -->
-    <QrCodeGenerator2 :eventId="eventId" />
+    <QrCodeGenerator2 :eventId="event.id" />
 
     <hr />
     <div class="grid">
@@ -110,16 +111,14 @@
 </template>
 
 <script>
-// Importieren der benötigten Komponenten und Stores
 import QrCodeGenerator2 from '@/components/QrCodeGenerator2.vue'
 import ActiveDj from '@/components/ActiveDj.vue'
 import { useEventStore } from '@/stores/EventStore'
 
 export default {
-  components: { ActiveDj, QrCodeGenerator2 }, // Registrieren der Komponenten ActiveDj und QrCodeGenerator2
+  components: { ActiveDj, QrCodeGenerator2 },
 
   computed: {
-    // Berechnete Eigenschaft, um das aktuelle Event aus dem Store zu erhalten
     event() {
       const eventStore = useEventStore()
       return eventStore.currentEvent
@@ -127,23 +126,21 @@ export default {
   },
 
   async created() {
-    // Laden des aktuellen Events aus dem Local Storage beim Erstellen der Komponente
+    await this.loadPlaylists()
     const eventStore = useEventStore()
     eventStore.loadCurrentEventFromLocalStorage()
-
-    // Laden der Playlists aus der API
-    await this.loadPlaylists()
+    if (eventStore.currentEventId) {
+      await eventStore.fetchEvent(eventStore.currentEventId)
+    }
   },
 
   data() {
     return {
-      // Array für die Playlists
       playlists: []
     }
   },
 
   methods: {
-    // Methode zum Laden der Playlists aus der API
     async loadPlaylists() {
       try {
         const response = await fetch('http://localhost:3000/playlists')
@@ -156,21 +153,12 @@ export default {
       }
     },
 
-    // Methode zum Aktualisieren des Events
     async updateEvent() {
       try {
-        // Speichern der Eventdaten im Local Storage
         localStorage.setItem('eventData', JSON.stringify(this.event))
-
         const eventStore = useEventStore()
-
-        // Aktualisieren des eventImage-Attributs entsprechend
         this.event.eventImage = this.getImagePath(this.event.eventImage)
-
-        // Aktualisieren des Events in der API
         await eventStore.updateEventInApi(this.event)
-
-        // Anzeigen einer Erfolgsmeldung und Weiterleitung zur Eventliste
         alert('Event erfolgreich aktualisiert')
         this.$router.push({ path: '/events' })
       } catch (error) {
@@ -179,7 +167,6 @@ export default {
       }
     },
 
-    // Methode zum Abrufen des Bildpfads basierend auf dem Veranstaltungsmotiv
     getImagePath(image) {
       switch (image) {
         case 'Geburtstag':

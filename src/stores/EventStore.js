@@ -6,13 +6,25 @@ export const useEventStore = defineStore('event', {
   state: () => ({
     events: [], // Hier werden die Event-Daten des activeDjs gespeichert
     currentEvent: null, // Das aktuell bearbeitete Event
+    currentEventId: null, // Die ID des aktuell ausgewählten Event
     eventDataForGuest: null // Eventdaten für Gäste (nicht eingeloggte DJs)
   }),
 
   actions: {
-    setCurrentEvent(event) {
-      this.currentEvent = event
+    // Setzt die aktuelle Event-ID und speichert sie im lokalen Speicher
+    setCurrentEventId(eventId) {
+      this.currentEventId = eventId
+      localStorage.setItem('currentEventId', eventId)
     },
+
+    // Lädt die aktuelle Event-ID aus dem lokalen Speicher
+    loadCurrentEventIdFromLocalStorage() {
+      const eventId = localStorage.getItem('currentEventId')
+      if (eventId) {
+        this.currentEventId = eventId
+      }
+    },
+
     // RETURNS:  all Events from Api
     async fetchAllEvents() {
       try {
