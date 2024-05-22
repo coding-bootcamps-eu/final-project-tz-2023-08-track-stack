@@ -3,7 +3,7 @@
   <header
     :style="{
       background: `radial-gradient(circle, rgba(0, 0, 255, 0.5), rgba(255, 255, 255, 0.2)),
-    url('/images/header_default.jpg') center/cover`
+    url(${selectedEventImage}) center/cover`
     }"
   >
     <a href="/"><img class="img-logo" src="/images/logo_hulaloop.svg" alt="Logo Hulaloop" /></a>
@@ -20,17 +20,23 @@
 
 <script>
 import { useDjStore } from '@/stores/DjStore'
+import { useEventStore } from '@/stores/EventStore'
 export default {
   data() {
     return {
       projectName: 'Hulaloop',
-      selectedEventImage: 'Default' // Initial
+      selectedEventImage: '/images/header_default.jpg' // Initial
+      //selectedEventImage: this.eventData.eventImage // Muss noch getestet werden, ggf. brauchen wir hier eine Computed
     }
   },
   computed: {
     isLoggedIn() {
       // Überprüfung, ob LocalStorage gesetzt ist
       return useDjStore().activeDjId !== null || localStorage.getItem('activeDjId') !== null
+    },
+    eventData() {
+      const eventStore = useEventStore()
+      return eventStore.eventDataForGuest
     }
   },
   methods: {
