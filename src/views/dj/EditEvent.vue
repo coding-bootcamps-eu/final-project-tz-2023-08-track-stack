@@ -30,7 +30,11 @@
         Veranstaltungsort:
         <input type="text" name="event-address" v-model="event.address" />
       </label>
+      <label for="event-description"
+        >Beschreibung: <input type="text" name="event-description" v-model="description"
+      /></label>
     </div>
+
     <label for="event-playlist">
       Playlist:
       <select name="event-playlist" v-model="event.playlistId">

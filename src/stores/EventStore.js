@@ -10,6 +10,9 @@ export const useEventStore = defineStore('event', {
   }),
 
   actions: {
+    setCurrentEvent(event) {
+      this.currentEvent = event
+    },
     // RETURNS:  all Events from Api
     async fetchAllEvents() {
       try {
