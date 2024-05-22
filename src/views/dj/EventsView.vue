@@ -5,7 +5,7 @@
   <form @submit.prevent>
     <ol>
       <li v-for="event in events" :key="event.id">
-        <details>
+        <details name="accordion">
           <summary>
             {{ event.title }}
           </summary>
