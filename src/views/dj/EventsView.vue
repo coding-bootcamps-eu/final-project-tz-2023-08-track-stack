@@ -5,7 +5,7 @@
   <form @submit.prevent>
     <ol>
       <li v-for="event in events" :key="event.id">
-        <details>
+        <details name="accordion">
           <summary>
             {{ event.title }}
           </summary>
@@ -53,12 +53,14 @@ export default {
     },
     async deleteEvent(eventId) {
       const eventStore = useEventStore()
-      await eventStore.deleteEvent(eventId)
+      if (confirm('Soll das Event wirklich gelöscht werden?')) {
+        await eventStore.deleteEvent(eventId)
+      }
       this.fetchEvents()
     },
     editEvent(eventId) {
       const eventStore = useEventStore()
-      eventStore.setCurrentEvent(eventId)
+      eventStore.setCurrentEventId(eventId)
       this.$router.push('/edit-event')
     }
   }

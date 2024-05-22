@@ -9,7 +9,7 @@
     <ol>
       <!-- Durchlaufen der Playlists und Erstellen von Listeneinträgen -->
       <li v-for="playlist in playlists" :key="playlist.id">
-        <details>
+        <details name="accordion">
           <summary role="button" class="outline contrast">
             <h4>{{ playlist.title }}</h4>
             - Playlist ID: {{ playlist.id }} <br />
