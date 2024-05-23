@@ -152,7 +152,7 @@ export default {
         const requestData = await response.json()
         console.log(requestData)
 
-        // Erfolgreiches Senden der Daten, Weiterleitung zum Login
+        // Erfolgreiches Senden der Daten, Weiterleitung zum Wunschliste
         this.$router.push({ path: '/wishlist' })
       } catch (error) {
         alert('Fehler: Bitte trage deinen Wunschtitel ein.')

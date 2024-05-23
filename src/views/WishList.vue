@@ -8,14 +8,16 @@
   </p>
 
   <ol>
-    <li>
+    <li v-for="request in requests" :key="request.id">
       <details name="accordion">
         <summary role="button" class="grid outline contrast">
           <hgroup>
-            <h3>The Chain</h3>
-            <p>Fleetwood Mac</p>
+            <h3>{{ request.title }}</h3>
+            <p>{{ request.artist }}</p>
           </hgroup>
-          <p class="votes"><b>4</b> Stimmen gezählt</p>
+          <p class="votes">
+            <b>{{ request.likes }}</b> Stimmen gezählt
+          </p>
           <button>Abstimmen 👍</button>
         </summary>
         <section>
@@ -24,100 +26,23 @@
             <button class="contrast btn-deny">ablehnen</button>
           </div>
           <figure>
-            <figcaption><time>23:55 Uhr</time>: <strong>Gregor</strong></figcaption>
+            <figcaption>
+              <!-- <time>23:55 Uhr</time>:  -->
+              <strong>{{ request.who.name }}</strong>
+            </figcaption>
             <blockquote>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              {{ request.message }}
             </blockquote>
           </figure>
           <hr />
-          <figure>
+          <!-- <figure>
             <figcaption><time>22:15 Uhr</time>: <strong>Larissa</strong></figcaption>
             <blockquote>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
               incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
               exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
             </blockquote>
-          </figure>
-        </section>
-      </details>
-    </li>
-    <li>
-      <details name="accordion">
-        <summary role="button" class="grid outline contrast">
-          <hgroup>
-            <h3>Perfect</h3>
-            <p>Fairground Attraction</p>
-          </hgroup>
-          <p class="votes"><b>2</b> Stimmen gezählt</p>
-          <button>Abstimmen 👍</button>
-        </summary>
-        <section>
-          <div class="grid">
-            <button class="btn-play">abgespielt</button>
-            <button class="btn-deny">abgelehnt</button>
-          </div>
-          <figure>
-            <figcaption><time>21:12 Uhr</time>: <strong>Lena</strong></figcaption>
-            <blockquote>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </blockquote>
-          </figure>
-        </section>
-      </details>
-    </li>
-    <li>
-      <details name="accordion">
-        <summary role="button" class="grid outline contrast">
-          <hgroup>
-            <h3>Die da?!</h3>
-            <p>Die Fantastischen Vier</p>
-          </hgroup>
-          <p class="votes"><b>1</b> Stimme gezählt</p>
-          <button>Abstimmen 👍</button>
-        </summary>
-        <section>
-          <div class="grid">
-            <button class="btn-play">abgespielt</button>
-            <button class="btn-deny">abgelehnt</button>
-          </div>
-          <figure>
-            <figcaption><time>20:41 Uhr</time>: <strong>Jenny</strong></figcaption>
-            <blockquote>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </blockquote>
-          </figure>
-        </section>
-      </details>
-    </li>
-    <li>
-      <details name="accordion">
-        <summary role="button" class="grid outline contrast">
-          <hgroup>
-            <h3>Killing in the name</h3>
-            <p>Rage Against the Machine</p>
-          </hgroup>
-          <p class="votes"><b>0</b> Stimmen gezählt</p>
-          <button>Abstimmen 👍</button>
-        </summary>
-        <section>
-          <div class="grid">
-            <button class="btn-play">abgespielt</button>
-            <button class="btn-deny">abgelehnt</button>
-          </div>
-          <figure>
-            <figcaption><time>20:41 Uhr</time>: <strong>Jenny</strong></figcaption>
-            <blockquote>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </blockquote>
-          </figure>
+          </figure> -->
         </section>
       </details>
     </li>
@@ -138,7 +63,56 @@
 import ActiveDj from '@/components/ActiveDj.vue'
 
 export default {
-  components: { ActiveDj }
+  data() {
+    return {
+      // Die Requests für ein bestimmtes Event
+      requests: [],
+      eventId: null
+    }
+  },
+
+  components: { ActiveDj },
+
+  created() {
+    this.getEventIdFromlocalStorage(), this.getRequestsFromApiForThisEvent()
+  },
+
+  methods: {
+    async getRequestsFromApiForThisEvent() {
+      try {
+        const response = await fetch(`http://localhost:3000/requests?eventId=${this.eventId}`)
+
+        if (!response.ok) {
+          throw new Error('Fehler beim Senden der Daten')
+        }
+
+        const requestsFromApi = await response.json()
+        this.requests = requestsFromApi
+
+        // Da der Key "who" als JSON-String gespeichert ist, muss das who-Feld von JSON-String zum Objekt konvertiert werden
+        this.requests = requestsFromApi.map((request) => {
+          return {
+            ...request,
+            who: JSON.parse(request.who)
+          }
+        })
+
+        console.log(this.requests)
+      } catch (error) {
+        console.error('Fehler:', error)
+      }
+    },
+
+    getEventIdFromlocalStorage() {
+      //EventId aus dem local Storage holen
+      const eventDataFromLocalStorage = localStorage.getItem('eventData')
+      if (eventDataFromLocalStorage) {
+        const eventData = JSON.parse(eventDataFromLocalStorage)
+        this.eventId = eventData.id
+        console.log(this.eventId)
+      }
+    }
+  }
 }
 </script>
 

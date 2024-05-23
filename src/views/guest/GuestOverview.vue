@@ -8,7 +8,7 @@
   <article>
     <h3>{{ eventData.title }}</h3>
     <section class="grid twothree">
-      <img :src="this.eventData.eventImage" alt="" />
+      <img :src="this.eventData.eventImage" alt="event-image" />
       <div v-if="eventData">
         <table>
           <tbody>

@@ -66,7 +66,7 @@ export default {
 
         // Trigger den download
         const link = document.createElement('a')
-        link.download = 'holahoop_qr_code.png'
+        link.download = 'holaloop_qr_code.png'
         link.href = canvas.toDataURL('image/png')
         link.click()
 
