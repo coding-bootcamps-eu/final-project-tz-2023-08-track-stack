@@ -107,7 +107,7 @@
       <router-link to="/events"><button class="contrast">zurück</button></router-link>
     </div>
   </form>
-  <p v-else>Loading...</p>
+  <p use aria-busy="true" v-else>Lade Inhalte ...</p>
 </template>
 
 <script>

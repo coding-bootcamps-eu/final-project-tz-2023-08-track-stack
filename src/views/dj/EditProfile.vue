@@ -2,7 +2,7 @@
   <small><active-dj>nicht eingeloggt</active-dj> @ EditProfile</small>
   <h2>Profil verwalten</h2>
 
-  <div v-if="dj === null">Loading...</div>
+  <p use aria-busy="true" v-if="dj === null">Lade Inhalte ...</p>
   <div v-else>
     <div class="profilCard">
       <div style="margin-bottom: 8px">
