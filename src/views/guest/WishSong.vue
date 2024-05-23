@@ -8,6 +8,7 @@
     <input
       type="search"
       name="song-search"
+      autocomplete="off"
       placeholder="Gib hier deinen Wunschtitel ein …"
       v-model="inputSongSearch"
       @input="getSuggestionFromApi"
