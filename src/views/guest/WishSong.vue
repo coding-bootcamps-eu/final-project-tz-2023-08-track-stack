@@ -13,12 +13,20 @@
       @input="getSuggestionFromApi"
     />
 
-    <div v-if="suggestions.length > 0" class="dropdown">
-      <p v-for="(song, index) in suggestions" :key="index" @click="selectSong(song)">
-        {{ song.artist }} - {{ song.title }}
-      </p>
-    </div>
-
+    <table v-if="suggestions.length > 0" class="dropdown">
+      <thead>
+        <tr>
+          <th>Interpret</th>
+          <th>Titel</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(song, index) in suggestions" :key="index" @click="selectSong(song)">
+          <td>{{ song.artist }}</td>
+          <td>{{ song.title }}</td>
+        </tr>
+      </tbody>
+    </table>
 
     <textarea
       v-model="message"
@@ -155,22 +163,29 @@ export default {
 
 <style scoped>
 .dropdown {
-  border: var(--pico-border-width) solid var(--pico-border-color);
   --pico-border-color: var(--pico-form-element-border-color);
+  border-radius: 0.3rem;
 }
 
 .dropdown th {
   color: var(--pico-primary-background);
-  padding: 0.25rem;
+  padding: 0.5rem;
 }
 .dropdown td {
   margin: 0;
   width: 50%;
-  padding: 0.25rem;
+  padding: 0.5rem;
   position: relative;
   z-index: 1;
-  border: 1px solid var(--pico-form-element-background-color);
+  border: 0;
   cursor: pointer;
+}
+
+.dropdown td:first-child {
+  border-radius: 0.3rem 0 0 0.3rem;
+}
+.dropdown td:last-child {
+  border-radius: 0 0.3rem 0.3rem 0;
 }
 
 .dropdown tr:hover td {
