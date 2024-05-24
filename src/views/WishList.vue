@@ -35,14 +35,6 @@
             </blockquote>
           </figure>
           <hr />
-          <!-- <figure>
-            <figcaption><time>22:15 Uhr</time>: <strong>Larissa</strong></figcaption>
-            <blockquote>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </blockquote>
-          </figure> -->
         </section>
       </details>
     </li>
@@ -75,10 +67,17 @@ export default {
 
   created() {
     this.getEventIdFromlocalStorage()
+
     // Event Source for streaming
     const eventSource = new EventSource('http://localhost:3000/stream/' + this.eventId)
+
     eventSource.addEventListener('message', (apievent) => {
-      this.requests = JSON.parse(apievent.data)
+      this.requests = JSON.parse(apievent.data).map((request) => {
+        return {
+          ...request,
+          who: JSON.parse(request.who) // Da der Key "who" als JSON-String gespeichert ist, muss das who-Feld von JSON-String zum Objekt konvertiert werden
+        }
+      })
     })
   },
   computed: {
@@ -103,31 +102,6 @@ export default {
         },
         body: JSON.stringify(request)
       })
-    },
-
-    async getRequestsFromApiForThisEvent() {
-      try {
-        const response = await fetch(`http://localhost:3000/requests?eventId=${this.eventId}`)
-
-        if (!response.ok) {
-          throw new Error('Fehler beim Senden der Daten')
-        }
-
-        const requestsFromApi = await response.json()
-        this.requests = requestsFromApi
-
-        // Da der Key "who" als JSON-String gespeichert ist, muss das who-Feld von JSON-String zum Objekt konvertiert werden
-        this.requests = requestsFromApi.map((request) => {
-          return {
-            ...request,
-            who: JSON.parse(request.who)
-          }
-        })
-
-        console.log(this.requests)
-      } catch (error) {
-        console.error('Fehler:', error)
-      }
     },
 
     getEventIdFromlocalStorage() {
