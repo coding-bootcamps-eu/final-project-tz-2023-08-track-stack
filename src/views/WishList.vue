@@ -8,7 +8,7 @@
   </p>
 
   <ol>
-    <li v-for="request in requests" :key="request.id">
+    <li v-for="request in sortedRequest" :key="request.id">
       <details name="accordion">
         <summary role="button" class="grid outline contrast">
           <hgroup>
@@ -18,7 +18,7 @@
           <p class="votes">
             <b>{{ request.likes }}</b> Stimmen gezählt
           </p>
-          <button>Abstimmen 👍</button>
+          <button @click="updateLikes(request)">Abstimmen 👍</button>
         </summary>
         <section>
           <div role="group">
@@ -67,17 +67,45 @@ export default {
     return {
       // Die Requests für ein bestimmtes Event
       requests: [],
-      eventId: null
+      eventId: null,
+      currentEventId: '3eaf5543-ebc4-4b1c-9eff-ca71801b930b'
     }
   },
 
   components: { ActiveDj },
 
   created() {
-    this.getEventIdFromlocalStorage(), this.getRequestsFromApiForThisEvent()
+    //this.getEventIdFromlocalStorage(), this.getRequestsFromApiForThisEvent()
+    // Event Source for streaming
+    const eventSource = new EventSource('http://localhost:3000/stream/' + this.currentEventId)
+    eventSource.addEventListener('message', (apievent) => {
+      this.requests = JSON.parse(apievent.data)
+    })
   },
+  computed: {
+    sortedRequest() {
+      const sortedLikes = this.requests.slice()
 
+      // Feature, Timeout nach Klick + Vue Animationen
+      return sortedLikes.sort((a, b) => {
+        return b.likes - a.likes
+      })
+    }
+  },
   methods: {
+    async updateLikes(request) {
+      // nur einmal pro gast
+      request.likes = request.likes + 1
+
+      await fetch(`http://localhost:3000/requests/${request.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(request)
+      })
+    },
+
     async getRequestsFromApiForThisEvent() {
       try {
         const response = await fetch(`http://localhost:3000/requests?eventId=${this.eventId}`)
