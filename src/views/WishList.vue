@@ -72,12 +72,7 @@ export default {
     const eventSource = new EventSource('http://localhost:3000/stream/' + this.eventId)
 
     eventSource.addEventListener('message', (apievent) => {
-      this.requests = JSON.parse(apievent.data).map((request) => {
-        return {
-          ...request,
-          who: JSON.parse(request.who) // Da der Key "who" als JSON-String gespeichert ist, muss das who-Feld von JSON-String zum Objekt konvertiert werden
-        }
-      })
+      this.requests = JSON.parse(apievent.data)
     })
   },
   computed: {
