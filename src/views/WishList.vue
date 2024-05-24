@@ -67,17 +67,16 @@ export default {
     return {
       // Die Requests für ein bestimmtes Event
       requests: [],
-      eventId: null,
-      currentEventId: '3eaf5543-ebc4-4b1c-9eff-ca71801b930b'
+      eventId: null
     }
   },
 
   components: { ActiveDj },
 
   created() {
-    //this.getEventIdFromlocalStorage(), this.getRequestsFromApiForThisEvent()
+    this.getEventIdFromlocalStorage()
     // Event Source for streaming
-    const eventSource = new EventSource('http://localhost:3000/stream/' + this.currentEventId)
+    const eventSource = new EventSource('http://localhost:3000/stream/' + this.eventId)
     eventSource.addEventListener('message', (apievent) => {
       this.requests = JSON.parse(apievent.data)
     })
@@ -137,7 +136,6 @@ export default {
       if (eventDataFromLocalStorage) {
         const eventData = JSON.parse(eventDataFromLocalStorage)
         this.eventId = eventData.id
-        console.log(this.eventId)
       }
     }
   }
