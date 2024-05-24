@@ -136,7 +136,6 @@ export default {
       if (eventDataFromLocalStorage) {
         const eventData = JSON.parse(eventDataFromLocalStorage)
         this.eventId = eventData.id
-        console.log(this.eventId)
       }
     }
   }
