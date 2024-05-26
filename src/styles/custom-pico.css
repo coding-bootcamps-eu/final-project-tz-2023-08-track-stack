@@ -16,10 +16,10 @@ form label.hidden {
 /* Buttons */
 
 .btn-play {
-  background: green;
+  background: #98ca00;
 }
 .btn-deny {
-  background: red;
+  background: #ff0060;
 }
 
 /* Ordered List */
@@ -34,4 +34,14 @@ ol {
 active-dj {
   color: red;
   font-weight: bold;
+}
+
+/* summary */
+
+details {
+  transition: all 0.5s ease-in-out;
+}
+details:hover {
+  background: var(--pico-muted-border-color);
+  transition: all 0.5s ease-in-out;
 }

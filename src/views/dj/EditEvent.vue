@@ -49,6 +49,15 @@
     <label for="event-image">Bildmotiv auswählen:</label>
     <fieldset id="event-image">
       <div class="grid">
+        <label for="default">
+          <input
+            type="radio"
+            id="default"
+            name="event-image-radio"
+            value="Default"
+            v-model="event.eventImage"
+          />Standardbild
+        </label>
         <label for="birthday">
           <input
             type="radio"
