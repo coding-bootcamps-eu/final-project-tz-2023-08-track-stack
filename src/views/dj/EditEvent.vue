@@ -49,6 +49,15 @@
     <label for="event-image">Bildmotiv auswählen:</label>
     <fieldset id="event-image">
       <div class="grid">
+        <label for="default">
+          <input
+            type="radio"
+            id="default"
+            name="event-image-radio"
+            value="Default"
+            v-model="event.eventImage"
+          />Standardbild
+        </label>
         <label for="birthday">
           <input
             type="radio"
@@ -104,7 +113,7 @@
     <hr />
     <div class="grid">
       <input type="submit" value="Event aktualisieren" />
-      <router-link to="/events"><button class="contrast">zurück</button></router-link>
+      <router-link to="/events"><button class="contrast">Zurück zu den Events</button></router-link>
     </div>
   </form>
   <p use aria-busy="true" v-else>Lade Inhalte ...</p>

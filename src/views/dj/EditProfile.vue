@@ -1,50 +1,43 @@
 <template>
   <small><active-dj>nicht eingeloggt</active-dj> @ EditProfile</small>
-  <h2>Profil verwalten</h2>
-
-  <p use aria-busy="true" v-if="dj === null">Lade Inhalte ...</p>
-  <div v-else>
-    <div class="profilCard">
-      <div style="margin-bottom: 8px">
-        <span class="profilText">Username:</span> {{ dj.username }}
-      </div>
-      <div style="margin-bottom: 8px"><span class="profilText">DJ Name:</span> {{ dj.djname }}</div>
-      <div style="margin-bottom: 8px"><span class="profilText">E-Mail:</span> {{ dj.email }}</div>
-      <div style="margin-bottom: 8px"><span class="profilText">Phone:</span> {{ dj.phone }}</div>
-      <div><span class="profilText">ID:</span> {{ dj.id }}</div>
-    </div>
-  </div>
+  <h2>
+    Profil von <strong>{{ dj.username }}</strong> verwalten
+  </h2>
 
   <p>Ändere hier deine Daten</p>
   <form @submit.prevent="submitForm">
     <div class="grid">
       <label for="Username"
         >Username: <span class="required">*</span
-        ><input type="text" name="username" required="required" @input="updateUserName"
+        ><input type="text" name="username" required="required" v-model="dj.username"
       /></label>
       <label for="djname"
         >DJ Name: <span class="required">*</span
-        ><input type="text" name="djname" required="required" @input="updateDJName"
+        ><input type="text" name="djname" required="required" v-model="dj.djname"
       /></label>
     </div>
     <div class="grid">
       <label for="email"
-        >E-Mail-Adresse: <input type="text" name="email" @input="updateEmail"
+        >E-Mail-Adresse: <input type="text" name="email" v-model="dj.email"
       /></label>
-      <label for="phone"
-        >Handynummer: <input type="text" name="phone" @input="updatePhone"
-      /></label>
+      <label for="phone">Handynummer: <input type="text" name="phone" v-model="dj.phone" /></label>
     </div>
-    <input type="submit" value="Profil speichern" />
+    <div class="grid">
+      <input type="submit" value="Profil speichern" />
+      <router-link to="/dj-overview"
+        ><button class="contrast">Zurück zur Übersicht</button></router-link
+      >
+    </div>
   </form>
 </template>
 
 <script>
 import { useDjStore } from '@/stores/DjStore'
 import ActiveDj from '@/components/ActiveDj.vue'
+import CreatePlaylist from './CreatePlaylist.vue'
 
 export default {
-  components: { ActiveDj },
+  components: { ActiveDj, CreatePlaylist },
 
   data() {
     return {
@@ -59,38 +52,11 @@ export default {
     useDjStore().updateData = useDjStore().activeDj
   },
   methods: {
-    updateUserName(event) {
-      useDjStore().updateData.username = event.target.value
-      console.log(useDjStore().updateData)
-    },
-    updateDJName(event) {
-      useDjStore().updateData.djname = event.target.value
-      console.log(useDjStore().updateData)
-    },
-    updateEmail(event) {
-      useDjStore().updateData.email = event.target.value
-      console.log(useDjStore().updateData)
-    },
-    updatePhone(event) {
-      useDjStore().updateData.phone = event.target.value
-      console.log(useDjStore().updateData)
-    },
     submitForm() {
       useDjStore().updateUserData()
-      // @click="this.$router.push({ path: '/dj-overview' })"
+      alert('User erfolgreich aktualisiert')
+      this.$router.push({ path: '/dj-overview' })
     }
   }
 }
 </script>
-
-<style>
-.profilCard {
-  border: 2px solid;
-  border-radius: 5px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-}
-.profilText {
-  font-weight: bold;
-}
-</style>

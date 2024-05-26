@@ -28,7 +28,9 @@
       </li>
     </ol>
   </form>
-  <router-link to="/dj-overview"><button>Zurück zur Übersicht</button></router-link>
+  <router-link to="/dj-overview"
+    ><button class="contrast">Zurück zur Übersicht</button></router-link
+  >
 </template>
 
 <script>
