@@ -41,7 +41,8 @@ active-dj {
 details {
   transition: all 0.5s ease-in-out;
 }
-details:hover {
+details[open] summary,
+details:hover summary {
   background: var(--pico-muted-border-color);
   transition: all 0.5s ease-in-out;
 }

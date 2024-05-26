@@ -11,9 +11,7 @@
       <li v-for="playlist in playlists" :key="playlist.id">
         <details name="accordion">
           <summary role="button" class="outline contrast">
-            <h4>{{ playlist.title }}</h4>
-            - Playlist ID: {{ playlist.id }} <br />
-            - DJ ID: {{ playlist.djId }}
+            {{ playlist.title }}
           </summary>
           <section class="grid">
             <!-- Button zum Bearbeiten der Playlist -->
@@ -26,7 +24,9 @@
     </ol>
   </form>
   <!-- Button zum Zurückgehen zur DJ-Übersicht -->
-  <router-link to="/dj-overview"><button>Zurück zur Übersicht</button></router-link>
+  <router-link to="/dj-overview"
+    ><button class="contrast">Zurück zur Übersicht</button></router-link
+  >
 </template>
 
 <script>

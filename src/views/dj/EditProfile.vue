@@ -22,16 +22,22 @@
       /></label>
       <label for="phone">Handynummer: <input type="text" name="phone" v-model="dj.phone" /></label>
     </div>
-    <input type="submit" value="Profil speichern" />
+    <div class="grid">
+      <input type="submit" value="Profil speichern" />
+      <router-link to="/dj-overview"
+        ><button class="contrast">Zurück zur Übersicht</button></router-link
+      >
+    </div>
   </form>
 </template>
 
 <script>
 import { useDjStore } from '@/stores/DjStore'
 import ActiveDj from '@/components/ActiveDj.vue'
+import CreatePlaylist from './CreatePlaylist.vue'
 
 export default {
-  components: { ActiveDj },
+  components: { ActiveDj, CreatePlaylist },
 
   data() {
     return {
