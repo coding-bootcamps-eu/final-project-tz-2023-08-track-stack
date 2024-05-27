@@ -25,7 +25,7 @@
             <button class="contrast btn-play">abspielen</button>
             <button class="contrast btn-deny">ablehnen</button>
           </div>
-          <figure>
+          <figure v-if="!isGuest">
             <figcaption>
               <strong>{{ request.who.name }}</strong>
             </figcaption>
