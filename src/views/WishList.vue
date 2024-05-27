@@ -1,5 +1,5 @@
 <template>
-  <small><active-dj>nicht eingeloggt</active-dj> @ WishList</small>
+  <active-dj v-if="isDjLoggedIn" class="menu">nicht eingeloggt</active-dj>
 
   <h2>Wunschliste</h2>
   <p>
@@ -20,14 +20,14 @@
           </p>
           <button @click="updateLikes(request)">Abstimmen 👍</button>
         </summary>
-        <section>
+        <section v-if="isDjLoggedIn">
           <div role="group">
             <button class="contrast btn-play">abspielen</button>
             <button class="contrast btn-deny">ablehnen</button>
           </div>
           <figure>
             <figcaption>
-              <!-- <time>23:55 Uhr</time>:  -->
+              <!-- <time>23:55 Uhr</time>: -->
               <strong>{{ request.who.name }}</strong>
             </figcaption>
             <blockquote>
@@ -40,11 +40,11 @@
     </li>
   </ol>
   <div class="grid">
-    <router-link to="/guest-overview">
+    <router-link v-if="!isDjLoggedIn" to="/guest-overview">
       <button>Gast Übersicht</button
       ><!-- muss dynamisch sein, Gast oder DJ -->
     </router-link>
-    <router-link to="/dj-overview">
+    <router-link v-if="isDjLoggedIn" to="/dj-overview">
       <button>DJ Übersicht</button
       ><!-- muss dynamisch sein, Gast oder DJ -->
     </router-link>
@@ -57,6 +57,7 @@ import ActiveDj from '@/components/ActiveDj.vue'
 export default {
   data() {
     return {
+      isDjLoggedIn: false,
       // Die Requests für ein bestimmtes Event
       requests: [],
       eventId: null
@@ -66,6 +67,7 @@ export default {
   components: { ActiveDj },
 
   created() {
+    this.isDjLoggedInMethode()
     this.getEventIdFromlocalStorage()
 
     // Event Source for streaming
@@ -86,6 +88,12 @@ export default {
     }
   },
   methods: {
+    isDjLoggedInMethode() {
+      const activeDjIdFromLocalStorage = localStorage.getItem('activeDjId')
+      if (activeDjIdFromLocalStorage) {
+        this.isDjLoggedIn = true
+      }
+    },
     async updateLikes(request) {
       // nur einmal pro gast
       request.likes = request.likes + 1

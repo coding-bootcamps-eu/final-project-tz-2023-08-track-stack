@@ -1,6 +1,6 @@
 <template>
   <div>
-    <small><active-dj>nicht eingeloggt</active-dj> @ CreatePlaylist</small>
+    <active-dj class="menu">nicht eingeloggt</active-dj>
     <h2>Playlist erstellen</h2>
 
     <nav>

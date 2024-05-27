@@ -1,7 +1,6 @@
 <template>
   <div>
-    <!-- Anzeige, dass der Benutzer nicht eingeloggt ist und Angabe des aktuellen Moduls -->
-    <small><active-dj>nicht eingeloggt</active-dj> @ DjOverview</small>
+    <active-dj class="menu">nicht eingeloggt</active-dj>
     <div>
       <h2>
         Playlist: <strong>{{ playlist.title }}</strong> ändern

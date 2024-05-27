@@ -1,5 +1,5 @@
 <template>
-  <small><active-dj>nicht eingeloggt</active-dj> @ CreateEvent</small>
+  <active-dj class="menu">nicht eingeloggt</active-dj>
   <h2>Event erstellen</h2>
   <p>Hier erstellst du deine Veranstaltung</p>
   <form @submit.prevent="addEvent()">

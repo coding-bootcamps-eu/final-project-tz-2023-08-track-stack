@@ -1,5 +1,5 @@
 <template>
-  <small><active-dj>nicht eingeloggt</active-dj> @ EditEvent</small>
+  <active-dj class="menu">nicht eingeloggt</active-dj>
   <h2 v-if="event">
     Event <strong>{{ event.title }}</strong> bearbeiten
   </h2>

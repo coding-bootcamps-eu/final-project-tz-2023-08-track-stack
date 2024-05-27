@@ -1,6 +1,4 @@
 <template>
-  <small><active-dj>nicht eingeloggt</active-dj> @ WishSong</small>
-
   <h2>Wünsch dir was!</h2>
   <p>Hier kannst du dir einen Song wünschen.</p>
   <form @submit.prevent="submitSong()">
