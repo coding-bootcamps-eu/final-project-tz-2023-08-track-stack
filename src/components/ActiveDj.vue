@@ -1,25 +1,30 @@
 <template>
-  <slot v-if="!activeDjId"></slot>
-  <span class="activedj">
-    {{ activeDjId }}
-  </span>
+  <slot v-if="!dj.id"></slot>
+  <span class="activedj">{{ dj.username }} </span>
 </template>
 
 <script>
+import { useDjStore } from '@/stores/DjStore'
 export default {
   data() {
     return {
-      activeDjId: '' // initialisation
+      activeDjId: '', // initialisation
+      dj: {}
     }
   },
   mounted() {
-    this.loadActiveDjIdFromLocalStorage()
+    this.handleInit()
   },
   methods: {
-    loadActiveDjIdFromLocalStorage() {
+    async handleInit() {
+      //lade den ActiveDj in den Store
+
+      await useDjStore().fetchActiveDj()
+      this.dj = useDjStore().activeDj
+
       const activeDjIdFromLocalStorage = localStorage.getItem('activeDjId')
-      if (activeDjIdFromLocalStorage) {
-        this.activeDjId = activeDjIdFromLocalStorage
+      if (!activeDjIdFromLocalStorage) {
+        this.dj = {}
       }
     }
   }

@@ -34,10 +34,9 @@
 <script>
 import { useDjStore } from '@/stores/DjStore'
 import ActiveDj from '@/components/ActiveDj.vue'
-import CreatePlaylist from './CreatePlaylist.vue'
 
 export default {
-  components: { ActiveDj, CreatePlaylist },
+  components: { ActiveDj },
 
   data() {
     return {
