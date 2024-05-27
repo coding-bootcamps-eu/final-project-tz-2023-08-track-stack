@@ -9,6 +9,31 @@
 
   <ol>
     <li v-for="request in sortedRequest" :key="request.id">
+      <article class="grid">
+        <hgroup>
+          <h3>{{ request.title }}</h3>
+          <p>{{ request.artist }}</p>
+        </hgroup>
+        <p class="votes">
+          <b>{{ request.likes }}</b> Stimmen gezählt
+        </p>
+        <div role="group">
+          <button class="contrast" @click.once="updateLikes(request)">Abstimmen 👍</button>
+          <button class="contrast btn-play">abspielen</button>
+          <button class="contrast btn-deny">ablehnen</button>
+        </div>
+      </article>
+      <footer>
+        <figure>
+          <figcaption>
+            <strong>{{ request.who.name }}</strong>
+          </figcaption>
+          <blockquote>
+            {{ request.message }}
+          </blockquote>
+        </figure>
+        <hr />
+      </footer>
       <details name="accordion">
         <summary role="button" class="grid outline contrast">
           <hgroup>
@@ -18,9 +43,7 @@
           <p class="votes">
             <b>{{ request.likes }}</b> Stimmen gezählt
           </p>
-          <button @click="toggleVote(request)">
-            {{ request.userHasVoted ? 'Zurücknehmen 👎' : 'Abstimmen 👍' }}
-          </button>
+          <button @click.once="updateLikes(request)">Abstimmen 👍</button>
         </summary>
         <section v-if="!isGuest">
           <div role="group">
@@ -45,7 +68,7 @@
       <button>Gast Übersicht</button
       ><!-- muss dynamisch sein, Gast oder DJ -->
     </router-link>
-    <router-link v-if="!isGuest" to="/dj-overview">
+    <router-link to="/dj-overview">
       <button>DJ Übersicht</button
       ><!-- muss dynamisch sein, Gast oder DJ -->
     </router-link>
@@ -58,49 +81,40 @@ import ActiveDj from '@/components/ActiveDj.vue'
 export default {
   data() {
     return {
+      // Die Requests für ein bestimmtes Event
       requests: [],
       eventId: null,
-      isGuest: false,
-      votes: {}
+      isGuest: false
     }
   },
 
   components: { ActiveDj },
 
   created() {
-    this.getEventIdFromLocalStorage()
+    this.getEventIdFromlocalStorage()
     this.checkGuestData()
 
+    // Event Source for streaming
     const eventSource = new EventSource('http://localhost:3000/stream/' + this.eventId)
 
     eventSource.addEventListener('message', (apievent) => {
-      this.requests = JSON.parse(apievent.data).map((request) => {
-        // Initialisiere userHasVoted für jeden request
-        request.userHasVoted = this.votes[request.id] || false
-        return request
-      })
+      this.requests = JSON.parse(apievent.data)
     })
   },
-
   computed: {
     sortedRequest() {
-      return this.requests.slice().sort((a, b) => b.likes - a.likes)
+      const sortedLikes = this.requests.slice()
+
+      // Feature, Timeout nach Klick + Vue Animationen
+      return sortedLikes.sort((a, b) => {
+        return b.likes - a.likes
+      })
     }
   },
-
   methods: {
-    async toggleVote(request) {
-      if (request.userHasVoted) {
-        // Stimme zurücknehmen
-        request.likes -= 1
-        request.userHasVoted = false
-        this.votes[request.id] = false
-      } else {
-        // Abstimmen
-        request.likes += 1
-        request.userHasVoted = true
-        this.votes[request.id] = true
-      }
+    async updateLikes(request) {
+      // nur einmal pro gast
+      request.likes = request.likes + 1
 
       await fetch(`http://localhost:3000/requests/${request.id}`, {
         method: 'PUT',
@@ -111,7 +125,8 @@ export default {
       })
     },
 
-    getEventIdFromLocalStorage() {
+    getEventIdFromlocalStorage() {
+      //EventId aus dem local Storage holen
       const eventDataFromLocalStorage = localStorage.getItem('eventData')
       if (eventDataFromLocalStorage) {
         const eventData = JSON.parse(eventDataFromLocalStorage)
@@ -120,8 +135,8 @@ export default {
     },
 
     checkGuestData() {
-      const guestDataFromLocalStorage = localStorage.getItem('guestData')
-      if (guestDataFromLocalStorage) {
+      const guestDataFromLocaleStorage = localStorage.getItem('guestData')
+      if (guestDataFromLocaleStorage) {
         this.isGuest = true
       }
     }
