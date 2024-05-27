@@ -22,12 +22,13 @@
         </summary>
         <section v-if="isDjLoggedIn">
           <div role="group">
+
             <button class="contrast btn-play">abspielen</button>
             <button class="contrast btn-deny">ablehnen</button>
           </div>
-          <figure>
+          <figure v-if="!isGuest">
             <figcaption>
-              <!-- <time>23:55 Uhr</time>: -->
+
               <strong>{{ request.who.name }}</strong>
             </figcaption>
             <blockquote>
@@ -60,7 +61,8 @@ export default {
       isDjLoggedIn: false,
       // Die Requests für ein bestimmtes Event
       requests: [],
-      eventId: null
+      eventId: null,
+      isGuest: false
     }
   },
 
@@ -69,6 +71,7 @@ export default {
   created() {
     this.isDjLoggedInMethode()
     this.getEventIdFromlocalStorage()
+    this.checkGuestData()
 
     // Event Source for streaming
     const eventSource = new EventSource('http://localhost:3000/stream/' + this.eventId)
@@ -113,6 +116,13 @@ export default {
       if (eventDataFromLocalStorage) {
         const eventData = JSON.parse(eventDataFromLocalStorage)
         this.eventId = eventData.id
+      }
+    },
+
+    checkGuestData() {
+      const guestDataFromLocaleStorage = localStorage.getItem('guestData')
+      if (guestDataFromLocaleStorage) {
+        this.isGuest = true
       }
     }
   }
