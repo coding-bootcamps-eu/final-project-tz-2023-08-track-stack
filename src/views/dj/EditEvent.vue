@@ -46,7 +46,6 @@
     </label>
     <hr />
     <h4>Veranstaltungsfoto</h4>
-    <label for="event-image">Bildmotiv auswählen:</label>
     <fieldset id="event-image">
       <div class="grid">
         <label for="default">
@@ -100,9 +99,13 @@
       </div>
     </fieldset>
     <div id="event-image">
-      <figure>
-        <img :src="getImagePath(event.eventImage)" :alt="event.eventImage" />
-        <figcaption>{{ event.eventImage }}</figcaption>
+      <figure class="chooseHeaderFigure">
+        <img
+          class="chooseHeaderImg"
+          :src="getImagePath(event.eventImage)"
+          :alt="event.eventImage"
+        />
+        <figcaption class="chooseHeaderFigcaption">{{ event.eventImage }}</figcaption>
       </figure>
     </div>
     <hr />
