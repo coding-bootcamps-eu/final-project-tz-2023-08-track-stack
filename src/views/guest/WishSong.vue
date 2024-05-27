@@ -12,6 +12,7 @@
       placeholder="Gib hier deinen Wunschtitel ein …"
       v-model="inputSongSearch"
       @input="getSuggestionFromApi"
+      required
     />
 
     <table v-if="suggestions.length > 0" class="dropdown">
@@ -117,13 +118,12 @@ export default {
       this.artist = `${song.artist}`
       this.title = `${song.title}`
       this.suggestions = [] // Schließe die Dropdown-Liste, nachdem ein Song ausgewählt wurde
-      console.log(this.selectedSong)
     },
 
     async submitSong() {
       try {
         //guestData aus dem locale storage holen
-        const guestData = localStorage.getItem('guestData')
+        const guestData = JSON.parse(localStorage.getItem('guestData'))
         if (!guestData) {
           throw new Error('Aktiver Gast nicht festgelegt.')
         }
@@ -135,7 +135,6 @@ export default {
           who: guestData,
           message: this.message
         }
-
         const response = await fetch('http://localhost:3000/requests', {
           method: 'POST',
           headers: {
@@ -148,14 +147,10 @@ export default {
           throw new Error('Fehler beim Senden der Daten')
         }
 
-        //hier die Rückantwort der Api erhalten und den Request bekommen
-        const requestData = await response.json()
-        console.log(requestData)
-
         // Erfolgreiches Senden der Daten, Weiterleitung zum Wunschliste
         this.$router.push({ path: '/wishlist' })
       } catch (error) {
-        alert('Fehler: Bitte trage deinen Wunschtitel ein.')
+        alert(error)
       }
     }
   }
