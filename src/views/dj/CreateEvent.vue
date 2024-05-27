@@ -215,3 +215,30 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+figure {
+  position: relative;
+  width: 100%; /* Optional: Setze die gewünschte Breite */
+  height: 300px; /* Höhe des sichtbaren Bereichs */
+  overflow: hidden; /* Versteckt den nicht sichtbaren Teil des Bildes */
+}
+
+img {
+  position: absolute;
+  top: -200px; /* Verschiebt das Bild um 200px nach oben */
+  width: 100%;
+  height: auto;
+}
+
+figcaption {
+  position: absolute;
+  bottom: 10px; /* Höhe anzupassen */
+  left: 0;
+  width: 100%;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5); /* Halbtransparenter Hintergrund */
+  color: white;
+  padding: 5px;
+}
+</style>
