@@ -24,11 +24,11 @@ export default {
       }
     },
     async handleInit() {
-      //lade den ActiveDj in den Store
-
+      //lade den ActiveDj aus dem Store
       await useDjStore().fetchActiveDj()
       this.dj = useDjStore().activeDj
 
+      //Bei Logout(localStorage ==leer), kein dj anzeigen
       const activeDjIdFromLocalStorage = localStorage.getItem('activeDjId')
       if (!activeDjIdFromLocalStorage) {
         this.dj = {}
