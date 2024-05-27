@@ -1,5 +1,5 @@
 <template>
-  <slot v-if="!dj.id"></slot>
+  <slot v-if="!activeDjId"></slot>
   <span class="activedj">{{ dj.username }} </span>
 </template>
 
@@ -8,14 +8,21 @@ import { useDjStore } from '@/stores/DjStore'
 export default {
   data() {
     return {
-      activeDjId: '', // initialisation
+      activeDjId: false, // initialisation
       dj: {}
     }
   },
   mounted() {
-    this.handleInit()
+    this.watchStorage(), this.handleInit()
   },
   methods: {
+    //zur Vermeidung des Flackerns, weil Pinia 1sekunde brauch
+    watchStorage() {
+      const activeDjIdFromLocalStorage = localStorage.getItem('activeDjId')
+      if (activeDjIdFromLocalStorage) {
+        this.activeDjId = true
+      }
+    },
     async handleInit() {
       //lade den ActiveDj in den Store
 
