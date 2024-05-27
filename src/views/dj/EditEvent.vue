@@ -189,8 +189,10 @@ export default {
           return '/images/header_business.jpg'
         case 'Festival':
           return '/images/header_festival.jpg'
+        case 'Default':
+          return 'images/header_default.jpg'
         default:
-          return '/images/header_default.jpg'
+          return this.event.eventImage
       }
     }
   }
