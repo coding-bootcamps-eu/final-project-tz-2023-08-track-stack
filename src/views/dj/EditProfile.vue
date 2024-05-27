@@ -1,5 +1,5 @@
 <template>
-  <small><active-dj>nicht eingeloggt</active-dj> @ EditProfile</small>
+  <active-dj class="menu">nicht eingeloggt</active-dj>
   <h2>
     Profil von <strong>{{ dj.username }}</strong> verwalten
   </h2>

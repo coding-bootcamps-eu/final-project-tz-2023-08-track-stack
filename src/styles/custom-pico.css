@@ -29,11 +29,14 @@ ol {
   padding-left: 0;
 }
 
-/* Active DJ Slot */
-
-active-dj {
+/* Active DJ Menü */
+.no-active-dj {
   color: red;
-  font-weight: bold;
+}
+
+.menu {
+  display: flex;
+  justify-content: flex-end;
 }
 
 /* summary */

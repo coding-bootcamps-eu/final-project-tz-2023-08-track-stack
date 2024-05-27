@@ -1,5 +1,5 @@
 <template>
-  <small><active-dj>nicht eingeloggt</active-dj> @ DjRegister</small>
+  <active-dj class="menu">nicht eingeloggt</active-dj>
   <h2>Register DJ</h2>
   <p>Hier kannst du dich als DJ registrieren</p>
   <form @submit.prevent="submitForm">

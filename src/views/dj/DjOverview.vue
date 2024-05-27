@@ -1,5 +1,6 @@
 <template>
-  <small><active-dj>nicht eingeloggt</active-dj> @ DjOverview</small>
+  <active-dj class="menu">nicht eingeloggt</active-dj>
+
   <h2>Übersicht DJ</h2>
   <p>Hier bist du auf deinem Dashboard</p>
   <div class="grid">

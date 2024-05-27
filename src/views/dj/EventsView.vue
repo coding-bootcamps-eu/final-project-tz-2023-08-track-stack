@@ -1,5 +1,5 @@
 <template>
-  <small><active-dj>nicht eingeloggt</active-dj> @ EventsView</small>
+  <active-dj class="menu">nicht eingeloggt</active-dj>
   <h2>Events verwalten</h2>
   <p>Hier verwaltest du deine Veranstaltungen</p>
   <form @submit.prevent>
