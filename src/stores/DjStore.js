@@ -47,7 +47,13 @@ export const useDjStore = defineStore('dj', {
     },
     // lade den activDj in den PiniaStore, über die Id aus dem localStorage
     async fetchActiveDj() {
-      await this.fetchDj(localStorage.getItem('activeDjId'))
+      const activeDjId = localStorage.getItem('activeDjId')
+
+      if (!activeDjId) {
+        return {} // Wenn kein activeDjId vorhanden ist, leeres Objekt zurückgeben
+      }
+
+      await this.fetchDj(activeDjId)
     },
 
     // Update den ActiveDj

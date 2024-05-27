@@ -1,25 +1,37 @@
 <template>
   <slot v-if="!activeDjId"></slot>
-  <span class="activedj">
-    {{ activeDjId }}
-  </span>
+  <span class="activedj">{{ dj.username }} </span>
 </template>
 
 <script>
+import { useDjStore } from '@/stores/DjStore'
 export default {
   data() {
     return {
-      activeDjId: '' // initialisation
+      activeDjId: false, // initialisation
+      dj: {}
     }
   },
   mounted() {
-    this.loadActiveDjIdFromLocalStorage()
+    this.watchStorage(), this.handleInit()
   },
   methods: {
-    loadActiveDjIdFromLocalStorage() {
+    //zur Vermeidung des Flackerns, weil Pinia 1sekunde brauch
+    watchStorage() {
       const activeDjIdFromLocalStorage = localStorage.getItem('activeDjId')
       if (activeDjIdFromLocalStorage) {
-        this.activeDjId = activeDjIdFromLocalStorage
+        this.activeDjId = true
+      }
+    },
+    async handleInit() {
+      //lade den ActiveDj aus dem Store
+      await useDjStore().fetchActiveDj()
+      this.dj = useDjStore().activeDj
+
+      //Bei Logout(localStorage ==leer), kein dj anzeigen
+      const activeDjIdFromLocalStorage = localStorage.getItem('activeDjId')
+      if (!activeDjIdFromLocalStorage) {
+        this.dj = {}
       }
     }
   }
