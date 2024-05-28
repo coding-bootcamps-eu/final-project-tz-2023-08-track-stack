@@ -48,7 +48,9 @@
       <PreviewCSV :previewData="csvArrayData"></PreviewCSV>
       <div class="grid">
         <input type="submit" value="Playlist hinzufügen" :disabled="!isFormValid" />
-        <router-link to="/dj-overview"><button class="contrast">zurück</button></router-link>
+        <div>
+          <router-link to="/dj-overview"><button class="contrast">zurück</button></router-link>
+        </div>
       </div>
     </form>
   </div>

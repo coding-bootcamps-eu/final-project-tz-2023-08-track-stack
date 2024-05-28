@@ -102,8 +102,12 @@
     <hr />
     <div class="grid">
       <input type="submit" value="Event hinzufügen" />
-      <router-link to="/events"><button>Weiter zu Event verwalten</button></router-link>
-      <router-link to="/dj-overview"><button class="contrast">zurück</button></router-link>
+      <div>
+        <router-link to="/events"><button>Weiter zu Event verwalten</button></router-link>
+      </div>
+      <div>
+        <router-link to="/dj-overview"><button class="contrast">zurück</button></router-link>
+      </div>
     </div>
   </form>
 </template>

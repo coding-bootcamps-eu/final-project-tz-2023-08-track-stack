@@ -24,7 +24,9 @@
         </div>
       </fieldset>
 
-      <router-link to="/register"><button class="secondary">Registrieren</button></router-link>
+      <div>
+        <router-link to="/register"><button class="secondary">Registrieren</button></router-link>
+      </div>
     </div>
   </form>
 </template>

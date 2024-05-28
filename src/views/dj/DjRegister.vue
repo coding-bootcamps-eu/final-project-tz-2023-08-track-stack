@@ -106,6 +106,11 @@ export default {
 }
 
 input[required] {
-  background-color: #fffbea;
+  background-color: #f8f1d3;
+}
+@media (prefers-color-scheme: dark) {
+  input:required {
+    background-color: #5b5b5b;
+  }
 }
 </style>
