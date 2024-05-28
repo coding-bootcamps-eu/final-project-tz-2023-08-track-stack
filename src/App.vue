@@ -7,7 +7,6 @@
     }"
   >
     <a href="/"><img class="img-logo" src="/images/logo_hulaloop.svg" alt="Logo Hulaloop" /></a>
-    <button v-if="isLoggedIn" @click="logout()">logout</button>
   </header>
   <!-- the choosen View-->
   <body>
@@ -39,15 +38,7 @@ export default {
       return eventStore.eventDataForGuest
     }
   },
-  methods: {
-    logout() {
-      // remove activeDjId from localstorage
-      localStorage.removeItem('activeDjId')
-      useDjStore().activeDjId = null
-      // redirect to login page
-      this.$router.push({ path: '/login' })
-    }
-  }
+  methods: {}
 }
 </script>
 
