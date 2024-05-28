@@ -1,5 +1,4 @@
 <template>
-  <active-dj class="menu">nicht eingeloggt</active-dj>
   <h2>Register DJ</h2>
   <p>Hier kannst du dich als DJ registrieren</p>
   <form @submit.prevent="submitForm">
@@ -37,10 +36,8 @@
 
 <script>
 import { useDjStore } from '@/stores/DjStore'
-import ActiveDj from '@/components/ActiveDj.vue'
 
 export default {
-  components: { ActiveDj },
   data() {
     return {
       isLoginValid: true,
