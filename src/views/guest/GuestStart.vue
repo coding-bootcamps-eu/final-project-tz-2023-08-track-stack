@@ -20,11 +20,10 @@
 </template>
 
 <script>
-import ActiveDj from '@/components/ActiveDj.vue'
 import { useEventStore } from '@/stores/EventStore'
 
 export default {
-  components: { ActiveDj },
+  components: {},
   data() {
     return {
       inputGuestName: '',
