@@ -60,12 +60,10 @@ export default {
   data() {
     return {
       isDjLoggedIn: false,
-      // Die Requests für ein bestimmtes Event
-
       requests: [],
       eventId: null,
       isGuest: false,
-      votes: {}
+      votes: JSON.parse(localStorage.getItem('votes')) || {}
     }
   },
 
@@ -74,7 +72,6 @@ export default {
   created() {
     this.isDjLoggedInMethode()
     this.getEventIdFromLocalStorage()
-
     this.checkGuestData()
 
     const eventSource = new EventSource('http://localhost:3000/stream/' + this.eventId)
@@ -86,8 +83,6 @@ export default {
         // `userHasVoted` wird auf `true` gesetzt, wenn der Benutzer bereits für diese Anfrage abgestimmt hat
         // Andernfalls wird `userHasVoted` auf `false` gesetzt
         request.userHasVoted = this.votes[request.id] || false
-
-        // Rückgabe des modifizierten `request`-Objekts
         return request
       })
     })
@@ -109,16 +104,17 @@ export default {
 
     async toggleVote(request) {
       if (request.userHasVoted) {
-        // Stimme zurücknehmen
         request.likes -= 1
         request.userHasVoted = false
         this.votes[request.id] = false
       } else {
-        // Abstimmen
         request.likes += 1
         request.userHasVoted = true
         this.votes[request.id] = true
       }
+
+      localStorage.setItem('votes', JSON.stringify(this.votes))
+
       await fetch(`http://localhost:3000/requests/${request.id}`, {
         method: 'PUT',
         headers: {
