@@ -1,5 +1,5 @@
 <template>
-  <small><active-dj>nicht eingeloggt</active-dj> @ EditEvent</small>
+  <active-dj class="menu">nicht eingeloggt</active-dj>
   <h2 v-if="event">
     Event <strong>{{ event.title }}</strong> bearbeiten
   </h2>
@@ -46,7 +46,6 @@
     </label>
     <hr />
     <h4>Veranstaltungsfoto</h4>
-    <label for="event-image">Bildmotiv auswählen:</label>
     <fieldset id="event-image">
       <div class="grid">
         <label for="default">
@@ -100,9 +99,13 @@
       </div>
     </fieldset>
     <div id="event-image">
-      <figure>
-        <img :src="getImagePath(event.eventImage)" :alt="event.eventImage" />
-        <figcaption>{{ event.eventImage }}</figcaption>
+      <figure class="chooseHeaderFigure">
+        <img
+          class="chooseHeaderImg"
+          :src="getImagePath(event.eventImage)"
+          :alt="event.eventImage"
+        />
+        <figcaption class="chooseHeaderFigcaption">{{ event.eventImage }}</figcaption>
       </figure>
     </div>
     <hr />
@@ -186,8 +189,10 @@ export default {
           return '/images/header_business.jpg'
         case 'Festival':
           return '/images/header_festival.jpg'
+        case 'Default':
+          return 'images/header_default.jpg'
         default:
-          return '/images/header_default.jpg'
+          return this.event.eventImage
       }
     }
   }

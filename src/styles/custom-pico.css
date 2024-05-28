@@ -29,11 +29,14 @@ ol {
   padding-left: 0;
 }
 
-/* Active DJ Slot */
-
-active-dj {
+/* Active DJ Menü */
+.no-active-dj {
   color: red;
-  font-weight: bold;
+}
+
+.menu {
+  display: flex;
+  justify-content: flex-end;
 }
 
 /* summary */
@@ -45,4 +48,30 @@ details[open] summary,
 details:hover summary {
   background: var(--pico-muted-border-color);
   transition: all 0.5s ease-in-out;
+}
+
+/* Auswahl Header Figure*/
+.chooseHeaderFigure {
+  position: relative;
+  width: 100%; /* Optional: Setze die gewünschte Breite */
+  height: 300px; /* Höhe des sichtbaren Bereichs */
+  overflow: hidden; /* Versteckt den nicht sichtbaren Teil des Bildes */
+}
+
+.chooseHeaderImg {
+  position: absolute;
+  top: -200px; /* Verschiebt das Bild um 200px nach oben */
+  width: 100%;
+  height: auto;
+}
+
+.chooseHeaderFigcaption {
+  position: absolute;
+  bottom: 10px; /* Höhe anzupassen */
+  left: 0;
+  width: 100%;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5); /* Halbtransparenter Hintergrund */
+  color: white;
+  padding: 5px;
 }

@@ -1,6 +1,5 @@
 <template>
-  <!-- Anzeige des DJ-Status und des aktuellen Moduls -->
-  <small><active-dj>nicht eingeloggt</active-dj> @ PlaylistView</small>
+  <active-dj class="menu">nicht eingeloggt</active-dj>
   <h2>Playlisten verwalten</h2>
 
   <p>Hier verwaltest du deine Playlisten</p>

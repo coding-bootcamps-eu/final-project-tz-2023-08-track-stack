@@ -1,5 +1,4 @@
 <template>
-  <small><active-dj>nicht eingeloggt</active-dj> @ GuestOverview</small>
   <h2>Hallo {{ this.guestData.name }}!</h2>
   <p>
     Hier bist du auf deinem Dashboard. Du kannst dir Wünsche erfüllen oder auf bestehende Wünsche

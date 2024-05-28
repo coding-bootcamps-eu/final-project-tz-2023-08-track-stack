@@ -1,5 +1,5 @@
 <template>
-  <small><active-dj>nicht eingeloggt</active-dj> @ CreateEvent</small>
+  <active-dj class="menu">nicht eingeloggt</active-dj>
   <h2>Event erstellen</h2>
   <p>Hier erstellst du deine Veranstaltung</p>
   <form @submit.prevent="addEvent()">
@@ -26,7 +26,6 @@
     </div>
     <hr />
     <h4>Playlist</h4>
-    <label for="event-playlist">Playlist auswählen:</label>
     <select name="event-playlist" v-model="selectedPlaylistId">
       <option v-for="playlist in playlists" :key="playlist.id" :value="playlist.id">
         {{ playlist.title }}
@@ -34,7 +33,6 @@
     </select>
     <hr />
     <h4>Veranstaltungsfoto</h4>
-    <label for="event-image">Bildmotiv auswählen:</label>
     <fieldset id="event-image">
       <div class="grid">
         <label for="default">
@@ -88,9 +86,13 @@
       </div>
     </fieldset>
     <div id="event-image">
-      <figure>
-        <img :src="getImagePath(selectedEventImage)" :alt="selectedEventImage" />
-        <figcaption>{{ selectedEventImage }}</figcaption>
+      <figure class="chooseHeaderFigure">
+        <img
+          class="chooseHeaderImg"
+          :src="getImagePath(selectedEventImage)"
+          :alt="selectedEventImage"
+        />
+        <figcaption class="chooseHeaderFigcaption">{{ selectedEventImage }}</figcaption>
       </figure>
     </div>
     <hr />

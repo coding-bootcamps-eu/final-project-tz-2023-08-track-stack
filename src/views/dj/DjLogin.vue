@@ -1,5 +1,5 @@
 <template>
-  <small><active-dj>nicht eingeloggt</active-dj> @ DjLogin</small>
+  <!-- <active-dj class="menu">nicht eingeloggt</active-dj> -->
   <h2>Login</h2>
   <p>
     Herzlich Willkommen bei Hulaloop, zum einloggen gib einfach deinen DJ-Namen ein.<br />

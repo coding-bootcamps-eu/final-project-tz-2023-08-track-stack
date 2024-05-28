@@ -1,5 +1,4 @@
 <template>
-  <small><active-dj>nicht eingeloggt</active-dj> @ GuestStart</small>
   <h3>Schön, dass du da bist!</h3>
   <p>
     Herzlich Willkommen bei Hulaloop, die App wo Musikwünsche wahr werden. Gib einfach deinen Namen

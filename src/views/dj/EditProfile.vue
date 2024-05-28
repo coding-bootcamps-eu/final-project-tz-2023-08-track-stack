@@ -1,5 +1,5 @@
 <template>
-  <small><active-dj>nicht eingeloggt</active-dj> @ EditProfile</small>
+  <active-dj class="menu">nicht eingeloggt</active-dj>
   <h2>
     Profil von <strong>{{ dj.username }}</strong> verwalten
   </h2>
@@ -34,10 +34,9 @@
 <script>
 import { useDjStore } from '@/stores/DjStore'
 import ActiveDj from '@/components/ActiveDj.vue'
-import CreatePlaylist from './CreatePlaylist.vue'
 
 export default {
-  components: { ActiveDj, CreatePlaylist },
+  components: { ActiveDj },
 
   data() {
     return {
