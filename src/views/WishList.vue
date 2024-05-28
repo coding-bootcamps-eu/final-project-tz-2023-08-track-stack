@@ -61,10 +61,8 @@ export default {
     return {
       isDjLoggedIn: false,
       // Die Requests für ein bestimmtes Event
-
       requests: [],
       eventId: null,
-      isGuest: false,
       votes: {}
     }
   },
@@ -74,8 +72,6 @@ export default {
   created() {
     this.isDjLoggedInMethode()
     this.getEventIdFromLocalStorage()
-
-    this.checkGuestData()
 
     const eventSource = new EventSource('http://localhost:3000/stream/' + this.eventId)
 
@@ -129,17 +125,19 @@ export default {
     },
 
     getEventIdFromLocalStorage() {
-      const eventDataFromLocalStorage = localStorage.getItem('eventData')
-      if (eventDataFromLocalStorage) {
-        const eventData = JSON.parse(eventDataFromLocalStorage)
-        this.eventId = eventData.id
+      if (localStorage.getItem('guestData')) {
+        const eventDataFromLocalStorage = localStorage.getItem('eventData')
+        if (eventDataFromLocalStorage) {
+          const eventData = JSON.parse(eventDataFromLocalStorage)
+          this.eventId = eventData.id
+        }
       }
-    },
 
-    checkGuestData() {
-      const guestDataFromLocalStorage = localStorage.getItem('guestData')
-      if (guestDataFromLocalStorage) {
-        this.isGuest = true
+      if (localStorage.getItem('currentEventId')) {
+        const eventIdFromLocalStorage = localStorage.getItem('currentEventId')
+        if (eventIdFromLocalStorage) {
+          this.eventId = eventIdFromLocalStorage
+        }
       }
     }
   }
