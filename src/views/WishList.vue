@@ -106,10 +106,19 @@ export default {
         this.isDjLoggedIn = true
       }
     },
-    async updateLikes(request) {
-      // nur einmal pro gast
-      request.likes = request.likes + 1
 
+    async toggleVote(request) {
+      if (request.userHasVoted) {
+        // Stimme zurücknehmen
+        request.likes -= 1
+        request.userHasVoted = false
+        this.votes[request.id] = false
+      } else {
+        // Abstimmen
+        request.likes += 1
+        request.userHasVoted = true
+        this.votes[request.id] = true
+      }
       await fetch(`http://localhost:3000/requests/${request.id}`, {
         method: 'PUT',
         headers: {
