@@ -142,19 +142,8 @@ export default {
 
   methods: {
     async fetchPlaylists() {
-      //nur Playlists vom eingeloggten (activeDj) Dj anzeigen
-      const localStorageDjId = localStorage.getItem('activeDjId')
-      if (!localStorageDjId) {
-        // Wenn activeDjId nicht im localStorage vorhanden ist
-        return
-      }
-
-      await usePlaylistStore().fetchPlaylists()
-
-      // Die playlists anhand der localStorageDjId filtern
-      this.playlists = usePlaylistStore().playlists.filter(
-        (playlist) => playlist.djId === localStorageDjId
-      )
+      await usePlaylistStore().fetchPlaylistsForLocalStoredDJ()
+      this.playlists = usePlaylistStore().playlists
     },
 
     getImagePath(image) {

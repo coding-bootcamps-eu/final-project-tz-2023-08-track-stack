@@ -42,6 +42,19 @@ export const usePlaylistStore = defineStore('playlist', {
         console.error(error)
       }
     },
+    async fetchPlaylistsForLocalStoredDJ() {
+      const localStorageDjId = localStorage.getItem('activeDjId')
+      if (!localStorageDjId) {
+        // Wenn activeDjId nicht im localStorage vorhanden ist
+        return
+      }
+      await usePlaylistStore().fetchPlaylists()
+      //nur Playlists vom eingeloggten (activeDj) Dj anzeigen
+      // Die playlists anhand der localStorageDjId filtern
+      this.playlists = usePlaylistStore().playlists.filter(
+        (playlist) => playlist.djId === localStorageDjId
+      )
+    },
 
     // Holt eine spezifische Playlist vom API-Server anhand der Playlist-ID
     async fetchPlaylist(playlistId) {
