@@ -6,8 +6,12 @@
     <details v-else class="dropdown">
       <summary class="summary activedj">{{ dj.username }}:</summary>
       <ul dir="rtl">
-        <li><a href="#">Profile</a></li>
-        <li><a href="#">Logout</a></li>
+        <li>
+          <router-link to="/edit-profile"><a>Profile ✍️</a></router-link>
+        </li>
+        <li>
+          <router-link to="/login"><a @click="logout()">Logout ❌</a></router-link>
+        </li>
       </ul>
     </details>
   </span>
@@ -26,6 +30,11 @@ export default {
     this.isDjLoggedInMethode(), this.handleInit()
   },
   methods: {
+    logout() {
+      // remove activeDjId from localstorage
+      localStorage.removeItem('activeDjId')
+      useDjStore().activeDjId = null
+    },
     //zur Vermeidung des Flackerns, weil Pinia 1sekunde brauch
     isDjLoggedInMethode() {
       const activeDjIdFromLocalStorage = localStorage.getItem('activeDjId')
