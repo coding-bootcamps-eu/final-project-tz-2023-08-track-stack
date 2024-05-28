@@ -70,6 +70,12 @@ const router = createRouter({
       component: () => import('../views/guest/GuestOverview.vue')
     },
     {
+      path: '/guest-edit-profile',
+      name: 'guest-edit-profile',
+      component: () => import('../views/guest/GuestEditProfile.vue')
+    },
+
+    {
       path: '/wishlist',
       name: 'wishlist',
       component: () => import('../views/WishList.vue')
