@@ -1,7 +1,7 @@
 <template>
   <h2>Wünsch dir was!</h2>
   <p>Hier kannst du dir einen Song wünschen.</p>
-  <form @submit.prevent="submitSong()">
+  <form @submit.prevent="submitSong">
     <label class="hidden" for="song-search">Suche nach Titel oder Interpret:</label><br />
     <input
       type="search"
@@ -34,17 +34,15 @@
       placeholder="Möchtest du jemanden grüßen oder hast eine Bitte?"
     ></textarea
     ><br />
-    <label for="anonym"
-      ><input type="checkbox" name="anonym" id="anonym" />Ich möchte anonym bleiben</label
-    >
+    <label for="anonym">
+      <input type="checkbox" name="anonym" id="anonym" />Ich möchte anonym bleiben
+    </label>
     <hr />
     <div class="grid">
       <input type="submit" value="Wunsch abschicken" />
-      <div>
-        <router-link to="/guest-overview"
-          ><button class="secondary">Zurück zur Übersicht</button></router-link
-        >
-      </div>
+      <router-link to="/guest-overview">
+        <button class="secondary">Zurück zur Übersicht</button>
+      </router-link>
     </div>
   </form>
 </template>
@@ -60,16 +58,17 @@ export default {
       selectedSong: null,
       message: '',
       artist: null,
-      title: null
+      title: null,
+      requests: [] // requests als leeres Array initialisieren
     }
   },
 
   created() {
     this.loadEventDataFromLocalStorage()
+    this.loadRequestsFromApi()
   },
 
   computed: {
-    //Die Event Daten aus dem Store holen
     eventData() {
       const eventStore = useEventStore()
       return eventStore.eventDataForGuest
@@ -78,26 +77,31 @@ export default {
 
   methods: {
     loadEventDataFromLocalStorage() {
-      //Event Daten auch aus dem local Storage holen
       const eventDataFromLocalStorage = localStorage.getItem('eventData')
       if (eventDataFromLocalStorage) {
         const eventStore = useEventStore()
-
         eventStore.setEventDataFromGuestStart(JSON.parse(eventDataFromLocalStorage))
+      }
+    },
+
+    async loadRequestsFromApi() {
+      try {
+        const response = await fetch(`http://localhost:3000/requests?eventId=${this.eventData.id}`)
+        if (response.ok) {
+          this.requests = await response.json()
+        }
+      } catch (error) {
+        console.error(error)
       }
     },
 
     async getSuggestionFromApi() {
       try {
-        // Eine Playlist mit ihrer ID fetchen
-
         const response = await fetch(`http://localhost:3000/playlists/${this.eventData.playlistId}`)
-
         if (response.ok) {
           const playlistFromApi = await response.json()
           const searchText = this.inputSongSearch.toLowerCase()
 
-          // Filtere die Songs, die mit dem eingegebenen Buchstaben beginnen
           this.suggestions = playlistFromApi.songs.filter((song) => {
             const title = song.title.toLowerCase()
             const artist = song.artist.toLowerCase()
@@ -115,21 +119,37 @@ export default {
       this.selectedSong = song
       this.artist = `${song.artist}`
       this.title = `${song.title}`
-      this.suggestions = [] // Schließe die Dropdown-Liste, nachdem ein Song ausgewählt wurde
+      this.suggestions = []
     },
 
     async submitSong() {
       try {
-        //guestData aus dem locale storage holen
         const guestData = JSON.parse(localStorage.getItem('guestData'))
         if (!guestData) {
           throw new Error('Aktiver Gast nicht festgelegt.')
         }
 
+        const existingRequest = this.requests.find(
+          (request) => request.title === this.title && request.artist === this.artist
+        )
+
+        if (existingRequest) {
+          const userConfirmed = confirm(
+            'Der gewünschte Musikwunsch steht bereits auf der Liste. Möchtest du stattdessen dafür deine Stimme geben?'
+          )
+          if (userConfirmed) {
+            await this.toggleVote(existingRequest)
+            this.$router.push({ path: '/wishlist' })
+            return
+          } else {
+            return
+          }
+        }
+
         const dataToSend = {
-          eventId: this.eventData.id, //required
-          artist: this.artist, //required
-          title: this.title, //required
+          eventId: this.eventData.id,
+          artist: this.artist,
+          title: this.title,
           who: guestData,
           message: this.message
         }
@@ -145,10 +165,26 @@ export default {
           throw new Error('Fehler beim Senden der Daten')
         }
 
-        // Erfolgreiches Senden der Daten, Weiterleitung zum Wunschliste
         this.$router.push({ path: '/wishlist' })
       } catch (error) {
         alert(error)
+      }
+    },
+
+    async toggleVote(request) {
+      try {
+        request.likes += 1
+
+        await fetch(`http://localhost:3000/requests/${request.id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(request)
+        })
+      } catch (error) {
+        console.error(error)
+        alert('Fehler beim Abstimmen.')
       }
     }
   }

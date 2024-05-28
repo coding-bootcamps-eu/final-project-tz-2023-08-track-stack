@@ -16,8 +16,8 @@
               <td>{{ eventData.description }}</td>
             </tr>
             <tr>
-              <td><strong>Datum</strong></td>
-              <td>{{ eventData.startDate }}</td>
+              <td><strong>Datum / Uhrzeit</strong></td>
+              <td>{{ formatDateTime(eventData.startDate) }}</td>
             </tr>
             <tr>
               <td><strong>Veranstalter</strong></td>
@@ -33,12 +33,9 @@
     </section>
   </article>
   <div class="grid">
-    <div>
-      <router-link to="/wishsong"><button>Song wünschen</button></router-link>
-    </div>
-    <div>
-      <router-link to="/wishlist"><button>Zur Wunschliste</button></router-link>
-    </div>
+    <router-link to="/wishsong"><button>Song wünschen</button></router-link>
+    <router-link to="/guest-edit-profile"><button>Profil ändern</button></router-link>
+    <router-link to="/wishlist"><button>Zur Wunschliste</button></router-link>
   </div>
 </template>
 
@@ -85,6 +82,18 @@ export default {
 
         eventStore.setEventDataFromGuestStart(JSON.parse(eventDataFromLocalStorage))
       }
+    },
+    formatDateTime(dateTime) {
+      const options = {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      }
+      const date = new Date(dateTime)
+      return `${date.toLocaleDateString('de-DE', options).replace(',', ' um')} Uhr`
     }
   }
 }
