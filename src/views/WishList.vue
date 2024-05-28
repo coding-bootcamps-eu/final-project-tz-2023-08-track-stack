@@ -77,7 +77,11 @@ export default {
     const eventSource = new EventSource('http://localhost:3000/stream/' + this.eventId)
 
     eventSource.addEventListener('message', (apievent) => {
+      // Parsen der empfangenen Daten vom Server
       this.requests = JSON.parse(apievent.data).map((request) => {
+        // Initialisiere die Eigenschaft `userHasVoted` für jede Anfrage
+        // `userHasVoted` wird auf `true` gesetzt, wenn der Benutzer bereits für diese Anfrage abgestimmt hat
+        // Andernfalls wird `userHasVoted` auf `false` gesetzt
         request.userHasVoted = this.votes[request.id] || false
         return request
       })
