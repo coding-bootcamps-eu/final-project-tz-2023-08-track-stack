@@ -4,19 +4,31 @@
   <h2>Übersicht DJ</h2>
   <p>Hier bist du auf deinem Dashboard</p>
   <div class="grid">
-    <router-link class="" to="/create-event"><button>Event erstellen ➕</button></router-link>
-    <router-link class="" to="/create-playlist"><button>Playlist erstellen ➕</button></router-link>
+    <div>
+      <router-link class="" to="/create-event"><button>Event erstellen ➕</button></router-link>
+    </div>
+    <div>
+      <router-link class="" to="/create-playlist"
+        ><button>Playlist erstellen ➕</button></router-link
+      >
+    </div>
   </div>
   <hr />
   <div class="grid">
-    <router-link class="" to="/events"><button>Deine Events ⚙️</button></router-link>
-    <router-link class="" to="/playlists"><button>Deine Playlists ⚙️</button></router-link>
+    <div>
+      <router-link class="" to="/events"><button>Deine Events ⚙️</button></router-link>
+    </div>
+    <div>
+      <router-link class="" to="/playlists"><button>Deine Playlists ⚙️</button></router-link>
+    </div>
   </div>
   <hr />
   <div class="grid">
-    <router-link class="" to="/wishlist"
-      ><button class="contrast">Zur Wunschliste 🎵</button></router-link
-    >
+    <div>
+      <router-link class="" to="/wishlist"
+        ><button class="contrast">Zur Wunschliste 🎵</button></router-link
+      >
+    </div>
   </div>
 </template>
 
