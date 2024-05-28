@@ -25,13 +25,11 @@
 
         <section v-if="isDjLoggedIn">
           <div role="group">
-
             <button class="contrast btn-play">abspielen</button>
             <button class="contrast btn-deny">ablehnen</button>
           </div>
           <figure>
             <figcaption>
-
               <strong>{{ request.who.name }}</strong>
             </figcaption>
             <blockquote>
@@ -49,7 +47,6 @@
       ><!-- muss dynamisch sein, Gast oder DJ -->
     </router-link>
     <router-link v-if="isDjLoggedIn" to="/dj-overview">
-
       <button>DJ Übersicht</button
       ><!-- muss dynamisch sein, Gast oder DJ -->
     </router-link>
@@ -62,7 +59,6 @@ import ActiveDj from '@/components/ActiveDj.vue'
 export default {
   data() {
     return {
-
       isDjLoggedIn: false,
       // Die Requests für ein bestimmtes Event
 
@@ -76,9 +72,8 @@ export default {
   components: { ActiveDj },
 
   created() {
-
     this.isDjLoggedInMethode()
-    this.getEventIdFromlocalStorage()
+    this.getEventIdFromLocalStorage()
 
     this.checkGuestData()
 
@@ -105,7 +100,6 @@ export default {
   },
 
   methods: {
-
     isDjLoggedInMethode() {
       const activeDjIdFromLocalStorage = localStorage.getItem('activeDjId')
       if (activeDjIdFromLocalStorage) {
@@ -115,7 +109,6 @@ export default {
     async updateLikes(request) {
       // nur einmal pro gast
       request.likes = request.likes + 1
-
 
       await fetch(`http://localhost:3000/requests/${request.id}`, {
         method: 'PUT',
