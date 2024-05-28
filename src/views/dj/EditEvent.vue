@@ -126,6 +126,7 @@
 import QrCodeGenerator2 from '@/components/QrCodeGenerator2.vue'
 import ActiveDj from '@/components/ActiveDj.vue'
 import { useEventStore } from '@/stores/EventStore'
+import { usePlaylistStore } from '@/stores/PlaylistStore'
 
 export default {
   components: { ActiveDj, QrCodeGenerator2 },
@@ -138,7 +139,9 @@ export default {
   },
 
   async created() {
-    await this.loadPlaylists()
+    //Playlists
+    await this.fetchPlaylists()
+    //
     const eventStore = useEventStore()
     eventStore.loadCurrentEventFromLocalStorage()
     if (eventStore.currentEventId) {
@@ -153,16 +156,9 @@ export default {
   },
 
   methods: {
-    async loadPlaylists() {
-      try {
-        const response = await fetch('http://localhost:3000/playlists')
-        if (!response.ok) {
-          throw new Error('Failed to fetch playlists from API')
-        }
-        this.playlists = await response.json()
-      } catch (error) {
-        console.error('Fehler beim Laden der Playlists:', error)
-      }
+    async fetchPlaylists() {
+      await usePlaylistStore().fetchPlaylistsForLocalStoredDJ()
+      this.playlists = usePlaylistStore().playlists
     },
 
     async updateEvent() {
