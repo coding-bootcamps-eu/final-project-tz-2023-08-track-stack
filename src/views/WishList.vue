@@ -18,17 +18,18 @@
           <p class="votes">
             <b>{{ request.likes }}</b> Stimmen gezählt
           </p>
-          <button @click="updateLikes(request)">Abstimmen 👍</button>
+          <button @click="toggleVote(request)">
+            {{ request.userHasVoted ? 'Zurücknehmen 👎' : 'Abstimmen 👍' }}
+          </button>
         </summary>
+
         <section v-if="isDjLoggedIn">
           <div role="group">
-
             <button class="contrast btn-play">abspielen</button>
             <button class="contrast btn-deny">ablehnen</button>
           </div>
-          <figure v-if="!isGuest">
+          <figure>
             <figcaption>
-
               <strong>{{ request.who.name }}</strong>
             </figcaption>
             <blockquote>
@@ -60,9 +61,11 @@ export default {
     return {
       isDjLoggedIn: false,
       // Die Requests für ein bestimmtes Event
+
       requests: [],
       eventId: null,
-      isGuest: false
+      isGuest: false,
+      votes: {}
     }
   },
 
@@ -70,26 +73,32 @@ export default {
 
   created() {
     this.isDjLoggedInMethode()
-    this.getEventIdFromlocalStorage()
+    this.getEventIdFromLocalStorage()
+
     this.checkGuestData()
 
-    // Event Source for streaming
     const eventSource = new EventSource('http://localhost:3000/stream/' + this.eventId)
 
     eventSource.addEventListener('message', (apievent) => {
-      this.requests = JSON.parse(apievent.data)
+      // Parsen der empfangenen Daten vom Server
+      this.requests = JSON.parse(apievent.data).map((request) => {
+        // Initialisiere die Eigenschaft `userHasVoted` für jede Anfrage
+        // `userHasVoted` wird auf `true` gesetzt, wenn der Benutzer bereits für diese Anfrage abgestimmt hat
+        // Andernfalls wird `userHasVoted` auf `false` gesetzt
+        request.userHasVoted = this.votes[request.id] || false
+
+        // Rückgabe des modifizierten `request`-Objekts
+        return request
+      })
     })
   },
+
   computed: {
     sortedRequest() {
-      const sortedLikes = this.requests.slice()
-
-      // Feature, Timeout nach Klick + Vue Animationen
-      return sortedLikes.sort((a, b) => {
-        return b.likes - a.likes
-      })
+      return this.requests.slice().sort((a, b) => b.likes - a.likes)
     }
   },
+
   methods: {
     isDjLoggedInMethode() {
       const activeDjIdFromLocalStorage = localStorage.getItem('activeDjId')
@@ -97,10 +106,19 @@ export default {
         this.isDjLoggedIn = true
       }
     },
-    async updateLikes(request) {
-      // nur einmal pro gast
-      request.likes = request.likes + 1
 
+    async toggleVote(request) {
+      if (request.userHasVoted) {
+        // Stimme zurücknehmen
+        request.likes -= 1
+        request.userHasVoted = false
+        this.votes[request.id] = false
+      } else {
+        // Abstimmen
+        request.likes += 1
+        request.userHasVoted = true
+        this.votes[request.id] = true
+      }
       await fetch(`http://localhost:3000/requests/${request.id}`, {
         method: 'PUT',
         headers: {
@@ -110,8 +128,7 @@ export default {
       })
     },
 
-    getEventIdFromlocalStorage() {
-      //EventId aus dem local Storage holen
+    getEventIdFromLocalStorage() {
       const eventDataFromLocalStorage = localStorage.getItem('eventData')
       if (eventDataFromLocalStorage) {
         const eventData = JSON.parse(eventDataFromLocalStorage)
@@ -120,8 +137,8 @@ export default {
     },
 
     checkGuestData() {
-      const guestDataFromLocaleStorage = localStorage.getItem('guestData')
-      if (guestDataFromLocaleStorage) {
+      const guestDataFromLocalStorage = localStorage.getItem('guestData')
+      if (guestDataFromLocalStorage) {
         this.isGuest = true
       }
     }
