@@ -40,19 +40,19 @@
     <hr />
     <div class="grid">
       <input type="submit" value="Wunsch abschicken" />
-      <router-link to="/guest-overview"
-        ><button class="secondary">Zurück zur Übersicht</button></router-link
-      >
+      <div>
+        <router-link to="/guest-overview"
+          ><button class="secondary">Zurück zur Übersicht</button></router-link
+        >
+      </div>
     </div>
   </form>
 </template>
 
 <script>
-import ActiveDj from '@/components/ActiveDj.vue'
 import { useEventStore } from '@/stores/EventStore'
 
 export default {
-  components: { ActiveDj },
   data() {
     return {
       inputSongSearch: '',

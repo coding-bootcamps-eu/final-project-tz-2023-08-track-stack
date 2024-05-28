@@ -42,14 +42,18 @@
     </li>
   </ol>
   <div class="grid">
-    <router-link v-if="!isDjLoggedIn" to="/guest-overview">
-      <button>Gast Übersicht</button
-      ><!-- muss dynamisch sein, Gast oder DJ -->
-    </router-link>
-    <router-link v-if="isDjLoggedIn" to="/dj-overview">
-      <button>DJ Übersicht</button
-      ><!-- muss dynamisch sein, Gast oder DJ -->
-    </router-link>
+    <div>
+      <router-link v-if="!isDjLoggedIn" to="/guest-overview">
+        <button>Gast Übersicht</button
+        ><!-- muss dynamisch sein, Gast oder DJ -->
+      </router-link>
+    </div>
+    <div>
+      <router-link v-if="isDjLoggedIn" to="/dj-overview">
+        <button>DJ Übersicht</button
+        ><!-- muss dynamisch sein, Gast oder DJ -->
+      </router-link>
+    </div>
   </div>
 </template>
 

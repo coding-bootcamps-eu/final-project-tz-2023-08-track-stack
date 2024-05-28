@@ -33,17 +33,19 @@
     </section>
   </article>
   <div class="grid">
-    <router-link to="/wishsong"><button>Song wünschen</button></router-link>
-    <router-link to="/wishlist"><button>Zur Wunschliste</button></router-link>
+    <div>
+      <router-link to="/wishsong"><button>Song wünschen</button></router-link>
+    </div>
+    <div>
+      <router-link to="/wishlist"><button>Zur Wunschliste</button></router-link>
+    </div>
   </div>
 </template>
 
 <script>
-import ActiveDj from '@/components/ActiveDj.vue'
 import { useEventStore } from '@/stores/EventStore'
 
 export default {
-  components: { ActiveDj },
   data() {
     return {
       guestData: null // Hier werden die Daten aus dem Local Storage gespeichert
