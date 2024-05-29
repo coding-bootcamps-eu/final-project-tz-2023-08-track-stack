@@ -35,7 +35,8 @@
     ></textarea
     ><br />
     <label for="anonym">
-      <input type="checkbox" name="anonym" id="anonym" />Ich möchte anonym bleiben
+      <input type="checkbox" name="anonym" id="anonym" v-model="isAnonym" />Ich möchte anonym
+      bleiben
     </label>
     <hr />
     <div class="grid">
@@ -59,7 +60,8 @@ export default {
       message: '',
       artist: null,
       title: null,
-      requests: [] // requests als leeres Array initialisieren
+      requests: [], // requests als leeres Array initialisieren
+      isAnonym: false
     }
   },
 
@@ -150,9 +152,14 @@ export default {
           eventId: this.eventData.id,
           artist: this.artist,
           title: this.title,
-          who: guestData,
           message: this.message
         }
+
+        // Füge den who-Key hinzu, wenn isAnonym false ist
+        if (!this.isAnonym) {
+          dataToSend.who = guestData
+        }
+
         const response = await fetch('http://localhost:3000/requests', {
           method: 'POST',
           headers: {
