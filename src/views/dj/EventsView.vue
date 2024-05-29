@@ -19,7 +19,9 @@
             <div>
               <p>{{ event.description }}</p>
               <section class="grid">
-                <button id="event-edit" @click="setEventId(event.id)">Aktivieren</button>
+                <button id="event-edit" type="button" @click="setEventId(event.id)">
+                  Aktivieren
+                </button>
                 <button id="event-edit" @click="editEvent(event.id)">Ändern</button>
                 <button id="event-delete" @click="deleteEvent(event.id)">Löschen</button>
               </section>
@@ -72,6 +74,7 @@ export default {
     setEventId(eventId) {
       const eventStore = useEventStore()
       eventStore.setCurrentEventId(eventId)
+      this.$router.push({ path: '/wishlist' })
     }
   }
 }

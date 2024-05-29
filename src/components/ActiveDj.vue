@@ -33,6 +33,7 @@ export default {
     logout() {
       // remove activeDjId from localstorage
       localStorage.removeItem('activeDjId')
+      localStorage.removeItem('currentEventId')
       useDjStore().activeDjId = null
     },
     //zur Vermeidung des Flackerns, weil Pinia 1sekunde brauch
