@@ -18,39 +18,45 @@
           <p class="votes">
             <b>{{ request.likes }}</b> Stimmen gezählt
           </p>
-          <button @click="toggleVote(request)">
-            {{ request.userHasVoted ? 'Zurücknehmen 👎' : 'Abstimmen 👍' }}
+          <button :class="{ voted: request.userHasVoted }" @click="toggleVote(request)">
+            {{ request.userHasVoted ? 'zurücknehmen' : 'abstimmen' }}
+          </button>
+          <button class="contrast btn-play"><i class="si-play"></i> abgespielt</button>
+          <button @click="deleteWishedSong(request)" class="contrast btn-deny">
+            <i class="si-trash"></i> löschen
           </button>
         </summary>
-
-        <section v-if="isDjLoggedIn">
-          <div role="group">
-            <button class="contrast btn-play">abspielen</button>
-            <button @click="deleteWishedSong(request)" class="contrast btn-deny">ablehnen</button>
-          </div>
-          <figure>
-            <figcaption>
-              <strong>{{ request.who.name }}</strong>
-            </figcaption>
+        <div v-if="request.message">
+          <section v-if="request.message">
+            <figure>
+              <figcaption>
+                <strong>{{ request.who.name }}</strong>
+              </figcaption>
+            </figure>
             <blockquote>
               {{ request.message }}
             </blockquote>
-          </figure>
-          <hr />
-        </section>
+            <hr />
+          </section>
+        </div>
       </details>
     </li>
   </ol>
   <div class="grid">
     <div>
+      <router-link to="/wishsong"
+        ><button><i class="si-gift"></i> Song wünschen</button></router-link
+      >
+    </div>
+    <div>
       <router-link v-if="!isDjLoggedIn" to="/guest-overview">
-        <button>Gast Übersicht</button
+        <button><i class="si-grid"></i> Gast Übersicht</button
         ><!-- muss dynamisch sein, Gast oder DJ -->
       </router-link>
     </div>
     <div>
       <router-link v-if="isDjLoggedIn" to="/dj-overview">
-        <button>DJ Übersicht</button
+        <button><i class="si-grid"></i> DJ Übersicht</button
         ><!-- muss dynamisch sein, Gast oder DJ -->
       </router-link>
     </div>
@@ -164,7 +170,7 @@ summary.grid {
   grid-template-columns: 1fr;
 
   @media (min-width: 768px) {
-    grid-template-columns: 50% 1fr 1fr 5%;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
   }
 }
 hgroup {
@@ -177,5 +183,8 @@ summary > * {
 }
 details summary[role='button']::after {
   height: 100%;
+}
+button.voted {
+  background-color: var(--pico-primary-hover-background);
 }
 </style>

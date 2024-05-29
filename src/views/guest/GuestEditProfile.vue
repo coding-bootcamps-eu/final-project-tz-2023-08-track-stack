@@ -10,9 +10,9 @@
       <input type="text" name="username" required="required" v-model="guestData.name" />
     </label>
     <div class="grid">
-      <input type="submit" value="Profil speichern" />
+      <input type="submit" value="Name speichern" />
       <router-link to="/guest-overview">
-        <button class="contrast">Zurück zur Übersicht</button>
+        <button class="contrast"><i class="si-grid"></i> Zurück zur Übersicht</button>
       </router-link>
     </div>
   </form>

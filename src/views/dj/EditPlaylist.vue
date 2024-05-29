@@ -24,7 +24,9 @@
           <input type="submit" value="Playlist aktualisieren" />
           <!-- Button zum Zurückgehen zur DJ-Übersicht -->
           <router-link to="/dj-overview"
-            ><button class="contrast">Zurück zu den Playlists</button></router-link
+            ><button class="contrast">
+              <i class="si-chevron-left"></i> Zurück zu den Playlists
+            </button></router-link
           >
         </div>
       </form>

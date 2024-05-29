@@ -17,8 +17,8 @@
           <p v-if="selectedEventId">Event ID: {{ selectedEventId }}</p>
         </div>
         <router-link :to="`/guest-start?eventId=${selectedEventId}`">
-          <button>Start als Gast</button></router-link
-        >
+          <button>Start als Gast <i class="si-chevron-right"></i></button
+        ></router-link>
       </footer>
     </article>
     <article>
@@ -28,7 +28,9 @@
         verwalten.
       </p>
       <footer>
-        <router-link to="/login"><button>Start als DJ</button></router-link>
+        <router-link to="/login"
+          ><button>Start als DJ <i class="si-chevron-right"></i></button
+        ></router-link>
       </footer>
     </article>
   </div>

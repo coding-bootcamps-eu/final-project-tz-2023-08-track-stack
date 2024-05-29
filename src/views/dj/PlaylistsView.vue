@@ -14,18 +14,22 @@
           </summary>
           <section class="grid">
             <!-- Button zum Bearbeiten der Playlist -->
-            <button type="button" @click="editPlaylist(playlist.id)">Ändern</button>
+            <button type="button" @click="editPlaylist(playlist.id)">
+              <i class="si-edit"></i> Ändern
+            </button>
             <!-- Button zum Löschen der Playlist -->
-            <button type="button" @click="deletePlaylist(playlist.id)">Löschen</button>
+            <button type="button" @click="deletePlaylist(playlist.id)">
+              <i class="si-trash"></i> Löschen
+            </button>
           </section>
         </details>
       </li>
     </ol>
   </form>
   <!-- Button zum Zurückgehen zur DJ-Übersicht -->
-  <router-link to="/dj-overview"
-    ><button class="contrast">Zurück zur Übersicht</button></router-link
-  >
+  <router-link to="/dj-overview">
+    <button class="contrast"><i class="si-grid"></i> Zurück zur Übersicht</button>
+  </router-link>
 </template>
 
 <script>
@@ -74,10 +78,13 @@ export default {
 
     // Methode zum Löschen einer Playlist
     async deletePlaylist(playlistId) {
-      // Löscht die Playlist anhand der ID
-      await usePlaylistStore().deletePlaylist(playlistId)
-      // Ruft die Playlists erneut ab, um die Liste zu aktualisieren
-      this.fetchPlaylists()
+      const playlistStore = usePlaylistStore()
+      if (confirm('Soll die Playlist wirklich gelöscht werden?')) {
+        // Löscht die Playlist anhand der ID
+        await playlistStore.deletePlaylist(playlistId)
+        // Ruft die Playlists erneut ab, um die Liste zu aktualisieren
+        this.fetchPlaylists()
+      }
     }
   }
 }
