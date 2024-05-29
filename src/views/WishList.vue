@@ -147,12 +147,12 @@ export default {
       await fetch(`http://localhost:3000/requests/${request.id}`, {
         method: 'Delete'
       })
-      // Idee ist, dass der Gast informiert wird, dass sein Wuncsh abgelehnt wurde.
-      const guest = localStorage.getItem('guestData')
+      // // Idee ist, dass der Gast informiert wird, dass sein Wuncsh abgelehnt wurde.
+      // const guest = localStorage.getItem('guestData')
 
-      if ((request.who.id = guest.id)) {
-        alert('Leider wurde dein Musikwunsch abgelehnt. Wir bitten um dein Verständnis.')
-      }
+      // if ((request.who.id = guest.id)) {
+      //   alert('Leider wurde dein Musikwunsch abgelehnt. Wir bitten um dein Verständnis.')
+      // }
     }
   }
 }
