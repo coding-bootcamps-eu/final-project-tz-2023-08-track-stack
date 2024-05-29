@@ -26,7 +26,7 @@
         <section v-if="isDjLoggedIn">
           <div role="group">
             <button class="contrast btn-play">abspielen</button>
-            <button class="contrast btn-deny">ablehnen</button>
+            <button @click="deleteWishedSong(request)" class="contrast btn-deny">ablehnen</button>
           </div>
           <figure>
             <figcaption>
@@ -140,6 +140,18 @@ export default {
         if (eventIdFromLocalStorage) {
           this.eventId = eventIdFromLocalStorage
         }
+      }
+    },
+
+    async deleteWishedSong(request) {
+      await fetch(`http://localhost:3000/requests/${request.id}`, {
+        method: 'Delete'
+      })
+      // Idee ist, dass der Gast informiert wird, dass sein Wuncsh abgelehnt wurde.
+      const guest = localStorage.getItem('guestData')
+
+      if ((request.who.id = guest.id)) {
+        alert('Leider wurde dein Musikwunsch abgelehnt. Wir bitten um dein Verständnis.')
       }
     }
   }
