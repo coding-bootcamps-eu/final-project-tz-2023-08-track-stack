@@ -40,9 +40,7 @@
     </ol>
   </form>
   <router-link to="/dj-overview"
-    ><button class="contrast">
-      <i class="si-chevron-grid"></i> Zurück zur Übersicht
-    </button></router-link
+    ><button class="contrast"><i class="si-grid"></i> Zurück zur Übersicht</button></router-link
   >
 </template>
 
