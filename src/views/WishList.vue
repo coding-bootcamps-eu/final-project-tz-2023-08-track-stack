@@ -8,6 +8,7 @@
   </p>
 
   <ol>
+
     <transition-group name="wishList">
       <li v-for="request in sortedRequest" :key="request.id">
         <details name="accordion">
@@ -57,6 +58,7 @@
         </details>
       </li>
     </transition-group>
+
   </ol>
   <div class="grid">
     <div>
@@ -186,7 +188,7 @@ summary.grid {
   grid-template-columns: 1fr;
 
   @media (min-width: 768px) {
-    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
   }
 }
 hgroup {
