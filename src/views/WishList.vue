@@ -32,11 +32,15 @@
               <i class="si-trash"></i> löschen
             </button>
           </div>
-          <button :class="{ voted: request.userHasVoted }" @click="toggleVote(request)">
-            {{ request.userHasVoted ? 'zurücknehmen' : 'abstimmen' }}
+          <button
+            :class="{ voted: request.userHasVoted, 'not-voted': !request.userHasVoted }"
+            @click="toggleVote(request)"
+          >
+            <i class="si-heart"></i>
+            {{ request.userHasVoted ? '-' : '+' }}
           </button>
         </summary>
-        <div v-if="request.message">
+        <div v-if="request.message && isDjLoggedIn">
           <section v-if="request.message">
             <figure>
               <figcaption>
@@ -194,9 +198,7 @@ summary > * {
 details summary[role='button']::after {
   height: 100%;
 }
-button.voted {
-  background-color: var(--pico-primary-hover-background);
-}
+
 details[open] > summary {
   /* PROBLEM */
   margin-bottom: 0;
