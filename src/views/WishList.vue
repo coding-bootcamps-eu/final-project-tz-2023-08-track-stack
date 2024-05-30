@@ -8,49 +8,65 @@
   </p>
 
   <ol>
-    <li v-for="request in sortedRequest" :key="request.id">
-      <details name="accordion">
-        <summary role="button" class="grid outline contrast">
-          <hgroup>
-            <h3>{{ request.title }}</h3>
-            <p>{{ request.artist }}</p>
-          </hgroup>
-          <p class="votes">
-            <b>{{ request.likes }}</b> Stimmen gezählt
-          </p>
 
-          <button
-            v-if="!isDjLoggedIn"
-            :class="{ voted: request.userHasVoted }"
-            @click="toggleVote(request)"
-          >
-            {{ request.userHasVoted ? 'zurücknehmen' : 'abstimmen' }}
-          </button>
-          <button v-if="isDjLoggedIn" class="contrast btn-play">
-            <i class="si-play"></i> abgespielt
-          </button>
-          <button v-if="isDjLoggedIn" @click="deleteWishedSong(request)" class="contrast btn-deny">
-            <i class="si-trash"></i> löschen
-          </button>
-        </summary>
+    <transition-group name="wishList">
+      <li v-for="request in sortedRequest" :key="request.id">
+        <details name="accordion">
+          <summary role="button" class="grid outline contrast">
+            <hgroup>
+              <h3>{{ request.title }}</h3>
+              <p>{{ request.artist }}</p>
+            </hgroup>
+            <p class="votes">
+              <b>{{ request.likes }}</b> Stimmen gezählt
+            </p>
+            <div>
+              <button v-if="isDjLoggedIn" class="contrast btn-play">
+                <i class="si-play"></i> abgespielt
+              </button>
+            </div>
+            <div>
+              <button
+                v-if="isDjLoggedIn"
+                @click="deleteWishedSong(request)"
+                class="contrast btn-deny"
+              >
+                <i class="si-trash"></i> löschen
+              </button>
+            </div>
+            <button
+              :class="{ voted: request.userHasVoted, 'not-voted': !request.userHasVoted }"
+              @click="toggleVote(request)"
+            >
+              <i class="si-heart"></i>
+              {{ request.userHasVoted ? '-' : '+' }}
+            </button>
+          </summary>
+          <div v-if="request.message && isDjLoggedIn">
+            <section v-if="request.message">
+              <figure>
+                <figcaption>
+                  <strong>{{ request.who.name }}</strong>
+                </figcaption>
+              </figure>
+              <blockquote>
+                {{ request.message }}
+              </blockquote>
+              <hr />
+            </section>
+          </div>
+        </details>
+      </li>
+    </transition-group>
 
-        <section v-if="isDjLoggedIn">
-          <figure>
-            <figcaption>
-              <strong>{{ request.who.name }}</strong>
-            </figcaption>
-            <blockquote>
-              {{ request.message }}
-            </blockquote>
-            <hr />
-          </figure>
-        </section>
-      </details>
-    </li>
   </ol>
   <div class="grid">
     <div>
-
+      <router-link to="/wishsong">
+        <button><i class="si-grid"></i> Song wünschen</button>
+      </router-link>
+    </div>
+    <div>
       <router-link v-if="!isDjLoggedIn" to="/guest-overview">
         <button><i class="si-grid"></i> Gast Übersicht</button>
         <!-- muss dynamisch sein, Gast oder DJ -->
@@ -190,5 +206,20 @@ details summary[role='button']::after {
 details[open] > summary {
   /* PROBLEM */
   margin-bottom: 0;
+}
+
+/* Transiton der Liste */
+.wishList-move {
+  transition: transform 0.5s;
+}
+.wishList-enter-active,
+.wishList-leave-active {
+  transition: all 1.5s;
+}
+
+.wishList-enter,
+.wishList-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
 }
 </style>
