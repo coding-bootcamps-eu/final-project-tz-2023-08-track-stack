@@ -207,9 +207,11 @@ details[open] > summary {
 }
 
 /* Transiton der Liste */
+/* moveAnimation */
 .wishList-move {
-  transition: transform 0.5s;
+  transition: transform 1.5s ease-in-out;
 }
+/* deleteAnimation */
 .wishList-enter-active,
 .wishList-leave-active {
   transition: all 1.5s;
