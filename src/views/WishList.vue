@@ -18,12 +18,22 @@
           <p class="votes">
             <b>{{ request.likes }}</b> Stimmen gezählt
           </p>
+          <div>
+            <button v-if="isDjLoggedIn" class="contrast btn-play">
+              <i class="si-play"></i> abgespielt
+            </button>
+          </div>
+          <div>
+            <button
+              v-if="isDjLoggedIn"
+              @click="deleteWishedSong(request)"
+              class="contrast btn-deny"
+            >
+              <i class="si-trash"></i> löschen
+            </button>
+          </div>
           <button :class="{ voted: request.userHasVoted }" @click="toggleVote(request)">
             {{ request.userHasVoted ? 'zurücknehmen' : 'abstimmen' }}
-          </button>
-          <button class="contrast btn-play"><i class="si-play"></i> abgespielt</button>
-          <button @click="deleteWishedSong(request)" class="contrast btn-deny">
-            <i class="si-trash"></i> löschen
           </button>
         </summary>
         <div v-if="request.message">
@@ -44,20 +54,20 @@
   </ol>
   <div class="grid">
     <div>
-      <router-link to="/wishsong"
-        ><button><i class="si-gift"></i> Song wünschen</button></router-link
-      >
+      <router-link to="/wishsong">
+        <button><i class="si-grid"></i> Song wünschen</button>
+      </router-link>
     </div>
     <div>
       <router-link v-if="!isDjLoggedIn" to="/guest-overview">
-        <button><i class="si-grid"></i> Gast Übersicht</button
-        ><!-- muss dynamisch sein, Gast oder DJ -->
+        <button><i class="si-grid"></i> Gast Übersicht</button>
+        <!-- muss dynamisch sein, Gast oder DJ -->
       </router-link>
     </div>
     <div>
       <router-link v-if="isDjLoggedIn" to="/dj-overview">
-        <button><i class="si-grid"></i> DJ Übersicht</button
-        ><!-- muss dynamisch sein, Gast oder DJ -->
+        <button><i class="si-grid"></i> DJ Übersicht</button>
+        <!-- muss dynamisch sein, Gast oder DJ -->
       </router-link>
     </div>
   </div>
@@ -186,5 +196,9 @@ details summary[role='button']::after {
 }
 button.voted {
   background-color: var(--pico-primary-hover-background);
+}
+details[open] > summary {
+  /* PROBLEM */
+  margin-bottom: 0;
 }
 </style>
