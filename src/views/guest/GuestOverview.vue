@@ -33,9 +33,15 @@
     </section>
   </article>
   <div class="grid">
-    <router-link to="/wishsong"><button>Song wünschen</button></router-link>
-    <router-link to="/guest-edit-profile"><button>Profil ändern</button></router-link>
-    <router-link to="/wishlist"><button>Zur Wunschliste</button></router-link>
+    <router-link to="/wishsong"
+      ><button><i class="si-gift"></i> Song wünschen</button></router-link
+    >
+    <router-link to="/guest-edit-profile"
+      ><button><i class="si-pencil"></i> Profil ändern</button></router-link
+    >
+    <router-link to="/wishlist"
+      ><button><i class="si-server"></i> Zur Wunschliste</button></router-link
+    >
   </div>
 </template>
 

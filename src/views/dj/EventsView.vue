@@ -9,21 +9,29 @@
           <summary>
             {{ event.title }}
           </summary>
-          <div class="grid twothree">
+          <p>{{ event.description }}</p>
+          <div class="grid">
             <div
+              class="eventimage"
               :style="{
                 background: `radial-gradient(circle, rgba(0, 0, 255, 0.5), rgba(255, 255, 255, 0.2)),
     url('${event.eventImage}') center/cover`
               }"
             ></div>
+
             <div>
-              <p>{{ event.description }}</p>
               <section class="grid">
-                <button id="event-edit" type="button" @click="setEventId(event.id)">
-                  Aktivieren
-                </button>
-                <button id="event-edit" @click="editEvent(event.id)">Ändern</button>
-                <button id="event-delete" @click="deleteEvent(event.id)">Löschen</button>
+                <div class="fullwidth">
+                  <button id="event-edit" type="button" @click="setEventId(event.id)">
+                    <i class="si-check"></i> Aktivieren
+                  </button>
+                  <button id="event-edit" type="button" @click="editEvent(event.id)">
+                    <i class="si-edit"></i> Ändern
+                  </button>
+                  <button id="event-delete" type="button" @click="deleteEvent(event.id)">
+                    <i class="si-trash"></i> Löschen
+                  </button>
+                </div>
               </section>
             </div>
           </div>
@@ -32,7 +40,9 @@
     </ol>
   </form>
   <router-link to="/dj-overview"
-    ><button class="contrast">Zurück zur Übersicht</button></router-link
+    ><button class="contrast">
+      <i class="si-chevron-grid"></i> Zurück zur Übersicht
+    </button></router-link
   >
 </template>
 
@@ -92,5 +102,9 @@ details {
 
 details summary[role='button']::after {
   height: 100%;
+}
+
+.eventimage {
+  width: 100%;
 }
 </style>

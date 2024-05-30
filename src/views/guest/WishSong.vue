@@ -42,8 +42,11 @@
     <div class="grid">
       <input type="submit" value="Wunsch abschicken" />
       <router-link to="/guest-overview">
-        <button class="secondary">Zurück zur Übersicht</button>
+        <button class="secondary"><i class="si-grid"></i> Zurück zur Übersicht</button>
       </router-link>
+      <router-link to="/wishlist"
+        ><button class="contrast"><i class="si-server"></i> Zur Wunschliste</button></router-link
+      >
     </div>
   </form>
 </template>
@@ -137,10 +140,10 @@ export default {
 
         if (existingRequest) {
           const userConfirmed = confirm(
-            'Der gewünschte Musikwunsch steht bereits auf der Liste. Möchtest du stattdessen dafür deine Stimme geben?'
+            'Der gewünschte Musikwunsch steht bereits auf der Liste. Möchtest du zur Wunschliste weitergeleitet werden?'
           )
           if (userConfirmed) {
-            await this.toggleVote(existingRequest)
+            // Entferne das Upvoting und leite einfach weiter
             this.$router.push({ path: '/wishlist' })
             return
           } else {
@@ -175,23 +178,6 @@ export default {
         this.$router.push({ path: '/wishlist' })
       } catch (error) {
         alert(error)
-      }
-    },
-
-    async toggleVote(request) {
-      try {
-        request.likes += 1
-
-        await fetch(`http://localhost:3000/requests/${request.id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(request)
-        })
-      } catch (error) {
-        console.error(error)
-        alert('Fehler beim Abstimmen.')
       }
     }
   }

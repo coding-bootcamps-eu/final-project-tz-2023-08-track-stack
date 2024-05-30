@@ -4,13 +4,15 @@
       <small class="no-active-dj"><slot></slot></small>
     </div>
     <details v-else class="dropdown">
-      <summary class="summary activedj">{{ dj.username }}:</summary>
-      <ul dir="rtl">
+      <summary><span>DJ:</span> {{ dj.username }}</summary>
+      <ul>
         <li>
-          <router-link to="/edit-profile"><a>Profile ✍️</a></router-link>
+          <router-link to="/edit-profile"><i class="si-edit"></i> Profil ändern</router-link>
         </li>
         <li>
-          <router-link to="/login"><a @click="logout()">Logout ❌</a></router-link>
+          <router-link to="/login"
+            ><a @click="logout()"><i class="si-logout"></i> abmelden</a></router-link
+          >
         </li>
       </ul>
     </details>
@@ -59,19 +61,13 @@ export default {
 </script>
 
 <style scoped>
-.activedj.activedj {
-  color: var(--pico-primary-background);
+details.dropdown summary {
   font-weight: bold;
+  padding: 0.5rem 1rem;
+  height: inherit;
+  margin: 0;
 }
-.summary.summary {
-  background-color: black;
-
-  padding-left: 1rem;
-  padding-right: 0.5rem;
-  padding-top: 0.2rem;
-  padding-bottom: 1.6rem;
-
-  height: 1.5rem;
-  width: fit-content;
+details.dropdown summary span {
+  color: var(--pico-color);
 }
 </style>

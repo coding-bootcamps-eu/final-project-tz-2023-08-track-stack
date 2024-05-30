@@ -102,15 +102,6 @@ export default {
 <style scoped>
 .required,
 .error {
-  color: red;
-}
-
-input[required] {
-  background-color: #f8f1d3;
-}
-@media (prefers-color-scheme: dark) {
-  input:required {
-    background-color: #5b5b5b;
-  }
+  color: #ff0022;
 }
 </style>

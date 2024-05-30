@@ -25,7 +25,9 @@
       </fieldset>
 
       <div>
-        <router-link to="/register"><button class="secondary">Registrieren</button></router-link>
+        <router-link to="/register"
+          ><button class="secondary"><i class="si-user"></i> Registrieren</button></router-link
+        >
       </div>
     </div>
   </form>

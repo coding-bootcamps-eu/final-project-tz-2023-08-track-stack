@@ -49,7 +49,9 @@
       <div class="grid">
         <input type="submit" value="Playlist hinzufügen" :disabled="!isFormValid" />
         <div>
-          <router-link to="/dj-overview"><button class="contrast">zurück</button></router-link>
+          <router-link to="/dj-overview"
+            ><button class="contrast"><i class="si-chevron-left"></i> zurück</button></router-link
+          >
         </div>
       </div>
     </form>

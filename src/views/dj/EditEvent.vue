@@ -116,7 +116,11 @@
     <hr />
     <div class="grid">
       <input type="submit" value="Event aktualisieren" />
-      <router-link to="/events"><button class="contrast">Zurück zu den Events</button></router-link>
+      <router-link to="/events"
+        ><button class="contrast">
+          <i class="si-chevron-left"></i> Zurück zu den Events
+        </button></router-link
+      >
     </div>
   </form>
   <p use aria-busy="true" v-else>Lade Inhalte ...</p>

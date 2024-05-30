@@ -1,8 +1,8 @@
 <template>
   <h3>Schön, dass du da bist!</h3>
   <p>
-    Herzlich Willkommen bei Hulaloop, die App wo Musikwünsche wahr werden. Gib einfach deinen Namen
-    ein und los gehts.
+    Herzlich willkommen bei Hulaloop, die App wo Musikwünsche wahr werden. Gib einfach deinen Namen
+    ein und schon gehts los.
   </p>
   <form @submit.prevent="submitGuestForm">
     <div class="grid">

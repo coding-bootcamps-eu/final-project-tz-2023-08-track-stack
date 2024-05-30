@@ -14,14 +14,14 @@ form label.hidden {
 }
 
 /* Buttons */
-
+/* 
 .btn-play {
   background: #98ca00;
 }
 .btn-deny {
-  background: #ff0060;
+  background: #ff0022;
 }
-
+ */
 /* Overview */
 
 .grid-container {
@@ -54,7 +54,7 @@ ol {
 
 /* Active DJ Menü */
 .no-active-dj {
-  color: red;
+  color: #ff0022;
 }
 
 .menu {
@@ -64,13 +64,17 @@ ol {
 
 /* summary */
 
-details {
+details:not(.dropdown) summary {
   transition: all 0.5s ease-in-out;
+  font-size: 1.5rem;
 }
 details[open] summary,
 details:hover summary {
-  background: var(--pico-muted-border-color);
   transition: all 0.5s ease-in-out;
+}
+
+details p {
+  font-size: 1rem;
 }
 
 /* Auswahl Header Figure*/
@@ -97,4 +101,10 @@ details:hover summary {
   background-color: rgba(0, 0, 0, 0.5); /* Halbtransparenter Hintergrund */
   color: white;
   padding: 5px;
+}
+
+/* Volle Breite */
+
+.fullwidth button {
+  width: 100% !important;
 }
