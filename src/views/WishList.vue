@@ -18,36 +18,40 @@
           <p class="votes">
             <b>{{ request.likes }}</b> Stimmen gezählt
           </p>
-          <button :class="{ voted: request.userHasVoted }" @click="toggleVote(request)">
+          <button
+            v-if="!isDjLoggedIn"
+            :class="{ voted: request.userHasVoted }"
+            @click="toggleVote(request)"
+          >
             {{ request.userHasVoted ? 'zurücknehmen' : 'abstimmen' }}
           </button>
-          <button class="contrast btn-play"><i class="si-play"></i> abgespielt</button>
-          <button @click="deleteWishedSong(request)" class="contrast btn-deny">
+          <button v-if="isDjLoggedIn" class="contrast btn-play">
+            <i class="si-play"></i> abgespielt
+          </button>
+          <button v-if="isDjLoggedIn" @click="deleteWishedSong(request)" class="contrast btn-deny">
             <i class="si-trash"></i> löschen
           </button>
         </summary>
-        <div v-if="request.message">
-          <section v-if="request.message">
-            <figure>
-              <figcaption>
-                <strong>{{ request.who.name }}</strong>
-              </figcaption>
-            </figure>
+
+        <section v-if="isDjLoggedIn">
+          <div role="group">
+            <button class="contrast btn-play">abspielen</button>
+            <button @click="deleteWishedSong(request)" class="contrast btn-deny">ablehnen</button>
+          </div>
+          <figure>
+            <figcaption>
+              <strong>{{ request.who.name }}</strong>
+            </figcaption>
             <blockquote>
               {{ request.message }}
             </blockquote>
             <hr />
-          </section>
-        </div>
+          </figure>
+        </section>
       </details>
     </li>
   </ol>
   <div class="grid">
-    <div>
-      <router-link to="/wishsong"
-        ><button><i class="si-gift"></i> Song wünschen</button></router-link
-      >
-    </div>
     <div>
       <router-link v-if="!isDjLoggedIn" to="/guest-overview">
         <button><i class="si-grid"></i> Gast Übersicht</button
