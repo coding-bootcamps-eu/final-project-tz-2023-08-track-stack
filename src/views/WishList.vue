@@ -34,10 +34,6 @@
         </summary>
 
         <section v-if="isDjLoggedIn">
-          <div role="group">
-            <button class="contrast btn-play">abspielen</button>
-            <button @click="deleteWishedSong(request)" class="contrast btn-deny">ablehnen</button>
-          </div>
           <figure>
             <figcaption>
               <strong>{{ request.who.name }}</strong>
@@ -174,7 +170,7 @@ summary.grid {
   grid-template-columns: 1fr;
 
   @media (min-width: 768px) {
-    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
   }
 }
 hgroup {
