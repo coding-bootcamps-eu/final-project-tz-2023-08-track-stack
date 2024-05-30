@@ -18,11 +18,17 @@
           <p class="votes">
             <b>{{ request.likes }}</b> Stimmen gezählt
           </p>
-          <button :class="{ voted: request.userHasVoted }" @click="toggleVote(request)">
+          <button
+            v-if="!isDjLoggedIn"
+            :class="{ voted: request.userHasVoted }"
+            @click="toggleVote(request)"
+          >
             {{ request.userHasVoted ? 'zurücknehmen' : 'abstimmen' }}
           </button>
-          <button class="contrast btn-play"><i class="si-play"></i> abgespielt</button>
-          <button @click="deleteWishedSong(request)" class="contrast btn-deny">
+          <button v-if="isDjLoggedIn" class="contrast btn-play">
+            <i class="si-play"></i> abgespielt
+          </button>
+          <button v-if="isDjLoggedIn" @click="deleteWishedSong(request)" class="contrast btn-deny">
             <i class="si-trash"></i> löschen
           </button>
         </summary>
@@ -40,8 +46,8 @@
               {{ request.message }}
             </blockquote>
             <hr />
-          </section>
-        </div>
+          </figure>
+        </section>
       </details>
     </li>
   </ol>
