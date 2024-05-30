@@ -59,7 +59,7 @@
   <div class="grid">
     <div>
       <router-link to="/wishsong">
-        <button><i class="si-grid"></i> Song wünschen</button>
+        <button><i class="si-gift"></i> Song wünschen</button>
       </router-link>
     </div>
     <div>
