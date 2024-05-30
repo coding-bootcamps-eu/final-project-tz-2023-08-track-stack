@@ -8,53 +8,55 @@
   </p>
 
   <ol>
-    <li v-for="request in sortedRequest" :key="request.id">
-      <details name="accordion">
-        <summary role="button" class="grid outline contrast">
-          <hgroup>
-            <h3>{{ request.title }}</h3>
-            <p>{{ request.artist }}</p>
-          </hgroup>
-          <p class="votes">
-            <b>{{ request.likes }}</b> Stimmen gezählt
-          </p>
-          <div>
-            <button v-if="isDjLoggedIn" class="contrast btn-play">
-              <i class="si-play"></i> abgespielt
-            </button>
-          </div>
-          <div>
+    <transition-group name="wishList">
+      <li v-for="request in sortedRequest" :key="request.id">
+        <details name="accordion">
+          <summary role="button" class="grid outline contrast">
+            <hgroup>
+              <h3>{{ request.title }}</h3>
+              <p>{{ request.artist }}</p>
+            </hgroup>
+            <p class="votes">
+              <b>{{ request.likes }}</b> Stimmen gezählt
+            </p>
+            <div>
+              <button v-if="isDjLoggedIn" class="contrast btn-play">
+                <i class="si-play"></i> abgespielt
+              </button>
+            </div>
+            <div>
+              <button
+                v-if="isDjLoggedIn"
+                @click="deleteWishedSong(request)"
+                class="contrast btn-deny"
+              >
+                <i class="si-trash"></i> löschen
+              </button>
+            </div>
             <button
-              v-if="isDjLoggedIn"
-              @click="deleteWishedSong(request)"
-              class="contrast btn-deny"
+              :class="{ voted: request.userHasVoted, 'not-voted': !request.userHasVoted }"
+              @click="toggleVote(request)"
             >
-              <i class="si-trash"></i> löschen
+              <i class="si-heart"></i>
+              {{ request.userHasVoted ? '-' : '+' }}
             </button>
+          </summary>
+          <div v-if="request.message && isDjLoggedIn">
+            <section v-if="request.message">
+              <figure>
+                <figcaption>
+                  <strong>{{ request.who.name }}</strong>
+                </figcaption>
+              </figure>
+              <blockquote>
+                {{ request.message }}
+              </blockquote>
+              <hr />
+            </section>
           </div>
-          <button
-            :class="{ voted: request.userHasVoted, 'not-voted': !request.userHasVoted }"
-            @click="toggleVote(request)"
-          >
-            <i class="si-heart"></i>
-            {{ request.userHasVoted ? '-' : '+' }}
-          </button>
-        </summary>
-        <div v-if="request.message && isDjLoggedIn">
-          <section v-if="request.message">
-            <figure>
-              <figcaption>
-                <strong>{{ request.who.name }}</strong>
-              </figcaption>
-            </figure>
-            <blockquote>
-              {{ request.message }}
-            </blockquote>
-            <hr />
-          </section>
-        </div>
-      </details>
-    </li>
+        </details>
+      </li>
+    </transition-group>
   </ol>
   <div class="grid">
     <div>
@@ -202,5 +204,20 @@ details summary[role='button']::after {
 details[open] > summary {
   /* PROBLEM */
   margin-bottom: 0;
+}
+
+/* Transiton der Liste */
+.wishList-move {
+  transition: transform 0.5s;
+}
+.wishList-enter-active,
+.wishList-leave-active {
+  transition: all 1.5s;
+}
+
+.wishList-enter,
+.wishList-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
 }
 </style>
