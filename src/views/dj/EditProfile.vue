@@ -24,9 +24,13 @@
     </div>
     <div class="grid">
       <input type="submit" value="Profil speichern" />
-      <router-link to="/dj-overview"
-        ><button class="contrast"><i class="si-grid"></i> Zurück zur Übersicht</button></router-link
-      >
+      <div>
+        <router-link to="/dj-overview"
+          ><button class="contrast">
+            <i class="si-grid"></i> Zurück zur Übersicht
+          </button></router-link
+        >
+      </div>
     </div>
   </form>
 </template>

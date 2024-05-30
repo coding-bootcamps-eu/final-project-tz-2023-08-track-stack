@@ -108,3 +108,12 @@ details p {
 .fullwidth button {
   width: 100% !important;
 }
+
+/* VOTE Buttons */
+.voted {
+  background-color: rgb(253, 159, 159); /* Rot, wenn abgestimmt */
+}
+
+.not-voted {
+  background-color: rgb(119, 233, 119); /* Grün, wenn nicht abgestimmt */
+}

@@ -18,6 +18,7 @@
           <p class="votes">
             <b>{{ request.likes }}</b> Stimmen gezählt
           </p>
+
           <button
             v-if="!isDjLoggedIn"
             :class="{ voted: request.userHasVoted }"
@@ -53,15 +54,16 @@
   </ol>
   <div class="grid">
     <div>
+
       <router-link v-if="!isDjLoggedIn" to="/guest-overview">
-        <button><i class="si-grid"></i> Gast Übersicht</button
-        ><!-- muss dynamisch sein, Gast oder DJ -->
+        <button><i class="si-grid"></i> Gast Übersicht</button>
+        <!-- muss dynamisch sein, Gast oder DJ -->
       </router-link>
     </div>
     <div>
       <router-link v-if="isDjLoggedIn" to="/dj-overview">
-        <button><i class="si-grid"></i> DJ Übersicht</button
-        ><!-- muss dynamisch sein, Gast oder DJ -->
+        <button><i class="si-grid"></i> DJ Übersicht</button>
+        <!-- muss dynamisch sein, Gast oder DJ -->
       </router-link>
     </div>
   </div>
@@ -188,7 +190,9 @@ summary > * {
 details summary[role='button']::after {
   height: 100%;
 }
-button.voted {
-  background-color: var(--pico-primary-hover-background);
+
+details[open] > summary {
+  /* PROBLEM */
+  margin-bottom: 0;
 }
 </style>
