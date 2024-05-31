@@ -67,6 +67,7 @@
         </details>
       </li>
     </transition-group>
+
   </ol>
   <h2>Played Songs</h2>
   <ol>
@@ -162,13 +163,16 @@ export default {
     },
 
     async toggleVote(request) {
+      const newrequest = { ...request } //abkoppeln!
+      this.votes[request.id] = true
+
       if (request.userHasVoted) {
-        request.likes -= 1
-        request.userHasVoted = false
+        newrequest.likes -= 1
+        newrequest.userHasVoted = false
         this.votes[request.id] = false
       } else {
-        request.likes += 1
-        request.userHasVoted = true
+        newrequest.likes += 1
+        newrequest.userHasVoted = true
         this.votes[request.id] = true
       }
 
@@ -179,7 +183,7 @@ export default {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(request)
+        body: JSON.stringify(newrequest)
       })
     },
 
@@ -231,7 +235,7 @@ summary.grid {
   grid-template-columns: 1fr;
 
   @media (min-width: 768px) {
-    grid-template-columns: 2fr 1fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
   }
 }
 hgroup {
@@ -252,9 +256,11 @@ details[open] > summary {
 }
 
 /* Transiton der Liste */
+/* moveAnimation */
 .wishList-move {
-  transition: transform 0.5s;
+  transition: transform 1.5s ease-in-out;
 }
+/* deleteAnimation */
 .wishList-enter-active,
 .wishList-leave-active {
   transition: all 1.5s;
