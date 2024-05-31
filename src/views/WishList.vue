@@ -1,6 +1,11 @@
 <template>
   <active-dj v-if="isDjLoggedIn" class="menu">nicht eingeloggt</active-dj>
-
+  <div>
+    <router-link v-if="isDjLoggedIn" to="/dj-overview">
+      <button><i class="si-grid"></i> DJ Übersicht</button>
+      <!-- muss dynamisch sein, Gast oder DJ -->
+    </router-link>
+  </div>
   <h2>Wunschliste</h2>
   <p>
     Hier findest du die bisher eingegangen Musikwünsche, vote gerne, damit dein favorisierter Titel
@@ -8,7 +13,6 @@
   </p>
 
   <ol>
-
     <transition-group name="wishList">
       <li v-for="request in sortedRequest" :key="request.id">
         <details name="accordion">
@@ -21,7 +25,11 @@
               <b>{{ request.likes }}</b> Stimmen gezählt
             </p>
             <div>
-              <button v-if="isDjLoggedIn" class="contrast btn-play">
+              <button
+                @click="markSongAsPlayed(request)"
+                v-if="isDjLoggedIn"
+                class="contrast btn-play"
+              >
                 <i class="si-play"></i> abgespielt
               </button>
             </div>
@@ -35,6 +43,7 @@
               </button>
             </div>
             <button
+              v-if="!isDjLoggedIn"
               :class="{ voted: request.userHasVoted, 'not-voted': !request.userHasVoted }"
               @click="toggleVote(request)"
             >
@@ -58,23 +67,45 @@
         </details>
       </li>
     </transition-group>
-
+  </ol>
+  <h2>Played Songs</h2>
+  <ol>
+    <li v-for="request in sortedRequest" :key="request.id">
+      <details name="accordion">
+        <summary role="button" class="grid outline contrast">
+          <hgroup>
+            <h3>{{ request.title }}</h3>
+            <p>{{ request.artist }}</p>
+          </hgroup>
+          <p class="votes">
+            <b>{{ request.likes }}</b> Stimmen gezählt
+          </p>
+        </summary>
+        <div v-if="request.message && isDjLoggedIn">
+          <section v-if="request.message">
+            <figure>
+              <figcaption>
+                <strong>{{ request.who.name }}</strong>
+              </figcaption>
+            </figure>
+            <blockquote>
+              {{ request.message }}
+            </blockquote>
+            <hr />
+          </section>
+        </div>
+      </details>
+    </li>
   </ol>
   <div class="grid">
     <div>
-      <router-link to="/wishsong">
+      <router-link v-if="!isDjLoggedIn" to="/wishsong">
         <button><i class="si-grid"></i> Song wünschen</button>
       </router-link>
     </div>
     <div>
       <router-link v-if="!isDjLoggedIn" to="/guest-overview">
         <button><i class="si-grid"></i> Gast Übersicht</button>
-        <!-- muss dynamisch sein, Gast oder DJ -->
-      </router-link>
-    </div>
-    <div>
-      <router-link v-if="isDjLoggedIn" to="/dj-overview">
-        <button><i class="si-grid"></i> DJ Übersicht</button>
         <!-- muss dynamisch sein, Gast oder DJ -->
       </router-link>
     </div>
@@ -117,7 +148,9 @@ export default {
   computed: {
     sortedRequest() {
       return this.requests.slice().sort((a, b) => b.likes - a.likes)
-    }
+    },
+
+    playedSongs() {}
   },
 
   methods: {
@@ -171,12 +204,22 @@ export default {
       await fetch(`http://localhost:3000/requests/${request.id}`, {
         method: 'Delete'
       })
-      // // Idee ist, dass der Gast informiert wird, dass sein Wuncsh abgelehnt wurde.
-      // const guest = localStorage.getItem('guestData')
+    },
 
-      // if ((request.who.id = guest.id)) {
-      //   alert('Leider wurde dein Musikwunsch abgelehnt. Wir bitten um dein Verständnis.')
-      // }
+    async markSongAsPlayed(request) {
+      request.open = false
+
+      const response = await fetch(`http://localhost:3000/requests/${request.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(request)
+      })
+
+      const updatedSong = await response.json()
+      console.log(updatedSong)
+      console.log(this.requests)
     }
   }
 }
