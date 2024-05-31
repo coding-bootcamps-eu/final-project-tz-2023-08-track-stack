@@ -3,7 +3,6 @@
   <div>
     <router-link v-if="isDjLoggedIn" to="/dj-overview">
       <button><i class="si-grid"></i> DJ Übersicht</button>
-      <!-- muss dynamisch sein, Gast oder DJ -->
     </router-link>
   </div>
   <h2>Wunschliste</h2>
@@ -67,11 +66,10 @@
         </details>
       </li>
     </transition-group>
-
   </ol>
   <h2>Played Songs</h2>
   <ol>
-    <li v-for="request in sortedRequest" :key="request.id">
+    <li v-for="request in requests" :key="request.id">
       <details name="accordion">
         <summary role="button" class="grid outline contrast">
           <hgroup>
@@ -149,9 +147,7 @@ export default {
   computed: {
     sortedRequest() {
       return this.requests.slice().sort((a, b) => b.likes - a.likes)
-    },
-
-    playedSongs() {}
+    }
   },
 
   methods: {
@@ -211,14 +207,15 @@ export default {
     },
 
     async markSongAsPlayed(request) {
-      request.open = false
+      const playedRequest = { ...request }
+      playedRequest.open = false
 
       const response = await fetch(`http://localhost:3000/requests/${request.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(request)
+        body: JSON.stringify(playedRequest)
       })
 
       const updatedSong = await response.json()
