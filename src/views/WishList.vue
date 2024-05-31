@@ -127,13 +127,16 @@ export default {
     },
 
     async toggleVote(request) {
+      const newrequest = { ...request } //abkoppeln!
+      this.votes[request.id] = true
+
       if (request.userHasVoted) {
-        request.likes -= 1
-        request.userHasVoted = false
+        newrequest.likes -= 1
+        newrequest.userHasVoted = false
         this.votes[request.id] = false
       } else {
-        request.likes += 1
-        request.userHasVoted = true
+        newrequest.likes += 1
+        newrequest.userHasVoted = true
         this.votes[request.id] = true
       }
 
@@ -144,7 +147,7 @@ export default {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(request)
+        body: JSON.stringify(newrequest)
       })
     },
 
