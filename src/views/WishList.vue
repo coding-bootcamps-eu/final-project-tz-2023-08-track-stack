@@ -1,9 +1,22 @@
 <template>
   <active-dj v-if="isDjLoggedIn" class="menu">nicht eingeloggt</active-dj>
-  <div>
-    <router-link v-if="isDjLoggedIn" to="/dj-overview">
-      <button><i class="si-grid"></i> DJ Übersicht</button>
-    </router-link>
+  <div class="grid">
+    <div>
+      <router-link v-if="!isDjLoggedIn" to="/wishsong">
+        <button><i class="si-grid"></i> Song wünschen</button>
+      </router-link>
+    </div>
+    <div>
+      <router-link v-if="!isDjLoggedIn" to="/guest-overview">
+        <button><i class="si-grid"></i> Gast Übersicht</button>
+        <!-- muss dynamisch sein, Gast oder DJ -->
+      </router-link>
+    </div>
+    <div>
+      <router-link v-if="isDjLoggedIn" to="/dj-overview">
+        <button><i class="si-grid"></i> DJ Übersicht</button>
+      </router-link>
+    </div>
   </div>
   <h2>Wunschliste</h2>
   <p>
@@ -42,7 +55,7 @@
               </button>
             </div>
             <button
-              v-if="isDjLoggedIn"
+              v-if="!isDjLoggedIn"
               :class="{ voted: request.userHasVoted, 'not-voted': !request.userHasVoted }"
               @click="toggleVote(request)"
             >
@@ -69,26 +82,31 @@
   </ol>
   <h2>Played Songs</h2>
   <ol>
-    <li v-for="request in requests" :key="request.id">
+    <li v-for="song in showPlayedSongs" :key="song.id">
       <details name="accordion">
         <summary role="button" class="grid outline contrast">
           <hgroup>
-            <h3>{{ request.title }}</h3>
-            <p>{{ request.artist }}</p>
+            <h3>{{ song.title }}</h3>
+            <p>{{ song.artist }}</p>
           </hgroup>
           <p class="votes">
-            <b>{{ request.likes }}</b> Stimmen gezählt
+            <b>{{ song.likes }}</b> Stimmen gezählt
           </p>
+          <div>
+            <button v-if="isDjLoggedIn" @click="deleteWishedSong(song)" class="contrast btn-deny">
+              <i class="si-trash"></i> löschen
+            </button>
+          </div>
         </summary>
-        <div v-if="request.message && isDjLoggedIn">
-          <section v-if="request.message">
+        <div v-if="song.message && isDjLoggedIn">
+          <section v-if="song.message">
             <figure>
               <figcaption>
-                <strong>{{ request.who.name }}</strong>
+                <strong>{{ song.who.name }}</strong>
               </figcaption>
             </figure>
             <blockquote>
-              {{ request.message }}
+              {{ song.message }}
             </blockquote>
             <hr />
           </section>
@@ -96,19 +114,6 @@
       </details>
     </li>
   </ol>
-  <div class="grid">
-    <div>
-      <router-link v-if="!isDjLoggedIn" to="/wishsong">
-        <button><i class="si-grid"></i> Song wünschen</button>
-      </router-link>
-    </div>
-    <div>
-      <router-link v-if="!isDjLoggedIn" to="/guest-overview">
-        <button><i class="si-grid"></i> Gast Übersicht</button>
-        <!-- muss dynamisch sein, Gast oder DJ -->
-      </router-link>
-    </div>
-  </div>
 </template>
 
 <script>
@@ -147,7 +152,13 @@ export default {
 
   computed: {
     sortedRequest() {
-      return this.requests.slice().sort((a, b) => b.likes - a.likes)
+      return this.requests
+        .filter((request) => request.open !== false)
+        .sort((a, b) => b.likes - a.likes)
+    },
+
+    showPlayedSongs() {
+      return this.requests.filter((request) => request.open === false)
     }
   },
 
@@ -205,24 +216,26 @@ export default {
       await fetch(`http://localhost:3000/requests/${request.id}`, {
         method: 'Delete'
       })
+      // Entferne den gelöschten Wunsch aus der Liste
+      this.requests = this.requests.filter((r) => r.id !== request.id)
     },
 
     async markSongAsPlayed(request) {
-      const playedRequest = { ...request }
-      playedRequest.open = false
+      const oldRequest = { ...request }
+      oldRequest.open = false
 
       const response = await fetch(`http://localhost:3000/requests/${request.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(playedRequest)
+        body: JSON.stringify(oldRequest)
       })
-
       const updatedSong = await response.json()
-      console.log(updatedSong)
-      console.log(this.requests)
-      return updatedSong
+
+      // Aktualisiere die lokale Liste
+      this.requests = this.requests.filter((r) => r.id !== request.id)
+      this.playedSongs.push(updatedSong)
     }
   }
 }
