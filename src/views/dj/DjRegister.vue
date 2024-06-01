@@ -98,10 +98,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.required,
-.error {
-  color: #ff0022;
-}
-</style>
