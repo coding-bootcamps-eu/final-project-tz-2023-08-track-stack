@@ -1,119 +1,98 @@
 <template>
   <active-dj v-if="isDjLoggedIn" class="menu">nicht eingeloggt</active-dj>
-  <div class="grid">
-    <div>
-      <router-link v-if="!isDjLoggedIn" to="/wishsong">
-        <button><i class="si-grid"></i> Song wünschen</button>
-      </router-link>
-    </div>
-    <div>
-      <router-link v-if="!isDjLoggedIn" to="/guest-overview">
-        <button><i class="si-grid"></i> Gast Übersicht</button>
-        <!-- muss dynamisch sein, Gast oder DJ -->
-      </router-link>
-    </div>
-    <div>
-      <router-link v-if="isDjLoggedIn" to="/dj-overview">
-        <button><i class="si-grid"></i> DJ Übersicht</button>
-      </router-link>
-    </div>
-  </div>
   <h2>Wunschliste</h2>
   <p>
-    Hier findest du die bisher eingegangen Musikwünsche, vote gerne, damit dein favorisierter Titel
-    nach oben rutscht.
+    Hier findest du die bisher eingegangen Musikwünsche. Stimme gerne für deine Lieblingstitel ab.
+    Je mehr Gäste für einen Titel abstimmen desto höher steigt dieser auf.
   </p>
+  <div class="grid">
+    <router-link v-if="isDjLoggedIn" to="/dj-overview">
+      <button><i class="si-grid"></i> DJ Übersicht</button>
+    </router-link>
+
+    <router-link v-if="!isDjLoggedIn" to="/guest-overview">
+      <button><i class="si-grid"></i> Gast Übersicht</button>
+      <!-- muss dynamisch sein, Gast oder DJ -->
+    </router-link>
+
+    <router-link v-if="!isDjLoggedIn" to="/wishsong" class="right">
+      <button><i class="si-gift"></i> Song wünschen</button>
+    </router-link>
+  </div>
+  <hr />
 
   <ol>
     <transition-group name="wishList">
       <li v-for="request in sortedRequest" :key="request.id">
-        <details name="accordion">
-          <summary role="button" class="grid outline contrast">
-            <hgroup>
+        <article>
+          <body class="grid">
+            <hgroup class="title-artist">
               <h3>{{ request.title }}</h3>
               <p>{{ request.artist }}</p>
             </hgroup>
             <p class="votes">
-              <b>{{ request.likes }}</b> Stimmen gezählt
+              <b>{{ request.likes }}</b> {{ votesText(request.likes) }}
             </p>
-            <div>
+            <fieldset role="group">
               <button
                 @click="markSongAsPlayed(request)"
                 v-if="isDjLoggedIn"
-                class="contrast btn-play"
+                class="contrast outline"
               >
                 <i class="si-play"></i> abgespielt
               </button>
-            </div>
-            <div>
-              <button
-                v-if="isDjLoggedIn"
-                @click="deleteWishedSong(request)"
-                class="contrast btn-deny"
-              >
+              <button v-if="isDjLoggedIn" @click="deleteWishedSong(request)" class="contrast">
                 <i class="si-trash"></i> löschen
               </button>
-            </div>
-            <button
-              v-if="!isDjLoggedIn"
-              :class="{ voted: request.userHasVoted, 'not-voted': !request.userHasVoted }"
-              @click="toggleVote(request)"
-            >
-              <i class="si-heart"></i>
-              {{ request.userHasVoted ? '-' : '+' }}
-            </button>
-          </summary>
-          <div v-if="request.message && isDjLoggedIn">
+
+              <button
+                v-if="!isDjLoggedIn"
+                :class="{ voted: request.userHasVoted, 'not-voted': !request.userHasVoted }"
+                @click="toggleVote(request)"
+              >
+                <i class="si-heart"></i>
+                {{ request.userHasVoted ? 'zurücknehmen' : 'abstimmen' }}
+              </button>
+            </fieldset>
+          </body>
+          <footer v-if="request.message && isDjLoggedIn">
             <section v-if="request.message">
               <figure>
                 <figcaption>
-                  <strong>{{ request.who.name }}</strong>
+                  <strong
+                    >{{ request.who.name }} <span v-if="request.who.name">schrieb:</span></strong
+                  >
                 </figcaption>
               </figure>
               <blockquote>
                 {{ request.message }}
               </blockquote>
-              <hr />
             </section>
-          </div>
-        </details>
+          </footer>
+        </article>
       </li>
     </transition-group>
   </ol>
-  <h2>Played Songs</h2>
-  <ol>
-    <li v-for="song in showPlayedSongs" :key="song.id">
-      <details name="accordion">
-        <summary role="button" class="grid outline contrast">
-          <hgroup>
-            <h3>{{ song.title }}</h3>
-            <p>{{ song.artist }}</p>
-          </hgroup>
-          <p class="votes">
-            <b>{{ song.likes }}</b> Stimmen gezählt
-          </p>
-          <div>
-            <button v-if="isDjLoggedIn" @click="deleteWishedSong(song)" class="contrast btn-deny">
-              <i class="si-trash"></i> löschen
-            </button>
-          </div>
-        </summary>
-        <div v-if="song.message && isDjLoggedIn">
-          <section v-if="song.message">
-            <figure>
-              <figcaption>
-                <strong>{{ song.who.name }}</strong>
-              </figcaption>
-            </figure>
-            <blockquote>
-              {{ song.message }}
-            </blockquote>
-            <hr />
-          </section>
-        </div>
-      </details>
-    </li>
-  </ol>
+  <hr />
+
+  <details>
+    <summary role="button" class="outline secondary">Bereits abgespielte Songs anzeigen …</summary>
+    <ol>
+      <li v-for="song in showPlayedSongs" :key="song.id">
+        <article>
+          <body class="grid">
+            <hgroup>
+              <h3>{{ song.title }}</h3>
+              <p>{{ song.artist }}</p>
+            </hgroup>
+            <p class="votes">
+              <b>{{ song.likes }}</b> {{ votesText(song.likes) }}
+            </p>
+          </body>
+        </article>
+      </li>
+    </ol>
+  </details>
 </template>
 
 <script>
@@ -237,46 +216,49 @@ export default {
 
       // Entferne den request aus der Liste der Musikwünsche
       this.requests = this.requests.filter((r) => r.id !== request.id)
+    },
+    votesText(likes) {
+      return likes === 1 ? 'Stimme gezählt' : 'Stimmen gezählt'
     }
   }
 }
 </script>
 
 <style scoped>
-summary.grid {
-  background: var(--pico-code-background-color);
+article body.grid {
   grid-template-columns: 1fr;
 
   @media (min-width: 768px) {
-    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr;
   }
 }
+
 hgroup {
   margin-bottom: 0;
 }
-summary > * {
+
+article body.grid > * {
   align-content: center;
   justify-items: stretch;
   margin-bottom: 0;
 }
-details summary[role='button']::after {
-  height: 100%;
-}
 
-details[open] > summary {
-  /* PROBLEM */
-  margin-bottom: 0;
+.title-artist h3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* Transiton der Liste */
 /* moveAnimation */
 .wishList-move {
-  transition: transform 1.5s ease-in-out;
+  transition: transform 0.5s ease-in-out;
 }
 /* deleteAnimation */
 .wishList-enter-active,
 .wishList-leave-active {
-  transition: all 1.5s;
+  transition: all 0.5s;
 }
 
 .wishList-enter,
