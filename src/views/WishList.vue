@@ -115,7 +115,7 @@ export default {
     this.isDjLoggedInMethode()
     this.getEventIdFromLocalStorage()
 
-    const eventSource = new EventSource('http://localhost:3000/stream/' + this.eventId)
+    const eventSource = new EventSource(`${import.meta.env.VITE_API_URL}/stream/${this.eventId}`)
 
     eventSource.addEventListener('message', (apievent) => {
       // Parsen der empfangenen Daten vom Server
@@ -165,7 +165,7 @@ export default {
 
       localStorage.setItem('votes', JSON.stringify(this.votes))
 
-      await fetch(`http://localhost:3000/requests/${request.id}`, {
+      await fetch(`${import.meta.env.VITE_API_URL}/requests/${request.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -192,7 +192,7 @@ export default {
     },
 
     async deleteWishedSong(request) {
-      await fetch(`http://localhost:3000/requests/${request.id}`, {
+      await fetch(`${import.meta.env.VITE_API_URL}/requests/${request.id}`, {
         method: 'Delete'
       })
       // Entferne den gelöschten Wunsch aus der Liste
@@ -203,7 +203,7 @@ export default {
       const oldRequest = { ...request }
       oldRequest.open = false
 
-      const response = await fetch(`http://localhost:3000/requests/${request.id}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/requests/${request.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'

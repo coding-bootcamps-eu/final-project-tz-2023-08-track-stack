@@ -86,7 +86,7 @@ export default {
 
         // Aktualisiert die Playlist im API-Server
         await usePlaylistStore().updatePlaylistInApi(this.playlist)
-        alert('Playlist erfolgreich aktualisiert')
+        //alert('Playlist erfolgreich aktualisiert')
       } catch (error) {
         console.error('Fehler beim Aktualisieren der Playlist:', error)
         alert('Fehler beim Aktualisieren der Playlist')

@@ -95,7 +95,9 @@ export default {
 
     async loadRequestsFromApi() {
       try {
-        const response = await fetch(`http://localhost:3000/requests?eventId=${this.eventData.id}`)
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/requests?eventId=${this.eventData.id}`
+        )
         if (response.ok) {
           this.requests = await response.json()
         }
@@ -106,7 +108,9 @@ export default {
 
     async getSuggestionFromApi() {
       try {
-        const response = await fetch(`http://localhost:3000/playlists/${this.eventData.playlistId}`)
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/playlists/${this.eventData.playlistId}`
+        )
         if (response.ok) {
           const playlistFromApi = await response.json()
           const searchText = this.inputSongSearch.toLowerCase()
@@ -167,7 +171,7 @@ export default {
           dataToSend.who = guestData
         }
 
-        const response = await fetch('http://localhost:3000/requests', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/requests`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

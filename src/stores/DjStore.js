@@ -12,7 +12,7 @@ export const useDjStore = defineStore('dj', {
     // hole alle DJs aus der Api in den State
     async fetchDjs() {
       try {
-        const response = await fetch('http://localhost:3000/users')
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/users`)
         if (!response.ok) {
           throw new Error('Failed to fetch DJs from API')
         }
@@ -25,7 +25,7 @@ export const useDjStore = defineStore('dj', {
     // lade einen bestimmten DJ aus der Api in den State
     async fetchDj(id) {
       try {
-        const response = await fetch(`http://localhost:3000/users/${id}`)
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/users/${id}`)
         if (!response.ok) {
           throw new Error('Fehler beim Abrufen des aktiven DJs von der API')
         }
@@ -60,8 +60,7 @@ export const useDjStore = defineStore('dj', {
     async updateUserData() {
       console.log('UpdateData: ', this.updateData)
       if (this.activeDj.id) {
-        const url = 'http://localhost:3000/users/' + this.activeDj.id
-
+        const url = `${import.meta.env.VITE_API_URL}/users/${this.activeDj.id}`
         //Data to Update/Send
         const data = this.updateData
         //Was wenn nicht alles ausgefüllt? Dann Autocomplete || V-model mit Daten

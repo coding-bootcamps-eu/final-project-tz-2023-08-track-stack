@@ -32,7 +32,7 @@ export const usePlaylistStore = defineStore('playlist', {
     // Holt alle Playlists vom API-Server
     async fetchPlaylists() {
       try {
-        const response = await fetch('http://localhost:3000/playlists')
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/playlists`)
         if (!response.ok) {
           throw new Error('Failed to fetch playlists from API')
         }
@@ -59,7 +59,7 @@ export const usePlaylistStore = defineStore('playlist', {
     // Holt eine spezifische Playlist vom API-Server anhand der Playlist-ID
     async fetchPlaylist(playlistId) {
       try {
-        const response = await fetch(`http://localhost:3000/playlists/${playlistId}`)
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/playlists/${playlistId}`)
         if (!response.ok) {
           throw new Error('Failed to fetch playlist from API')
         }
@@ -73,13 +73,16 @@ export const usePlaylistStore = defineStore('playlist', {
     // Aktualisiert eine Playlist im API-Server
     async updatePlaylistInApi(playlistData) {
       try {
-        const response = await fetch(`http://localhost:3000/playlists/${playlistData.id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(playlistData)
-        })
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/playlists/${playlistData.id}`,
+          {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(playlistData)
+          }
+        )
 
         if (!response.ok) {
           throw new Error('Failed to update playlist in API')
@@ -97,7 +100,7 @@ export const usePlaylistStore = defineStore('playlist', {
     // Löscht eine Playlist vom API-Server anhand der Playlist-ID
     async deletePlaylist(playlistId) {
       try {
-        const response = await fetch(`http://localhost:3000/playlists/${playlistId}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/playlists/${playlistId}`, {
           method: 'DELETE'
         })
 
@@ -115,7 +118,7 @@ export const usePlaylistStore = defineStore('playlist', {
     // Erstellt eine neue Playlist im API-Server
     async createPlaylist(playlistData) {
       try {
-        const response = await fetch('http://localhost:3000/playlists', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/playlists`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
