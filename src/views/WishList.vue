@@ -232,10 +232,11 @@ export default {
         body: JSON.stringify(oldRequest)
       })
       const updatedSong = await response.json()
-
-      // Aktualisiere die lokale Liste
-      this.requests = this.requests.filter((r) => r.id !== request.id)
+      // Füge den aktualisierten request zur Liste der gespielten Songs hinzu
       this.playedSongs.push(updatedSong)
+
+      // Entferne den request aus der Liste der Musikwünsche
+      this.requests = this.requests.filter((r) => r.id !== request.id)
     }
   }
 }
