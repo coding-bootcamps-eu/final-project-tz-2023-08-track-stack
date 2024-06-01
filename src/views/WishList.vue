@@ -42,7 +42,7 @@
               </button>
             </div>
             <button
-              v-if="!isDjLoggedIn"
+              v-if="isDjLoggedIn"
               :class="{ voted: request.userHasVoted, 'not-voted': !request.userHasVoted }"
               @click="toggleVote(request)"
             >
@@ -119,6 +119,7 @@ export default {
     return {
       isDjLoggedIn: false,
       requests: [],
+      playedSongs: [],
       eventId: null,
       votes: JSON.parse(localStorage.getItem('votes')) || {}
     }
@@ -221,6 +222,7 @@ export default {
       const updatedSong = await response.json()
       console.log(updatedSong)
       console.log(this.requests)
+      return updatedSong
     }
   }
 }
