@@ -92,8 +92,8 @@ export default {
           djId: activeDjId,
           songs: this.csvObjData
         }
-
-        const response = await fetch('http://localhost:3000/playlists', {
+        import.meta.env.VITE_API_URL + '/users'
+        const response = await fetch(import.meta.env.VITE_API_URL + '/playlists', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

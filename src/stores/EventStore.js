@@ -28,7 +28,7 @@ export const useEventStore = defineStore('event', {
     // RETURNS:  all Events from Api
     async fetchAllEvents() {
       try {
-        const response = await fetch('http://localhost:3000/events')
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/events`)
         if (!response.ok) {
           throw new Error('Failed to fetch events from API')
         }
@@ -45,7 +45,7 @@ export const useEventStore = defineStore('event', {
         if (!localStorageDjId) {
           return // Wenn activeDjId nicht im localStorage vorhanden ist, wird die Funktion beendet
         }
-        const response = await fetch('http://localhost:3000/events')
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/events`)
         if (!response.ok) {
           throw new Error('Failed to fetch events from API')
         }
@@ -73,7 +73,7 @@ export const useEventStore = defineStore('event', {
     // Aktion zum Abrufen eines bestimmten Events aus der API
     async fetchEvent(eventId) {
       try {
-        const response = await fetch(`http://localhost:3000/events/${eventId}`)
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/events/${eventId}`)
         if (!response.ok) {
           throw new Error('Failed to fetch events from API')
         }
@@ -88,7 +88,7 @@ export const useEventStore = defineStore('event', {
     async updateEventInApi(eventData) {
       try {
         console.log('Sending data to API:', eventData) // Debugging
-        const response = await fetch(`http://localhost:3000/events/${eventData.id}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/events/${eventData.id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json'
@@ -113,7 +113,7 @@ export const useEventStore = defineStore('event', {
     // Aktion zum Löschen eines Events aus der API
     async deleteEvent(eventId) {
       try {
-        const response = await fetch(`http://localhost:3000/events/${eventId}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/events/${eventId}`, {
           method: 'DELETE'
         })
 

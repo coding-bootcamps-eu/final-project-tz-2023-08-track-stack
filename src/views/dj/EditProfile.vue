@@ -57,7 +57,7 @@ export default {
   methods: {
     submitForm() {
       useDjStore().updateUserData()
-      alert('User erfolgreich aktualisiert')
+      //('User erfolgreich aktualisiert')
       this.$router.push({ path: '/dj-overview' })
     }
   }

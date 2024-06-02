@@ -79,7 +79,7 @@ export default {
 
       // GET-Request an die API senden
       if (eventId) {
-        const apiUrl = `http://localhost:3000/events/${eventId}`
+        const apiUrl = `${import.meta.env.VITE_API_URL}/events/${eventId}`
 
         //Den Store aufrufen
         const eventStore = useEventStore()
