@@ -1,6 +1,13 @@
 <template>
-  <label for="event-upload">CSV Upload:</label>
-  <input type="file" name="event-upload" accept=".csv" @change="handleFileUpload" />
+  <label for="event-upload"
+    >CSV Upload: <span class="required">*</span>
+    <input
+      type="file"
+      name="event-upload"
+      required="required"
+      accept=".csv"
+      @change="handleFileUpload"
+  /></label>
 </template>
 
 <script>

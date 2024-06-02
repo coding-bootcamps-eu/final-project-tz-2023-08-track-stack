@@ -34,13 +34,10 @@
     </nav>
     <hr />
     <form @submit.prevent="submitPlaylist">
-      <label class="hidden" for="playlist-title">Titel:</label>
-      <input
-        type="text"
-        name="playlist-title"
-        placeholder="Bitte vergebe einen aussagekräftigen Titel "
-        v-model="playlistTitle"
-      />
+      <label for="playlist-title"
+        >Titel: <span class="required">*</span>
+        <input type="text" name="playlist-title" required="required" v-model="playlistTitle"
+      /></label>
       <!-- FILEREADER -->
       <file-reader-csv @csv-data-uploaded="handleCsvData"></file-reader-csv>
 

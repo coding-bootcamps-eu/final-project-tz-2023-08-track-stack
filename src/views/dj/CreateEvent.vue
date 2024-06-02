@@ -6,11 +6,17 @@
     <div class="grid">
       <label for="event-title"
         >Titel: <span class="required">*</span>
-        <input type="text" name="event-title" v-model="title"
+        <input type="text" name="event-title" required="required" v-model="title"
       /></label>
       <label for="event-date"
         >Datum / Uhrzeit: <span class="required">*</span>
-        <input type="datetime-local" name="eventdate" v-model="date" aria-label="Datetime local" />
+        <input
+          type="datetime-local"
+          name="eventdate"
+          required="required"
+          v-model="date"
+          aria-label="Datetime local"
+        />
       </label>
     </div>
     <label for="event-description"
@@ -29,7 +35,7 @@
     <h4>Playlists</h4>
     <label
       >Playlist auswählen: <span class="required">*</span>
-      <select name="event-playlist" v-model="selectedPlaylistId">
+      <select name="event-playlist" required="required" v-model="selectedPlaylistId">
         <option v-for="playlist in playlists" :key="playlist.id" :value="playlist.id">
           {{ playlist.title }}
         </option>
