@@ -22,7 +22,7 @@
             <div>
               <section class="grid">
                 <div class="fullwidth">
-                  <button id="event-edit" type="button" @click="setEventId(event.id)">
+                  <button id="event-edit" type="button" @click="setCurrentEvent(event.id)">
                     <i class="si-check"></i> Aktivieren
                   </button>
                   <button id="event-edit" type="button" @click="editEvent(event.id)">
@@ -79,9 +79,12 @@ export default {
       this.$router.push('/edit-event')
     },
 
-    setEventId(eventId) {
+    async setCurrentEvent(eventId) {
       const eventStore = useEventStore()
+      const event = await eventStore.fetchEvent(eventId)
+
       eventStore.setCurrentEventId(eventId)
+      localStorage.setItem('eventData', JSON.stringify(event))
       this.$router.push({ path: '/wishlist' })
     }
   }
