@@ -5,32 +5,42 @@
   <form @submit.prevent="addEvent()">
     <div class="grid">
       <label for="event-title"
-        >Titel: <input type="text" name="event-title" v-model="title"
+        >Titel: <span class="required">*</span>
+        <input type="text" name="event-title" required="required" v-model="title"
       /></label>
       <label for="event-date"
-        >Datum / Uhrzeit:
-        <input type="datetime-local" name="event-date" v-model="date" aria-label="Datetime local" />
+        >Datum / Uhrzeit: <span class="required">*</span>
+        <input
+          type="datetime-local"
+          name="eventdate"
+          required="required"
+          v-model="date"
+          aria-label="Datetime local"
+        />
       </label>
     </div>
     <label for="event-description"
-      >Beschreibung: <input type="text" name="event-description" v-model="description"
+      >Beschreibung: <input type="text" name="eventdescription" v-model="description"
     /></label>
 
     <div class="grid">
       <label for="event-organizer"
-        >Veranstalter:<input type="text" name="event-organizer" v-model="organizer"
+        >Veranstalter:<input type="text" name="eventorganizer" v-model="organizer"
       /></label>
       <label for="event-address"
-        >Adresse:<input type="text" name="event-address" v-model="address"
+        >Adresse:<input type="text" name="eventaddress" v-model="address"
       /></label>
     </div>
     <hr />
-    <h4>Playlist</h4>
-    <select name="event-playlist" v-model="selectedPlaylistId">
-      <option v-for="playlist in playlists" :key="playlist.id" :value="playlist.id">
-        {{ playlist.title }}
-      </option>
-    </select>
+    <h4>Playlists</h4>
+    <label
+      >Playlist auswählen: <span class="required">*</span>
+      <select name="event-playlist" required="required" v-model="selectedPlaylistId">
+        <option v-for="playlist in playlists" :key="playlist.id" :value="playlist.id">
+          {{ playlist.title }}
+        </option>
+      </select></label
+    >
     <hr />
     <h4>Veranstaltungsfoto</h4>
     <fieldset id="event-image">
@@ -101,7 +111,7 @@
     <QrCodeGenerator2 :eventId="eventId" />
     <hr />
     <div class="grid">
-      <input type="submit" value="Event hinzufügen" />
+      <input type="submit" value="Event hinzufügen" :disabled="!isFormValid" />
       <div>
         <router-link to="/events">
           <button><i class="si-grid"></i> Eventübersicht</button>
@@ -143,7 +153,17 @@ export default {
   created() {
     this.fetchPlaylists()
   },
+  computed: {
+    isFormValid() {
+      return (
+        this.title.trim() !== '' && // Login darf nicht leer sein oder nur Leerzeichen enthalten
+        this.date.trim() !== '' && // Login darf keine Leerzeichen am Anfang oder Ende haben
+        this.selectedPlaylistId !== '' // Email darf nicht leer sein
 
+        // Hier kannst du weitere Validierungen hinzufügen
+      )
+    }
+  },
   methods: {
     async fetchPlaylists() {
       await usePlaylistStore().fetchPlaylistsForLocalStoredDJ()

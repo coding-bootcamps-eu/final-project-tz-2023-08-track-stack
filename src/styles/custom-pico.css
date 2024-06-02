@@ -53,6 +53,12 @@ ol {
   padding-left: 0;
 }
 
+/* Pflichtfelder */
+.required,
+.error {
+  color: #ff0022;
+}
+
 /* Active DJ Menü */
 .no-active-dj {
   color: #ff0022;

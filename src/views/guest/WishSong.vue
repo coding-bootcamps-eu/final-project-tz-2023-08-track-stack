@@ -7,10 +7,10 @@
       type="search"
       name="song-search"
       autocomplete="off"
-      placeholder="Gib hier deinen Wunschtitel ein …"
+      placeholder="Wunschtitel oder Interpret eingeben …"
       v-model="inputSongSearch"
       @input="getSuggestionFromApi"
-      required
+      required="required"
     />
 
     <table v-if="suggestions.length > 0" class="dropdown">
@@ -31,9 +31,8 @@
     <textarea
       v-model="message"
       type="text"
-      placeholder="Möchtest du jemanden grüßen oder hast eine Bitte?"
-    ></textarea
-    ><br />
+      placeholder="Möchtest du dem DJ eine Nachricht hinterlassen?"
+    ></textarea>
     <label for="anonym">
       <input type="checkbox" name="anonym" id="anonym" v-model="isAnonym" />Ich möchte anonym
       bleiben
