@@ -6,17 +6,17 @@
     Je mehr Gäste für einen Titel abstimmen desto höher steigt dieser auf.
   </p>
   <div class="grid">
-    <router-link v-if="isDjLoggedIn" to="/dj-overview">
+    <router-link v-if="isDjLoggedIn" to="/dj-overview" class="fullwidth">
       <button><i class="si-grid"></i> DJ Übersicht</button>
     </router-link>
 
-    <router-link v-if="!isDjLoggedIn" to="/guest-overview">
+    <router-link v-if="!isDjLoggedIn" to="/guest-overview" class="fullwidth">
       <button><i class="si-grid"></i> Gast Übersicht</button>
       <!-- muss dynamisch sein, Gast oder DJ -->
     </router-link>
 
-    <router-link v-if="!isDjLoggedIn" to="/wishsong" class="right">
-      <button><i class="si-gift"></i> Song wünschen</button>
+    <router-link v-if="!isDjLoggedIn" to="/wishsong" class="fullwidth">
+      <button class="border"><i class="si-gift"></i> Song wünschen</button>
     </router-link>
   </div>
   <hr />

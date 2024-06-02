@@ -120,14 +120,46 @@ details p {
   text-align: right;
 }
 
+button.border {
+  color: white;
+  transition: 0.5s;
+  animation: pulse 2s infinite;
+  transition: 2s;
+  background-color: hsl(257, 85%, 54%); /* Rot, wenn abgestimmt */
+  border-color: hsl(257, 85%, 54%);
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  70% {
+    transform: scale(0.98);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 /* VOTE Buttons */
-.voted {
-  background-color: hsl(257, 85%, 58%); /* Rot, wenn abgestimmt */
+.not-voted {
+  background-color: hsl(257, 85%, 58%); /* Lila, wenn abgestimmt */
   border-color: hsl(257, 85%, 58%);
   color: #fff;
 }
 
-.voted:hover {
+.not-voted:hover {
   background-color: hsl(257, 85%, 54%); /* Rot, wenn abgestimmt */
   border-color: hsl(257, 85%, 54%);
+}
+
+.voted {
+  background-color: var(--pico-contrast); /* schwarz, wenn abgestimmt */
+  border-color: var(--pico-contrast);
+  color: var(--pico-contrast-inverse);
+}
+.voted:hover {
+  background-color: var(--pico-contrast-background); /* schwarz, wenn abgestimmt */
+  border-color: var(--pico-contrast-background);
+  color: var(--pico-contrast-inverse);
 }
