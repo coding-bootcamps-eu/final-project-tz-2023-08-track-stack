@@ -78,6 +78,7 @@ export const useEventStore = defineStore('event', {
           throw new Error('Failed to fetch events from API')
         }
         this.currentEvent = await response.json()
+        return this.currentEvent
       } catch (error) {
         console.error(error)
         throw error

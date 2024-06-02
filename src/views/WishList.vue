@@ -1,21 +1,22 @@
 <template>
-  <active-dj v-if="isDjLoggedIn" class="menu">nicht eingeloggt</active-dj>
+  <active-dj v-if="isDjOwner" class="menu">nicht eingeloggt</active-dj>
+  <h1>{{ eventName }}</h1>
   <h2>Wunschliste</h2>
   <p>
     Hier findest du die bisher eingegangen Musikwünsche. Stimme gerne für deine Lieblingstitel ab.
     Je mehr Gäste für einen Titel abstimmen desto höher steigt dieser auf.
   </p>
   <div class="grid">
-    <router-link v-if="isDjLoggedIn" to="/dj-overview" class="fullwidth">
+    <router-link v-if="isDjOwner" to="/dj-overview" class="fullwidth">
       <button><i class="si-grid"></i> DJ Übersicht</button>
     </router-link>
 
-    <router-link v-if="!isDjLoggedIn" to="/guest-overview" class="fullwidth">
+    <router-link v-if="!isDjOwner" to="/guest-overview" class="fullwidth">
       <button><i class="si-grid"></i> Gast Übersicht</button>
       <!-- muss dynamisch sein, Gast oder DJ -->
     </router-link>
 
-    <router-link v-if="!isDjLoggedIn" to="/wishsong" class="fullwidth">
+    <router-link v-if="!isDjOwner" to="/wishsong" class="fullwidth">
       <button class="border"><i class="si-gift"></i> Song wünschen</button>
     </router-link>
   </div>
@@ -34,19 +35,15 @@
               <b>{{ request.likes }}</b> {{ votesText(request.likes) }}
             </p>
             <fieldset role="group">
-              <button
-                @click="markSongAsPlayed(request)"
-                v-if="isDjLoggedIn"
-                class="contrast outline"
-              >
+              <button @click="markSongAsPlayed(request)" v-if="isDjOwner" class="contrast outline">
                 <i class="si-play"></i> abgespielt
               </button>
-              <button v-if="isDjLoggedIn" @click="deleteWishedSong(request)" class="contrast">
+              <button v-if="isDjOwner" @click="deleteWishedSong(request)" class="contrast">
                 <i class="si-trash"></i> löschen
               </button>
 
               <button
-                v-if="!isDjLoggedIn"
+                v-if="!isDjOwner"
                 :class="{ voted: request.userHasVoted, 'not-voted': !request.userHasVoted }"
                 @click="toggleVote(request)"
               >
@@ -55,7 +52,7 @@
               </button>
             </fieldset>
           </body>
-          <footer v-if="request.message && isDjLoggedIn">
+          <footer v-if="request.message && isDjOwner">
             <section v-if="request.message">
               <figure>
                 <figcaption>
@@ -101,18 +98,18 @@ import ActiveDj from '@/components/ActiveDj.vue'
 export default {
   data() {
     return {
-      isDjLoggedIn: false,
       requests: [],
       playedSongs: [],
       eventId: null,
-      votes: JSON.parse(localStorage.getItem('votes')) || {}
+      votes: JSON.parse(localStorage.getItem('votes')) || {},
+      eventDjId: JSON.parse(localStorage.getItem('eventData')).djId || {},
+      eventName: JSON.parse(localStorage.getItem('eventData')).title || {}
     }
   },
 
   components: { ActiveDj },
 
   created() {
-    this.isDjLoggedInMethode()
     this.getEventIdFromLocalStorage()
 
     const eventSource = new EventSource(`${import.meta.env.VITE_API_URL}/stream/${this.eventId}`)
@@ -130,6 +127,11 @@ export default {
   },
 
   computed: {
+    isDjOwner() {
+      const djID = localStorage.getItem('activeDjId')
+
+      return this.eventDjId === djID
+    },
     sortedRequest() {
       return this.requests
         .filter((request) => request.open !== false)
@@ -142,13 +144,6 @@ export default {
   },
 
   methods: {
-    isDjLoggedInMethode() {
-      const activeDjIdFromLocalStorage = localStorage.getItem('activeDjId')
-      if (activeDjIdFromLocalStorage) {
-        this.isDjLoggedIn = true
-      }
-    },
-
     async toggleVote(request) {
       const newrequest = { ...request } //abkoppeln!
       this.votes[request.id] = true
@@ -180,13 +175,6 @@ export default {
         if (eventDataFromLocalStorage) {
           const eventData = JSON.parse(eventDataFromLocalStorage)
           this.eventId = eventData.id
-        }
-      }
-
-      if (localStorage.getItem('currentEventId')) {
-        const eventIdFromLocalStorage = localStorage.getItem('currentEventId')
-        if (eventIdFromLocalStorage) {
-          this.eventId = eventIdFromLocalStorage
         }
       }
     },
