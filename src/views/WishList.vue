@@ -199,7 +199,7 @@ export default {
     },
 
     getEventIdFromLocalStorage() {
-      if (localStorage.getItem('guestData') || 'eventDjId') {
+      if (localStorage.getItem('guestData') || localStorage.getItem('activeDjId')) {
         const eventDataFromLocalStorage = localStorage.getItem('eventData')
         if (eventDataFromLocalStorage) {
           const eventData = JSON.parse(eventDataFromLocalStorage)
