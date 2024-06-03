@@ -16,14 +16,14 @@
     <table v-if="suggestions.length > 0" class="dropdown">
       <thead>
         <tr>
-          <th>Interpret</th>
           <th>Titel</th>
+          <th>Interpret</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(song, index) in suggestions" :key="index" @click="selectSong(song)">
-          <td>{{ song.artist }}</td>
           <td>{{ song.title }}</td>
+          <td>{{ song.artist }}</td>
         </tr>
       </tbody>
     </table>
@@ -164,7 +164,6 @@ export default {
           title: this.title,
           message: this.message
         }
-
         // Füge den who-Key hinzu, wenn isAnonym false ist
         if (!this.isAnonym) {
           dataToSend.who = guestData

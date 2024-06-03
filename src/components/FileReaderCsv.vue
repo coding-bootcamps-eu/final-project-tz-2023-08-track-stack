@@ -38,8 +38,8 @@ export default {
         // Array to Obj
         const dataAsObjects = arrayData.slice(1).map((row) => {
           return {
-            artist: row[0] ? row[0] : '', // Der erste Wert in der Zeile ist der Künstler
-            title: row[1] ? row[1] : '' // Der zweite Wert in der Zeile ist der Titel
+            artist: row[1] ? row[1] : '', // Der zweite Wert in der Zeile ist der Künstler
+            title: row[0] ? row[0] : '' // Der erste Wert in der Zeile ist der Titel
           }
         })
 
