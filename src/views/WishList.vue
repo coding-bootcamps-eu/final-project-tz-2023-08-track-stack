@@ -1,6 +1,7 @@
 <template>
   <active-dj v-if="isDjOwner" class="menu">nicht eingeloggt</active-dj>
-  <h1>{{ eventName }}</h1>
+  <!-- <h1>{{ eventName }}</h1> -->
+
   <h2>Wunschliste</h2>
   <p>
     Hier findest du die bisher eingegangen Musikwünsche. Stimme gerne für deine Lieblingstitel ab.
@@ -103,7 +104,9 @@ export default {
       eventId: null,
       votes: JSON.parse(localStorage.getItem('votes')) || {},
       eventDjId: JSON.parse(localStorage.getItem('eventData')).djId || {},
-      eventName: JSON.parse(localStorage.getItem('eventData')).title || {}
+      eventName: JSON.parse(localStorage.getItem('eventData')).title || {},
+      eventImage: JSON.parse(localStorage.getItem('eventData')).eventImage || {},
+      textElement: null
     }
   },
 
@@ -113,6 +116,7 @@ export default {
     this.getEventIdFromLocalStorage()
 
     const eventSource = new EventSource(`${import.meta.env.VITE_API_URL}/stream/${this.eventId}`)
+    console.log(eventSource)
 
     eventSource.addEventListener('message', (apievent) => {
       // Parsen der empfangenen Daten vom Server
@@ -124,6 +128,31 @@ export default {
         return request
       })
     })
+  },
+  mounted() {
+    // Zugriff auf Header um Eventbild und Überschrift einzufügen
+    const header = document.querySelector('header')
+    if (header) {
+      //Eventbild
+      header.style.background = `radial-gradient(circle, rgba(0, 0, 255, 0.5), rgba(255, 255, 255, 0.2)), url(${this.eventImage}) center/cover`
+      //EventName
+      this.textElement = document.createElement('h1')
+      this.textElement.textContent = this.eventName
+      header.appendChild(this.textElement)
+    }
+  },
+  beforeUnmount() {
+    // Der Header wird wieder zurückgesetzt, EventName/Bild wird resettet
+    const header = document.querySelector('header')
+    if (header) {
+      // Hintergrund des Headers auf den ursprünglichen Zustand zurücksetzen
+      header.style.background = `radial-gradient(circle, rgba(0, 0, 255, 0.5), rgba(255, 255, 255, 0.2)), url(/images/header_default.jpg) center/cover`
+
+      // Entferne den eingefügten Text
+      // if (this.textElement) {
+      header.removeChild(this.textElement)
+      //}
+    }
   },
 
   computed: {

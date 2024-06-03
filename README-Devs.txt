@@ -1,12 +1,21 @@
 Hier soll eine Readme für Lars Irina Martin entstehen.
 Hier können wichtige Dinge festgehalten werden.
 
-* CSV:
-https://www.npmjs.com/package/@usecsv/vuejs3
-npm install @usecsv/vuejs3
+====== LOCAL API ======
+https://github.com/coding-bootcamps-eu/final-project-2023-08-senftraxx-api.git
+NodePackageManager installieren:
+$ npm install
 
-lieber das, aber geht noch nicht
-https://www.npmjs.com/package/@webdev-7567/vue-csv-import
+Portangeben:
+$ cp .env.default .env
+APP_PORT=3000 reinschreiben!
+
+db.json mit dummydata füllen:
+$ cp db.json.default.dummy db.json
+
+Starten:
+$ npm run start:dev
+======================
 
 Diese Icons können genutzt werden
 
