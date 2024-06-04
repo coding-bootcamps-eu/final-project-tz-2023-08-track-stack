@@ -88,7 +88,8 @@ export const useEventStore = defineStore('event', {
     // Aktion zum Aktualisieren eines Events in der API
     async updateEventInApi(eventData) {
       try {
-        console.log('Sending data to API:', eventData) // Debugging
+        // Debugging
+        //console.log('Sending data to API:', eventData)
         const response = await fetch(`${import.meta.env.VITE_API_URL}/events/${eventData.id}`, {
           method: 'PUT',
           headers: {

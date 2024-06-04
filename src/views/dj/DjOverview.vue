@@ -30,11 +30,11 @@
   </div>
   <hr />
   <div class="grid">
-    <div>
-      <router-link class="fullwidth" to="/wishlist"
-        ><button class="contrast"><i class="si-server"></i> Zur Wunschliste</button></router-link
-      >
-    </div>
+    <form @submit.prevent="toWishlist">
+      <button type="submit" class="contrast" :disabled="!isEventActiv">
+        <i class="si-server"></i> Zur Wunschliste {{ activeEvent.title }}
+      </button>
+    </form>
   </div>
 </template>
 
@@ -42,6 +42,23 @@
 import ActiveDj from '@/components/ActiveDj.vue'
 
 export default {
-  components: { ActiveDj }
+  components: { ActiveDj },
+  data() {
+    return {
+      activeEvent: JSON.parse(localStorage.getItem('eventData')) || {}
+    }
+  },
+  computed: {
+    isEventActiv() {
+      return this.activeEvent.title
+    }
+  },
+  methods: {
+    toWishlist() {
+      if (this.isEventActiv) {
+        this.$router.push('/wishlist')
+      }
+    }
+  }
 }
 </script>
