@@ -21,7 +21,6 @@
       <button class="border"><i class="si-gift"></i> Song wünschen</button>
     </router-link>
   </div>
-  <hr />
 
   <ol>
     <transition-group name="wishList">
@@ -71,7 +70,6 @@
       </li>
     </transition-group>
   </ol>
-  <hr />
 
   <details>
     <summary role="button" class="outline secondary">Bereits abgespielte Songs anzeigen …</summary>
@@ -242,6 +240,9 @@ export default {
 </script>
 
 <style scoped>
+ol {
+  margin: 2rem 0;
+}
 article body.grid {
   grid-template-columns: 1fr;
 
