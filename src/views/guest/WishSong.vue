@@ -141,7 +141,10 @@ export default {
           throw new Error('Aktiver Gast nicht festgelegt.')
         }
 
-        const existingRequest = this.requests.find(
+        //Requests die noch nicht gespielt wurden
+        const openRequests = this.requests.filter((request) => request.open !== false)
+        //sucht ob gewünschter Song schon gwünscht wurde
+        const existingRequest = openRequests.find(
           (request) => request.title === this.title && request.artist === this.artist
         )
 
