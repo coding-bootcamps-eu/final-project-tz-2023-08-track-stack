@@ -116,7 +116,8 @@ export default {
     this.getEventIdFromLocalStorage()
 
     const eventSource = new EventSource(`${import.meta.env.VITE_API_URL}/stream/${this.eventId}`)
-    console.log(eventSource)
+    //debugg
+    // console.log(eventSource)
 
     eventSource.addEventListener('message', (apievent) => {
       // Parsen der empfangenen Daten vom Server

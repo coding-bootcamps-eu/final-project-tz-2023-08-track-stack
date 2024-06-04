@@ -223,8 +223,9 @@ export default {
         //Die eventId in einer Variablen speichern und an data übergeben
         this.eventId = eventId
 
-        console.log('Neues Event hinzugefügt mit Playlist ID:', this.selectedPlaylistId)
-        console.log('Neues Event hinzugefügt mit der ID:', eventId)
+        //debug
+        //console.log('Neues Event hinzugefügt mit Playlist ID:', this.selectedPlaylistId)
+        //console.log('Neues Event hinzugefügt mit der ID:', eventId)
 
         // alert('Das Event würde hinzugefügt. Der QR Code wird jetzt generiert.')
       } catch (error) {
