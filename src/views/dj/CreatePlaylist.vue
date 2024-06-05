@@ -105,6 +105,14 @@ export default {
           throw new Error('Fehler beim Senden der Daten')
         }
 
+        this.$swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Deine Playlist wurde erstellt!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+
         // Erfolgreiches Senden der Daten, Weiterleitung zum Login
         this.$router.push({ path: '/dj-overview' })
       } catch (error) {

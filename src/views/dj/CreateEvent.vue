@@ -229,7 +229,14 @@ export default {
         //console.log('Neues Event hinzugefügt mit Playlist ID:', this.selectedPlaylistId)
         //console.log('Neues Event hinzugefügt mit der ID:', eventId)
 
-        // alert('Das Event würde hinzugefügt. Der QR Code wird jetzt generiert.')
+        // alert
+        this.$swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Dein Event wurde erstellt!',
+          showConfirmButton: false,
+          timer: 1500
+        })
       } catch (error) {
         console.error('Fehler:', error)
       }

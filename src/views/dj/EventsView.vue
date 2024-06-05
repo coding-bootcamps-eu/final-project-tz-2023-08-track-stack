@@ -65,12 +65,36 @@ export default {
       this.events = eventStore.events
     },
 
-    async deleteEvent(eventId) {
+    // async
+    deleteEvent(eventId) {
       const eventStore = useEventStore()
-      if (confirm('Soll das Event wirklich gelöscht werden?')) {
-        await eventStore.deleteEvent(eventId)
-      }
-      this.fetchEvents()
+      // if (confirm('Soll das Event wirklich gelöscht werden?')) {
+      //   await eventStore.deleteEvent(eventId)
+      // }
+      // this.fetchEvents()
+
+      //alert löschen des events
+      this.$swal
+        .fire({
+          title: 'Soll das Event wirklich gelöscht werden?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Ja, löschen!'
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            eventStore.deleteEvent(eventId).then(() => {
+              this.$swal.fire({
+                title: 'Gelöscht!',
+                text: 'Das Event wurde erfolgreich gelöscht.',
+                icon: 'success'
+              })
+              this.fetchEvents()
+            })
+          }
+        })
     },
 
     editEvent(eventId) {

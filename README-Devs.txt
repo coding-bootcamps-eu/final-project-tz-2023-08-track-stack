@@ -20,3 +20,7 @@ $ npm run start:dev
 Diese Icons können genutzt werden
 
 https://siimple.xyz/icons/
+
+
+Sweetalert2 info:
+https://sweetalert2.github.io/#frameworks-integrations
