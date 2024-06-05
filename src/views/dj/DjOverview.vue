@@ -2,7 +2,11 @@
   <active-dj class="menu">nicht eingeloggt</active-dj>
 
   <h2>Übersicht DJ</h2>
-  <p>Hier bist du auf deinem Dashboard</p>
+  <p>
+    Hier bist du auf deinem Dashboard. Du kannst Playlisten sowie Events erstellen und verwalten.
+    Wichtig ist, im ersten Schritt eine Playliste zu erstellen, da diese im folgenden Schritt im
+    Event zugewiesen werden muss. Die aktuelle Wunschliste lässt sich unter Events aktivieren.
+  </p>
   <div class="grid">
     <div>
 
@@ -25,7 +29,12 @@
   <hr />
   <div class="grid">
     <form @submit.prevent="toWishlist">
-      <button type="submit" class="contrast" :disabled="!isEventActiv">
+      <button
+        type="submit"
+        data-tooltip="Die Wunschliste lässt sich unter Events aktivieren."
+        class="contrast"
+        :disabled="!isEventActiv"
+      >
         <i class="si-server"></i> Zur Wunschliste {{ activeEvent.title }}
       </button>
     </form>

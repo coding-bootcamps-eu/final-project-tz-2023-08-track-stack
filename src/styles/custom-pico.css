@@ -52,6 +52,17 @@ form label.hidden {
   border-color: #8332fc;
 }
 
+/* Sweet Alerts */
+
+div:where(.swal2-icon).swal2-warning {
+  color: var(--pico-primary-background) !important;
+  border-color: var(--pico-primary-background) !important;
+}
+div:where(.swal2-container) div:where(.swal2-actions):not(.swal2-loading) .swal2-styled:active {
+  color: var(--pico-primary-inverse) !important;
+  color: hsl(257, 85%, 58%) !important;
+}
+
 /* Overview */
 .marginBot {
   margin-bottom: 1rem;
@@ -143,7 +154,7 @@ button.border {
   transition: 0.5s;
   animation: pulse 2s infinite;
   transition: 2s;
-  background-color: hsl(257, 85%, 54%); /* Rot, wenn abgestimmt */
+  background-color: hsl(257, 85%, 54%);
   border-color: hsl(257, 85%, 54%);
 }
 
@@ -161,23 +172,22 @@ button.border {
 
 /* VOTE Buttons */
 .not-voted {
-  background-color: hsl(257, 85%, 58%); /* Lila, wenn abgestimmt */
+  background-color: hsl(257, 85%, 58%);
   border-color: hsl(257, 85%, 58%);
   color: #fff;
 }
 
 .not-voted:hover {
-  background-color: hsl(257, 85%, 54%); /* Rot, wenn abgestimmt */
+  background-color: hsl(257, 85%, 54%);
   border-color: hsl(257, 85%, 54%);
 }
 
 .voted {
-  background-color: var(--pico-contrast); /* schwarz, wenn abgestimmt */
-  border-color: var(--pico-contrast);
+  background-color: var(--pico-contrast);
   color: var(--pico-contrast-inverse);
 }
 .voted:hover {
-  background-color: var(--pico-contrast-background); /* schwarz, wenn abgestimmt */
+  background-color: var(--pico-contrast-background);
   border-color: var(--pico-contrast-background);
   color: var(--pico-contrast-inverse);
 }

@@ -64,7 +64,7 @@ export default {
         icon: 'success',
         title: 'Profil erfolgreich aktualisiert!',
         showConfirmButton: false,
-        timer: 1500
+        timer: 2000
       })
       this.$router.push({ path: '/dj-overview' })
     }

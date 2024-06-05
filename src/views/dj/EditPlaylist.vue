@@ -95,7 +95,7 @@ export default {
           icon: 'success',
           title: 'Playlist erfolgreich aktualisiert!',
           showConfirmButton: false,
-          timer: 1500
+          timer: 2000
         })
       } catch (error) {
         console.error('Fehler beim Aktualisieren der Playlist:', error)
