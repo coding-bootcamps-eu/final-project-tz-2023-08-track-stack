@@ -22,7 +22,12 @@
             <div>
               <section class="grid">
                 <div class="fullwidth">
-                  <button id="event-edit" type="button" @click="setCurrentEvent(event.id)">
+                  <button
+                    id="event-edit"
+                    class="contrast"
+                    type="button"
+                    @click="setCurrentEvent(event.id)"
+                  >
                     <i class="si-check"></i> Aktivieren
                   </button>
                   <button id="event-edit" type="button" @click="editEvent(event.id)">
