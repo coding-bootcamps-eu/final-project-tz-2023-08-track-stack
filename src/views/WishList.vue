@@ -84,6 +84,12 @@
             <p class="votes">
               <b>{{ song.likes }}</b> {{ votesText(song.likes) }}
             </p>
+            <time class="played" v-if="song.playedAt"
+              ><small
+                ><span>Abgespielt um:</span> <b>{{ song.playedAt }}</b> Uhr</small
+              ></time
+            >
+            <!-- Zeitangabe anzeigen -->
           </body>
         </article>
       </li>
@@ -218,6 +224,10 @@ export default {
     async markSongAsPlayed(request) {
       const oldRequest = { ...request }
       oldRequest.open = false
+      oldRequest.playedAt = new Date().toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit'
+      }) // Aktuelle Uhrzeit ohne Millisekunden hinzufügen
 
       const response = await fetch(`${import.meta.env.VITE_API_URL}/requests/${request.id}`, {
         method: 'PUT',
@@ -248,7 +258,7 @@ article body.grid {
   grid-template-columns: 1fr;
 
   @media (min-width: 768px) {
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 2fr;
   }
 }
 
@@ -267,6 +277,11 @@ article body.grid > * {
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+time.played {
+  text-align: right;
+  color: grey;
 }
 
 /* Transiton der Liste */

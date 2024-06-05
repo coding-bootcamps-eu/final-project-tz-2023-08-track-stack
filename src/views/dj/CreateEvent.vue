@@ -51,9 +51,9 @@
             type="radio"
             id="default"
             name="event-image-radio"
-            value="Default"
+            value="default"
             v-model="selectedEventImage"
-          />Standardbild
+          />Standard
         </label>
 
         <label for="birthday">
