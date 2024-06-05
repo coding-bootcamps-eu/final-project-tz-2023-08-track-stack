@@ -1,11 +1,15 @@
 <template>
   <active-dj class="menu">nicht eingeloggt</active-dj>
   <h2>Playlisten verwalten</h2>
-
   <p>
     Hier verwaltest du deine Playlisten und kannst ebenfalls neue Playlisten erstellen. Beim Klick
     auf eine der Playlisten kannst du diese bei Bedarf Ändern oder Löschen.
   </p>
+  <div class="marginBot">
+    <router-link class="fullwidth" to="/create-playlist"
+      ><button><i class="si-plus"></i> Playlist erstellen</button></router-link
+    >
+  </div>
   <!-- Formular zur Anzeige und Verwaltung der Playlisten -->
   <form @submit.prevent>
     <ol>

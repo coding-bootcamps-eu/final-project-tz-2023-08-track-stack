@@ -64,26 +64,8 @@ div:where(.swal2-container) div:where(.swal2-actions):not(.swal2-loading) .swal2
 }
 
 /* Overview */
-
-.grid-container {
-  display: grid;
-  grid-template-columns: 0.5fr 0.5fr 1fr; /* Drei gleich große Spalten */
-  /* height: 10vh; Vollbildhöhe */
-}
-.grid-item1 {
-  grid-column: 1; /* Platziert das Element in der ersten Spalte */
-  padding: 20px;
-}
-.grid-item2 {
-  grid-column: 2; /* Platziert das Element in der zweiten Spalte */
-  padding: 20px;
-}
-.grid-item3 {
-  grid-column: 3; /* Platziert das Element in der dritten Spalte */
-  padding: 20px;
-}
-.grid-center {
-  place-items: center;
+.marginBot {
+  margin-bottom: 1rem;
 }
 
 /* Ordered List */
