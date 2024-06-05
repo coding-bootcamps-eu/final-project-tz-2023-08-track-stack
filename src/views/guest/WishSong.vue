@@ -106,6 +106,11 @@ export default {
     },
 
     async getSuggestionFromApi() {
+      if (this.inputSongSearch.trim() === '') {
+        this.suggestions = []
+        return
+      }
+
       try {
         const response = await fetch(
           `${import.meta.env.VITE_API_URL}/playlists/${this.eventData.playlistId}`
