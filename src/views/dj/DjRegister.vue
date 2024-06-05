@@ -89,6 +89,22 @@ export default {
           throw new Error('Fehler beim Senden der Daten')
         }
 
+        const Toast = this.$swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = this.$swal.stopTimer
+            toast.onmouseleave = this.$swal.resumeTimer
+          }
+        })
+        Toast.fire({
+          icon: 'success',
+          title: 'Du hast dich erfolgreich registriert!'
+        })
+
         // Weiterleitung zur Login-Seite
         this.$router.push({ path: '/login' })
       } catch (error) {

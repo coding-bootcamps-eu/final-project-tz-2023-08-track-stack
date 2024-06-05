@@ -66,6 +66,22 @@ export default {
       if (!foundDj) {
         this.isDjNameValid = false
       } else {
+        const Toast = this.$swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = this.$swal.stopTimer
+            toast.onmouseleave = this.$swal.resumeTimer
+          }
+        })
+        Toast.fire({
+          icon: 'success',
+          title: 'Du hast dich erfolgreich eingeloggt!'
+        })
+
         // Wenn der DJ registriert ist, die ID im localStorage speichern weiterleiten
         localStorage.setItem('activeDjId', foundDj.id)
         useDjStore().activeDjId = foundDj.id

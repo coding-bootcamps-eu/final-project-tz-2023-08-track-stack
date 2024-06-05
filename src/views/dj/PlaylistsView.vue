@@ -79,12 +79,29 @@ export default {
     // Methode zum Löschen einer Playlist
     async deletePlaylist(playlistId) {
       const playlistStore = usePlaylistStore()
-      if (confirm('Soll die Playlist wirklich gelöscht werden?')) {
-        // Löscht die Playlist anhand der ID
-        await playlistStore.deletePlaylist(playlistId)
-        // Ruft die Playlists erneut ab, um die Liste zu aktualisieren
-        this.fetchPlaylists()
-      }
+
+      //alert löschen der playlist
+      this.$swal
+        .fire({
+          title: 'Soll die Playlist wirklich gelöscht werden?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Ja, löschen!'
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            playlistStore.deletePlaylist(playlistId).then(() => {
+              this.$swal.fire({
+                title: 'Gelöscht!',
+                text: 'Die Playlist wurde erfolgreich gelöscht.',
+                icon: 'success'
+              })
+              this.fetchPlaylists()
+            })
+          }
+        })
     }
   }
 }

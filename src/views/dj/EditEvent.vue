@@ -171,7 +171,16 @@ export default {
         const eventStore = useEventStore()
         this.event.eventImage = this.getImagePath(this.event.eventImage)
         await eventStore.updateEventInApi(this.event)
+
         // alert('Event erfolgreich aktualisiert')
+        this.$swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Event erfolgreich aktualisiert!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+
         this.$router.push({ path: '/events' })
       } catch (error) {
         console.error('Fehler beim Aktualisieren des Events:', error)

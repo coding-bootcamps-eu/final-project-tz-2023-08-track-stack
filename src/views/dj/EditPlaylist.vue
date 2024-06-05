@@ -86,7 +86,15 @@ export default {
 
         // Aktualisiert die Playlist im API-Server
         await usePlaylistStore().updatePlaylistInApi(this.playlist)
+
         //alert('Playlist erfolgreich aktualisiert')
+        this.$swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Playlist erfolgreich aktualisiert!',
+          showConfirmButton: false,
+          timer: 1500
+        })
       } catch (error) {
         console.error('Fehler beim Aktualisieren der Playlist:', error)
         alert('Fehler beim Aktualisieren der Playlist')
