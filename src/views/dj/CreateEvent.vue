@@ -119,7 +119,7 @@
         </router-link>
       </div>
       <div>
-        <router-link to="/dj-overview"
+        <router-link to="/events"
           ><button class="contrast"><i class="si-chevron-left"></i> zurück</button></router-link
         >
       </div>

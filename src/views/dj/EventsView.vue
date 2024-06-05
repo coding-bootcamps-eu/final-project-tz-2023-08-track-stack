@@ -2,6 +2,12 @@
   <active-dj class="menu">nicht eingeloggt</active-dj>
   <h2>Events verwalten</h2>
   <p>Hier verwaltest du deine Veranstaltungen</p>
+
+  <div class="marginBot">
+    <router-link class="fullwidth" to="/create-event"
+      ><button><i class="si-plus"></i> Event erstellen</button></router-link
+    >
+  </div>
   <form @submit.prevent>
     <ol>
       <li v-for="event in events" :key="event.id">
