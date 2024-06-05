@@ -63,11 +63,17 @@ export const useEventStore = defineStore('event', {
     },
 
     // Aktion zum Laden des aktuellen Events aus dem Local Storage
+    // HIER: es soll geladen werden, aber es ist nichts im LocalStorage
+    //ERROR ERROR
+    // Es wäre die ID vorhanden!
+    // currentEvent muss gefüllt werden mit daten
     loadCurrentEventFromLocalStorage() {
+      console.log('LODADED') //debugg
       const eventData = localStorage.getItem('eventData')
       if (eventData) {
         this.currentEvent = JSON.parse(eventData)
       }
+      // console.log(JSON.parse(this.currentEvent))
     },
 
     // Aktion zum Abrufen eines bestimmten Events aus der API

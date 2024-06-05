@@ -147,7 +147,9 @@ export default {
     await this.fetchPlaylists()
     //
     const eventStore = useEventStore()
-    eventStore.loadCurrentEventFromLocalStorage()
+    eventStore.loadCurrentEventIdFromLocalStorage()
+
+    // Falls eine Event-ID vorhanden ist, wird Event vom Server geladen
     if (eventStore.currentEventId) {
       await eventStore.fetchEvent(eventStore.currentEventId)
     }

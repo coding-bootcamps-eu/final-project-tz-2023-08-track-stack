@@ -67,11 +67,10 @@ export default {
 
     const playlistStore = usePlaylistStore()
     playlistStore.loadCurrentPlaylistIdFromLocalStorage()
-    const playlistId = playlistStore.currentPlaylistId
 
     // Falls eine Playlist-ID vorhanden ist, wird die entsprechende Playlist vom Server geladen
-    if (playlistId) {
-      await playlistStore.fetchPlaylist(playlistId)
+    if (playlistStore.currentPlaylistId) {
+      await playlistStore.fetchPlaylist(playlistStore.currentPlaylistId)
     }
   },
 
