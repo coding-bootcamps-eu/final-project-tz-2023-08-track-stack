@@ -7,20 +7,26 @@
   src: url('../fonts/gugi-v15-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
+/* bebas-neue-regular - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Bebas Neue';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/bebas-neue-v14-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
 h1,
 h2,
 h3,
 h4 {
-  font-family: 'Gugi';
+  font-family: 'Bebas Neue';
 }
 
 header h1 {
   color: var(--pico-secondary-inverse);
 }
-/* Erste h2 (Überschrift), soll nur 75% sein um das Menü nicht zu überdecken */
-h2:first-of-type {
-  width: 75%;
-}
+
 small {
   float: right;
   color: var(--pico-form-element-placeholder-color);
@@ -90,10 +96,7 @@ ol {
 .menu {
   display: flex;
   justify-content: flex-end;
-
-  position: absolute;
-  top: 120; /*top bleibt relative, das geht irgentwie perfekt, kp warum*/
-  right: 1rem;
+  right: 1;
   z-index: 1000; /* Damit es über anderen Elementen liegt */
 }
 
@@ -110,6 +113,13 @@ details:hover summary {
 
 details p {
   font-size: 1rem;
+}
+details.dropdown {
+  margin-bottom: 0;
+}
+details.dropdown summary + ul {
+  left: inherit;
+  right: 0;
 }
 
 /* Auswahl Header Figure*/
