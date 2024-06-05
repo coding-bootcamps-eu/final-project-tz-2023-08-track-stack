@@ -103,11 +103,11 @@ export default {
       this.$router.push('/edit-event')
     },
 
+    // soll Event aktivieren, eventData füllen
     async setCurrentEvent(eventId) {
       const eventStore = useEventStore()
       const event = await eventStore.fetchEvent(eventId)
 
-      eventStore.setCurrentEventId(eventId)
       localStorage.setItem('eventData', JSON.stringify(event))
       this.$router.push({ path: '/wishlist' })
     }

@@ -23,7 +23,7 @@
           <!-- Button zum Absenden des Formulars und Aktualisieren der Playlist -->
           <input type="submit" value="Playlist aktualisieren" />
           <!-- Button zum Zurückgehen zur DJ-Übersicht -->
-          <router-link to="/dj-overview"
+          <router-link to="/playlists"
             ><button class="contrast">
               <i class="si-chevron-left"></i> Zurück zu den Playlists
             </button></router-link
@@ -67,14 +67,16 @@ export default {
 
     const playlistStore = usePlaylistStore()
     playlistStore.loadCurrentPlaylistIdFromLocalStorage()
-    const playlistId = playlistStore.currentPlaylistId
 
     // Falls eine Playlist-ID vorhanden ist, wird die entsprechende Playlist vom Server geladen
-    if (playlistId) {
-      await playlistStore.fetchPlaylist(playlistId)
+    if (playlistStore.currentPlaylistId) {
+      await playlistStore.fetchPlaylist(playlistStore.currentPlaylistId)
     }
   },
-
+  unmounted() {
+    //Säubere den localStorage
+    localStorage.removeItem('currentPlaylistId')
+  },
   methods: {
     // Methode zur Aktualisierung der Playlist
     async updatePlaylist() {
