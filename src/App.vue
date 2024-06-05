@@ -1,20 +1,22 @@
 <template>
-  <!-- Header mit Name/Logo-->
-  <header
-    :style="{
-      background: `radial-gradient(circle, rgba(0, 0, 255, 0.5), rgba(255, 255, 255, 0.2)),
+  <div class="wrapper">
+    <!-- Header mit Name/Logo-->
+    <header
+      :style="{
+        background: `radial-gradient(circle, rgba(0, 0, 255, 0.5), rgba(255, 255, 255, 0.2)),
     url(${selectedEventImage}) center/cover`
-    }"
-  >
-    <a href="/"><img class="img-logo" src="/images/logo_hulaloop.svg" alt="Logo Hulaloop" /></a>
-  </header>
-  <!-- the choosen View-->
-  <body>
-    <main class="container">
-      <router-view />
-    </main>
-  </body>
-  <footer>Ein <strong>Coding Bootcamp Europe</strong> - Abschlussprojekt 2024</footer>
+      }"
+    >
+      <a href="/"><img class="img-logo" src="/images/logo_hulaloop.svg" alt="Logo Hulaloop" /></a>
+    </header>
+    <!-- the choosen View-->
+    <body class="container">
+      <main>
+        <router-view />
+      </main>
+    </body>
+    <footer>Ein <strong>Coding Bootcamp Europe</strong> - Abschlussprojekt 2024</footer>
+  </div>
 </template>
 
 <script>
@@ -43,6 +45,17 @@ export default {
 </script>
 
 <style scoped>
+/* Sorgt dafür das der ganze Viewport genutzt wird */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.container {
+  flex: 1; /* Nimmt den verfügbaren Platz ein */
+  margin-bottom: 1rem; /* Abstand zum Footer */
+}
+
 header {
   width: 100%;
   color: white;
