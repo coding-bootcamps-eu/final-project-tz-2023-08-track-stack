@@ -55,7 +55,7 @@
             name="event-image-radio"
             value="Default"
             v-model="event.eventImage"
-          />Standardbild
+          />Standard
         </label>
         <label for="birthday">
           <input

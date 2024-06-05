@@ -115,19 +115,17 @@ details p {
 /* Auswahl Header Figure*/
 .chooseHeaderFigure {
   position: relative;
-  width: 100%; /* Optional: Setze die gewünschte Breite */
-  height: 300px; /* Höhe des sichtbaren Bereichs */
-  overflow: hidden; /* Versteckt den nicht sichtbaren Teil des Bildes */
+  width: 100%;
+  overflow: hidden;
+  aspect-ratio: 4/3;
 }
 
 .chooseHeaderImg {
   position: absolute;
-  top: -200px; /* Verschiebt das Bild um 200px nach oben */
   width: 100%;
   height: auto;
 }
-
-.chooseHeaderFigcaption {
+*/ .chooseHeaderFigcaption {
   position: absolute;
   bottom: 10px; /* Höhe anzupassen */
   left: 0;

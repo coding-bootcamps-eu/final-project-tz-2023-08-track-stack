@@ -1,8 +1,6 @@
 <template>
   <div>
     <form @submit.prevent="downloadQR">
-      <label for="qr-code">QR Code:</label>
-
       <img class="qr-img" :src="displayedImage" alt="QR Code" :width="width" />
       <p>{{ this.url }}</p>
 
