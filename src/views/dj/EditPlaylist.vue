@@ -23,7 +23,7 @@
           <!-- Button zum Absenden des Formulars und Aktualisieren der Playlist -->
           <input type="submit" value="Playlist aktualisieren" />
           <!-- Button zum Zurückgehen zur DJ-Übersicht -->
-          <router-link to="/dj-overview"
+          <router-link to="/playlists"
             ><button class="contrast">
               <i class="si-chevron-left"></i> Zurück zu den Playlists
             </button></router-link
