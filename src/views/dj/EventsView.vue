@@ -65,8 +65,13 @@ export default {
       this.events = eventStore.events
     },
 
+    // async
     deleteEvent(eventId) {
       const eventStore = useEventStore()
+      // if (confirm('Soll das Event wirklich gelöscht werden?')) {
+      //   await eventStore.deleteEvent(eventId)
+      // }
+      // this.fetchEvents()
 
       //alert löschen des events
       this.$swal

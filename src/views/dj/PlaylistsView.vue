@@ -77,8 +77,15 @@ export default {
     },
 
     // Methode zum Löschen einer Playlist
-    async deletePlaylist(playlistId) {
+    // async
+    deletePlaylist(playlistId) {
       const playlistStore = usePlaylistStore()
+      // if (confirm('Soll die Playlist wirklich gelöscht werden?')) {
+      //   // Löscht die Playlist anhand der ID
+      //   await playlistStore.deletePlaylist(playlistId)
+      //   // Ruft die Playlists erneut ab, um die Liste zu aktualisieren
+      //   this.fetchPlaylists()
+      // }
 
       //alert löschen der playlist
       this.$swal
