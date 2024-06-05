@@ -20,7 +20,8 @@
       </label>
     </div>
     <label for="event-description"
-      >Beschreibung: <input type="text" name="eventdescription" v-model="description"
+      >Beschreibung: <span class="required">*</span>
+      <input type="text" name="eventdescription" v-model="description"
     /></label>
 
     <div class="grid">
@@ -108,7 +109,7 @@
     <hr />
     <p>Bitte füge zuerst das Event hinzu, anschließend wird der QR Code und der Link generiert.</p>
     <!-- eventId als Prop übergeben -->
-    <QrCodeGenerator2 :eventId="eventId" />
+    <QrCodeGenerator2 v-if="this.eventId !== ''" :eventId="eventId" />
     <hr />
     <div class="grid">
       <input type="submit" value="Event hinzufügen" :disabled="!isFormValid" />
@@ -158,7 +159,8 @@ export default {
       return (
         this.title.trim() !== '' && // Login darf nicht leer sein oder nur Leerzeichen enthalten
         this.date.trim() !== '' && // Login darf keine Leerzeichen am Anfang oder Ende haben
-        this.selectedPlaylistId !== '' // Email darf nicht leer sein
+        this.description.trim() !== '' &&
+        this.selectedPlaylistId !== '' // Playlist darf nicht leer sein
 
         // Hier kannst du weitere Validierungen hinzufügen
       )
