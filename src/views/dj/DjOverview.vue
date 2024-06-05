@@ -5,16 +5,20 @@
   <p>Hier bist du auf deinem Dashboard</p>
   <div class="grid">
     <div>
+
       <router-link class="fullwidth" to="/events"
         ><button><i class="si-star"></i> Events</button></router-link
+
       >
     </div>
   </div>
   <hr />
   <div class="grid">
     <div>
+
       <router-link class="fullwidth" to="/playlists"
         ><button><i class="si-music-note"></i> Playlists</button></router-link
+
       >
     </div>
   </div>
