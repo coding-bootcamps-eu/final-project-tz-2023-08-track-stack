@@ -73,7 +73,10 @@ export default {
       await playlistStore.fetchPlaylist(playlistStore.currentPlaylistId)
     }
   },
-
+  unmounted() {
+    //Säubere den localStorage
+    localStorage.removeItem('currentPlaylistId')
+  },
   methods: {
     // Methode zur Aktualisierung der Playlist
     async updatePlaylist() {

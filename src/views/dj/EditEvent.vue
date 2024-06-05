@@ -154,6 +154,10 @@ export default {
       await eventStore.fetchEvent(eventStore.currentEventId)
     }
   },
+  unmounted() {
+    //Säubere den localStorage
+    localStorage.removeItem('currentEventId')
+  },
 
   data() {
     return {
