@@ -2,7 +2,10 @@
   <active-dj class="menu">nicht eingeloggt</active-dj>
   <h2>Playlisten verwalten</h2>
 
-  <p>Hier verwaltest du deine Playlisten</p>
+  <p>
+    Hier verwaltest du deine Playlisten und kannst ebenfalls neue Playlisten erstellen. Beim Klick
+    auf eine der Playlisten kannst du diese bei Bedarf Ändern oder Löschen.
+  </p>
   <!-- Formular zur Anzeige und Verwaltung der Playlisten -->
   <form @submit.prevent>
     <ol>
@@ -90,12 +93,13 @@ export default {
       //alert löschen der playlist
       this.$swal
         .fire({
-          title: 'Soll die Playlist wirklich gelöscht werden?',
+          title: 'Möchtest du die Playlist wirklich löschen?',
           icon: 'warning',
           showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Ja, löschen!'
+          confirmButtonColor: '#5E26ED',
+          cancelButtonColor: '#000',
+          confirmButtonText: 'Ja, löschen!',
+          cancelButtonText: 'abbrechen'
         })
         .then((result) => {
           if (result.isConfirmed) {

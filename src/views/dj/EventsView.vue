@@ -81,12 +81,13 @@ export default {
       //alert löschen des events
       this.$swal
         .fire({
-          title: 'Soll das Event wirklich gelöscht werden?',
+          title: 'Möchtest du das Event wirklich löschen?',
           icon: 'warning',
           showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Ja, löschen!'
+          confirmButtonColor: '#5E26ED',
+          cancelButtonColor: '#000',
+          confirmButtonText: 'Ja, löschen!',
+          cancelButtonText: 'abbrechen'
         })
         .then((result) => {
           if (result.isConfirmed) {

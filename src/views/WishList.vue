@@ -217,6 +217,7 @@ export default {
       await fetch(`${import.meta.env.VITE_API_URL}/requests/${request.id}`, {
         method: 'Delete'
       })
+
       // Entferne den gelöschten Wunsch aus der Liste
       this.requests = this.requests.filter((r) => r.id !== request.id)
     },

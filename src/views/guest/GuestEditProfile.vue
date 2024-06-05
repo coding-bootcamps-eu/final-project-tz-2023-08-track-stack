@@ -39,7 +39,16 @@ export default {
     submitForm() {
       // Aktualisiere die Daten im Local Storage
       localStorage.setItem('guestData', JSON.stringify(this.guestData))
-      alert('Name erfolgreich aktualisiert')
+      //alert('Name erfolgreich aktualisiert')
+
+      this.$swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Name erfolgreich aktualisiert!',
+        showConfirmButton: false,
+        timer: 2000
+      })
+
       this.$router.push({ path: '/guest-overview' })
     }
   }
