@@ -49,6 +49,7 @@
                   </div>
                 </section>
               </div>
+
             </div>
           </section>
         </details>
@@ -78,11 +79,9 @@ export default {
       this.events = eventStore.events
     },
 
-    // async
     deleteEvent(eventId) {
       const eventStore = useEventStore()
 
-      //alert löschen des events
       this.$swal
         .fire({
           title: 'Möchtest du das Event wirklich löschen?',
@@ -119,13 +118,53 @@ export default {
     },
 
     // soll Event aktivieren, eventData füllen
-    async setCurrentEvent(eventId) {
+    async activateCurrentEvent(eventId) {
       const eventStore = useEventStore()
+      const currentDjEvents = useEventStore().events
+
+      // Setze alle Events auf inactive
+      await Promise.all(
+        currentDjEvents.map((event) => {
+          if (event.active) {
+            event.active = false
+            return fetch(`${import.meta.env.VITE_API_URL}/events/${event.id}`, {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(event)
+            })
+          }
+        })
+      )
+
+      // Aktivieren des ausgewählten Events
       const event = await eventStore.fetchEvent(eventId)
 
+      event.active = true
+
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/events/${event.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(event)
+      })
+      const updatedEvent = await response.json()
+      console.log(updatedEvent)
+
+      // Aktualisiere localStorage
       localStorage.setItem('eventData', JSON.stringify(event))
       this.$router.push({ path: '/wishlist' })
     }
+
+    // async setCurrentEvent(eventId) {
+    //   const eventStore = useEventStore()
+    //   const event = await eventStore.fetchEvent(eventId)
+
+    //   localStorage.setItem('eventData', JSON.stringify(event))
+    //   this.$router.push({ path: '/wishlist' })
+    // }
   }
 }
 </script>

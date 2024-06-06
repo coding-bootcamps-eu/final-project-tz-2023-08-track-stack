@@ -95,6 +95,7 @@ export default {
         eventStore.setEventDataFromGuestStart(JSON.parse(eventDataFromLocalStorage))
       }
     },
+
     formatDateTime(dateTime) {
       const options = {
         day: '2-digit',
@@ -110,3 +111,5 @@ export default {
   }
 }
 </script>
+
+

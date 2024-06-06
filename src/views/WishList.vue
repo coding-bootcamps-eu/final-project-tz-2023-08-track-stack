@@ -256,6 +256,7 @@ export default {
       // Entferne den request aus der Liste der Musikwünsche
       this.requests = this.requests.filter((r) => r.id !== request.id)
     },
+
     votesText(likes) {
       return likes === 1 ? 'Stimme gezählt' : 'Stimmen gezählt'
     }
