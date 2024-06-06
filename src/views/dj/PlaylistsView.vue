@@ -5,10 +5,13 @@
     Hier verwaltest du deine Playlisten und kannst ebenfalls neue Playlisten erstellen. Beim Klick
     auf eine der Playlisten kannst du diese bei Bedarf Ändern oder Löschen.
   </p>
-  <div class="marginBot">
-    <router-link class="fullwidth" to="/create-playlist"
+  <div class="marginBot grid">
+    <router-link to="/create-playlist" class="fullwidth"
       ><button><i class="si-plus"></i> Playlist erstellen</button></router-link
-    >
+    ><!-- Button zum Zurückgehen zur DJ-Übersicht -->
+    <router-link to="/dj-overview" class="fullwidth">
+      <button class="contrast"><i class="si-grid"></i> Zurück zur Übersicht</button>
+    </router-link>
   </div>
   <!-- Formular zur Anzeige und Verwaltung der Playlisten -->
   <form @submit.prevent>
@@ -16,10 +19,10 @@
       <!-- Durchlaufen der Playlists und Erstellen von Listeneinträgen -->
       <li v-for="playlist in playlists" :key="playlist.id">
         <details name="accordion">
-          <summary role="button" class="outline contrast">
+          <summary class="outline contrast">
             {{ playlist.title }}
           </summary>
-          <section class="grid">
+          <section class="grid detail-wrapper">
             <!-- Button zum Bearbeiten der Playlist -->
             <button type="button" @click="editPlaylist(playlist.id)">
               <i class="si-edit"></i> Ändern
@@ -33,10 +36,6 @@
       </li>
     </ol>
   </form>
-  <!-- Button zum Zurückgehen zur DJ-Übersicht -->
-  <router-link to="/dj-overview">
-    <button class="contrast"><i class="si-grid"></i> Zurück zur Übersicht</button>
-  </router-link>
 </template>
 
 <script>

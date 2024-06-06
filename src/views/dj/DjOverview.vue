@@ -8,23 +8,12 @@
     Event zugewiesen werden muss. Die aktuelle Wunschliste lässt sich unter Events aktivieren.
   </p>
   <div class="grid">
-    <div>
-
-      <router-link class="fullwidth" to="/events"
-        ><button><i class="si-star"></i> Events</button></router-link
-
-      >
-    </div>
-  </div>
-  <hr />
-  <div class="grid">
-    <div>
-
-      <router-link class="fullwidth" to="/playlists"
-        ><button><i class="si-music-note"></i> Playlists</button></router-link
-
-      >
-    </div>
+    <router-link class="fullwidth" to="/playlists"
+      ><button><i class="si-music-note"></i> Playlists</button></router-link
+    >
+    <router-link to="/events" class="fullwidth"
+      ><button><i class="si-star"></i> Events</button></router-link
+    >
   </div>
   <hr />
   <div class="grid">

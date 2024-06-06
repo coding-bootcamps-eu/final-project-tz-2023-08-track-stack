@@ -110,11 +110,3 @@ export default {
   }
 }
 </script>
-<style scoped>
-.grid.twothree {
-  grid-template-columns: 1fr 3fr;
-  @media (max-width: 991.98px) {
-    grid-template-columns: 1fr;
-  }
-}
-</style>

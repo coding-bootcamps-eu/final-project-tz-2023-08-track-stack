@@ -3,36 +3,33 @@
     <active-dj class="menu">nicht eingeloggt</active-dj>
     <h2>Playlist erstellen</h2>
 
-    <nav>
-      <ul>
-        <li>Hier erstellst du deine Playlist für das Event.</li>
-      </ul>
-      <ul>
-        <li>
-          <details class="dropdown">
-            <summary>Download Test CSV</summary>
-            <ul dir="rtl">
-              <li>
-                <a href="/csv-sample/song_csv_comma.csv" download
-                  >Download CSV mit Komma getrennt</a
-                >
-              </li>
-              <li>
-                <a href="/csv-sample/song_csv_semicolon.csv" download
-                  >Download CSV mit Semikolon getrennt</a
-                >
-              </li>
-              <li>
-                <a href="/csv-sample/song_csv_critical.csv" download
-                  >Download CSV mit Anführungszeichen und Umlauten</a
-                >
-              </li>
-            </ul>
-          </details>
-        </li>
-      </ul>
-    </nav>
-    <hr />
+    <section class="grid threetwo">
+      <p>
+        Hier erstellst du deine Playlist für das Event. Du benötigst hierzu eine CSV Datei, rechts
+        kannst du dir Beispieldateien herunterladen und mit Excel oder einem ähnlichen Programm
+        bearbeiten. Als Trennzeichen verwende bitte ein Komma oder Semikolon.
+      </p>
+
+      <details class="dropdown">
+        <summary>Beispieldateien herunterladen</summary>
+        <ul dir="rtl">
+          <li>
+            <a href="/csv-sample/song_csv_comma.csv" download>Download CSV mit Komma getrennt</a>
+          </li>
+          <li>
+            <a href="/csv-sample/song_csv_semicolon.csv" download
+              >Download CSV mit Semikolon getrennt</a
+            >
+          </li>
+          <li>
+            <a href="/csv-sample/song_csv_critical.csv" download
+              >Download CSV mit Anführungszeichen und Umlauten</a
+            >
+          </li>
+        </ul>
+      </details>
+    </section>
+
     <form @submit.prevent="submitPlaylist">
       <label for="playlist-title"
         >Titel: <span class="required">*</span>

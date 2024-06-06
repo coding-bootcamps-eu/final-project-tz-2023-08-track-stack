@@ -3,9 +3,12 @@
   <h2>Events verwalten</h2>
   <p>Hier verwaltest du deine Veranstaltungen</p>
 
-  <div class="marginBot">
-    <router-link class="fullwidth" to="/create-event"
+  <div class="marginBot grid">
+    <router-link to="/create-event" class="fullwidth"
       ><button><i class="si-plus"></i> Event erstellen</button></router-link
+    >
+    <router-link to="/dj-overview" class="fullwidth"
+      ><button class="contrast"><i class="si-grid"></i> Zurück zur Übersicht</button></router-link
     >
   </div>
   <form @submit.prevent>
@@ -15,44 +18,43 @@
           <summary>
             {{ event.title }}
           </summary>
-          <p>{{ event.description }}</p>
-          <div class="grid">
-            <div
-              class="eventimage"
-              :style="{
-                background: `radial-gradient(circle, rgba(0, 0, 255, 0.5), rgba(255, 255, 255, 0.2)),
+          <section class="detail-wrapper">
+            <p>{{ event.description }}</p>
+            <div class="grid">
+              <div
+                class="eventimage"
+                :style="{
+                  background: `radial-gradient(circle, rgba(0, 0, 255, 0.5), rgba(255, 255, 255, 0.2)),
     url('${event.eventImage}') center/cover`
-              }"
-            ></div>
+                }"
+              ></div>
 
-            <div>
-              <section class="grid">
-                <div class="fullwidth">
-                  <button
-                    id="event-edit"
-                    class="contrast"
-                    type="button"
-                    @click="setCurrentEvent(event.id)"
-                  >
-                    <i class="si-check"></i> Aktivieren
-                  </button>
-                  <button id="event-edit" type="button" @click="editEvent(event.id)">
-                    <i class="si-edit"></i> Ändern
-                  </button>
-                  <button id="event-delete" type="button" @click="deleteEvent(event.id)">
-                    <i class="si-trash"></i> Löschen
-                  </button>
-                </div>
-              </section>
+              <div>
+                <section class="grid">
+                  <div class="fullwidth">
+                    <button
+                      id="event-edit"
+                      class="contrast"
+                      type="button"
+                      @click="setCurrentEvent(event.id)"
+                    >
+                      <i class="si-check"></i> Aktivieren
+                    </button>
+                    <button id="event-edit" type="button" @click="editEvent(event.id)">
+                      <i class="si-edit"></i> Ändern
+                    </button>
+                    <button id="event-delete" type="button" @click="deleteEvent(event.id)">
+                      <i class="si-trash"></i> Löschen
+                    </button>
+                  </div>
+                </section>
+              </div>
             </div>
-          </div>
+          </section>
         </details>
       </li>
     </ol>
   </form>
-  <router-link to="/dj-overview"
-    ><button class="contrast"><i class="si-grid"></i> Zurück zur Übersicht</button></router-link
-  >
 </template>
 
 <script>
@@ -130,11 +132,6 @@ export default {
 <style scoped>
 .grid.twothree {
   grid-template-columns: 1fr 3fr;
-}
-details {
-  border-radius: 0.25rem;
-  border: black 1px solid;
-  padding: 1rem;
 }
 
 details summary[role='button']::after {
