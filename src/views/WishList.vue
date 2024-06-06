@@ -45,8 +45,10 @@
               <button
                 v-if="!isDjOwner"
                 :class="{ voted: request.userHasVoted, 'not-voted': !request.userHasVoted }"
-                @click="toggleVote(request)"
+                @click="handleClick(request)"
+                :disabled="request.isButtonDisabled"
               >
+                <!-- disable bei click, enable wenn request.userHasVoted sich ändert -->
                 <i class="si-heart"></i>
                 {{ request.userHasVoted ? 'zurücknehmen' : 'abstimmen' }}
               </button>
@@ -178,6 +180,16 @@ export default {
   },
 
   methods: {
+    // Hilfsfunktion für den Watcher für handleClick()
+    findOriginalRequest(request) {
+      return this.requests.find((r) => r.id === request.id)
+    },
+    // VoteButtonClick wird gehandelt
+    handleClick(request) {
+      this.toggleVote(request)
+      //Click = Disable , Enable durch watcher bei Veränderung in Requests.userHasVoted
+      request.isButtonDisabled = true
+    },
     async toggleVote(request) {
       const newrequest = { ...request } //abkoppeln!
       this.votes[request.id] = true
@@ -246,6 +258,23 @@ export default {
     },
     votesText(likes) {
       return likes === 1 ? 'Stimme gezählt' : 'Stimmen gezählt'
+    }
+  },
+  watch: {
+    // Requests werden überwacht ob sich request.userHasVoted ändert
+    // bei Änderung -> Enable VoteButton
+    requests: {
+      handler(newRequests) {
+        newRequests.forEach((request) => {
+          if (
+            request.isButtonDisabled &&
+            request.userHasVoted !== this.findOriginalRequest(request).userHasVoted
+          ) {
+            request.isButtonDisabled = false
+          }
+        })
+      },
+      deep: true
     }
   }
 }
