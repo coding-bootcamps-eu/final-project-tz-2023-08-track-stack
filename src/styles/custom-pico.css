@@ -224,3 +224,13 @@ button.border {
   border-color: var(--pico-contrast-background);
   color: var(--pico-contrast-inverse);
 }
+/* Textbutton */
+.text-button {
+  padding: 0px;
+  background: none;
+  border: none;
+  color: red;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: inherit;
+}

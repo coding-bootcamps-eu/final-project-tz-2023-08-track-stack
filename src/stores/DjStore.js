@@ -85,6 +85,20 @@ export const useDjStore = defineStore('dj', {
       } else {
         console.error('Update fehlgeschlagen: Kein Aktiver Dj gefunden!')
       }
+    },
+    // Löscht einen Dj-User vom API-Server anhand der Dj-ID
+    async deleteDj(djId) {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/users/${djId}`, {
+          method: 'DELETE'
+        })
+
+        if (!response.ok) {
+          throw new Error('Failed to delete Dj')
+        }
+      } catch (error) {
+        console.error(error)
+      }
     }
   }
 })

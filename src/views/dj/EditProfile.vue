@@ -4,7 +4,11 @@
     Profil von <strong>{{ dj.username }}</strong> verwalten
   </h2>
 
-  <p>Ändere hier deine Daten</p>
+  <p>
+    Ändere hier deine Daten oder
+    <button class="text-button" @click="deleteUser(dj.id)">lösche</button> dein Profil
+  </p>
+
   <form @submit.prevent="submitForm">
     <div class="grid">
       <label for="Username"
@@ -25,7 +29,7 @@
     <div class="grid">
       <input type="submit" value="Profil speichern" />
       <div>
-        <router-link to="/dj-overview"
+        <router-link to="/dj-overview" class="fullwidth"
           ><button class="contrast">
             <i class="si-grid"></i> Zurück zur Übersicht
           </button></router-link
@@ -67,6 +71,37 @@ export default {
         timer: 2000
       })
       this.$router.push({ path: '/dj-overview' })
+    },
+    deleteUser(djid) {
+      //alert löschen des events
+      this.$swal
+        .fire({
+          title: 'Möchtest du dein Profil wirklich löschen?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: 'red', //'#5E26ED',
+          cancelButtonColor: '#000',
+          confirmButtonText: 'Ja, löschen!',
+          cancelButtonText: 'abbrechen'
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            useDjStore()
+              .deleteDj(djid)
+              .then(() => {
+                this.$swal.fire({
+                  title: 'Gelöscht!',
+                  text: 'Dein Profil wurde erfolgreich gelöscht.',
+                  icon: 'success'
+                })
+                //Aktiver Dj entfernen
+                localStorage.removeItem('activeDjId')
+                useDjStore().activeDjId = null
+                //Weiterleitung zum LoginView UND ROUTER RESET
+                this.$router.replace({ path: '/login' })
+              })
+          }
+        })
     }
   }
 }
