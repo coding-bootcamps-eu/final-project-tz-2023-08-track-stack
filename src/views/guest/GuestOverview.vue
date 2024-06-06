@@ -95,6 +95,7 @@ export default {
         eventStore.setEventDataFromGuestStart(JSON.parse(eventDataFromLocalStorage))
       }
     },
+
     formatDateTime(dateTime) {
       const options = {
         day: '2-digit',
@@ -110,6 +111,7 @@ export default {
   }
 }
 </script>
+
 <style scoped>
 .grid.twothree {
   grid-template-columns: 1fr 3fr;
