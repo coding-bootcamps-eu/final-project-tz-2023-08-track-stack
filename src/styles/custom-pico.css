@@ -95,6 +95,20 @@ ol {
 
 /* summary */
 
+details[name='accordion'] {
+  padding: 0;
+  border-radius: 0.25rem;
+  border: black 1px solid;
+}
+
+details summary {
+  padding: 1rem 1rem 1rem;
+}
+
+.detail-wrapper {
+  padding: 0 1rem 1rem;
+}
+
 details:not(.dropdown) summary {
   transition: all 0.5s ease-in-out;
   font-size: 1.25rem;
@@ -113,6 +127,10 @@ details.dropdown {
 details.dropdown summary + ul {
   left: inherit;
   right: 0;
+}
+
+.eventimage {
+  border-radius: 0.25rem;
 }
 
 /* Auswahl Header Figure*/
@@ -137,6 +155,21 @@ details.dropdown summary + ul {
   background-color: rgba(0, 0, 0, 0.5); /* Halbtransparenter Hintergrund */
   color: white;
   padding: 5px;
+}
+/* Grid */
+
+.grid.twothree {
+  grid-template-columns: 1fr 3fr;
+  @media (max-width: 991.98px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.grid.threetwo {
+  grid-template-columns: 3fr 1fr;
+  @media (max-width: 991.98px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Volle Breite */
@@ -190,4 +223,14 @@ button.border {
   background-color: var(--pico-contrast-background);
   border-color: var(--pico-contrast-background);
   color: var(--pico-contrast-inverse);
+}
+/* Textbutton */
+.text-button {
+  padding: 0px;
+  background: none;
+  border: none;
+  color: red;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: inherit;
 }
