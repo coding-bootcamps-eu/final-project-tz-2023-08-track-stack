@@ -36,7 +36,7 @@
                       id="event-edit"
                       class="contrast"
                       type="button"
-                      @click="setCurrentEvent(event.id)"
+                      @click="activateCurrentEvent(event.id)"
                     >
                       <i class="si-check"></i> Aktivieren
                     </button>
@@ -49,7 +49,6 @@
                   </div>
                 </section>
               </div>
-
             </div>
           </section>
         </details>
