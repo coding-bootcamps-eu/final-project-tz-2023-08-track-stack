@@ -101,6 +101,7 @@
 
 <script>
 import ActiveDj from '@/components/ActiveDj.vue'
+import confetti from 'canvas-confetti'
 
 export default {
   data() {
@@ -199,6 +200,7 @@ export default {
         newrequest.userHasVoted = false
         this.votes[request.id] = false
       } else {
+        confetti()
         newrequest.likes += 1
         newrequest.userHasVoted = true
         this.votes[request.id] = true
