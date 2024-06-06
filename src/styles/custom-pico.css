@@ -216,6 +216,7 @@ button.border {
 }
 
 .voted {
+  border-color: var(--pico-contrast);
   background-color: var(--pico-contrast);
   color: var(--pico-contrast-inverse);
 }
