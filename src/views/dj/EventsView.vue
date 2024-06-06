@@ -81,10 +81,6 @@ export default {
     // async
     deleteEvent(eventId) {
       const eventStore = useEventStore()
-      // if (confirm('Soll das Event wirklich gelöscht werden?')) {
-      //   await eventStore.deleteEvent(eventId)
-      // }
-      // this.fetchEvents()
 
       //alert löschen des events
       this.$swal
@@ -100,6 +96,11 @@ export default {
         .then((result) => {
           if (result.isConfirmed) {
             eventStore.deleteEvent(eventId).then(() => {
+              // Entferne eventData mit der gleichen ID aus dem local Storage
+              let eventData = JSON.parse(localStorage.getItem('eventData'))
+              if (eventData && eventData.id === eventId) {
+                localStorage.removeItem('eventData')
+              }
               this.$swal.fire({
                 title: 'Gelöscht!',
                 text: 'Das Event wurde erfolgreich gelöscht.',
