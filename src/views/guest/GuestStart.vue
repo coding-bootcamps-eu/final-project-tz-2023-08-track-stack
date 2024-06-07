@@ -38,6 +38,7 @@ export default {
 
   async created() {
     localStorage.removeItem('currentEventId')
+    localStorage.removeItem('activeDjId')
 
     // Beim laden der Seite überprüfen, ob Name im Local Storage bereits gespeichert ist und die eventId abgreifen und das eventObjekt abrufen.
     await this.getEventDataFromUrl()
