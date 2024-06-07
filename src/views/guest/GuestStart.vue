@@ -114,7 +114,12 @@ export default {
             console.log('Event-Daten:', eventData)
           } else {
             localStorage.removeItem('eventData')
-            alert('Dieses Event ist nicht aktiv.')
+            this.$swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Dieses Event ist nicht aktiv!'
+            })
+            // alert('Dieses Event ist nicht aktiv.')
           }
         } catch (error) {
           console.error('Fehler:', error)
