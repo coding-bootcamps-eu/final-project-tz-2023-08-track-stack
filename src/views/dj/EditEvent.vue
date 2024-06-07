@@ -109,12 +109,12 @@
       </figure>
     </div>
     <hr />
-    <h4>QR Code</h4>
+
     <!-- eventId als Prop übergeben -->
     <QrCodeGenerator2 :eventId="event.id" />
 
     <hr />
-    <div class="grid">
+    <div class="grid fullwidth">
       <input type="submit" value="Event aktualisieren" />
       <router-link to="/events"
         ><button class="contrast">

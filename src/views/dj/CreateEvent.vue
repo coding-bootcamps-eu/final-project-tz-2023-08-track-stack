@@ -107,11 +107,13 @@
       </figure>
     </div>
     <hr />
-    <p>Bitte füge zuerst das Event hinzu, anschließend wird der QR Code und der Link generiert.</p>
+    <p v-if="this.eventId == ''">
+      Bitte füge zuerst das Event hinzu, anschließend wird der QR Code und der Link generiert.
+    </p>
     <!-- eventId als Prop übergeben -->
     <QrCodeGenerator2 v-if="this.eventId !== ''" :eventId="eventId" />
     <hr />
-    <div class="grid">
+    <div class="grid fullwidth">
       <input type="submit" value="Event hinzufügen" :disabled="!isFormValid" />
       <div>
         <router-link to="/events">
