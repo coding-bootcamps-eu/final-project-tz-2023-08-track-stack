@@ -19,34 +19,26 @@ export default {
   },
   data() {
     return {
+      displayedImage: '',
       src: '',
       width: '300',
       url: ''
     }
   },
-  computed: {
-    displayedImage() {
-      // Überprüfe, ob die eventId vorhanden ist
-      // Wenn ja, zeige den QR-Code an, ansonsten das Standardbild
-      if (this.eventId) {
-        return this.generateQRCodeUrl
-      } else {
-        return '/images/logo_hulaloop.svg'
-      }
-    },
+  mounted() {
+    this.generateQRCodeUrl()
+  },
 
+  methods: {
     generateQRCodeUrl() {
       const eventQrCodeImage = (this.src =
         'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' +
         `localhost:5173/guest-start?eventId=${this.eventId}`)
 
       this.url = `http://localhost:5173/guest-start?eventId=${this.eventId}`
+      this.displayedImage = eventQrCodeImage
+    },
 
-      return eventQrCodeImage
-    }
-  },
-
-  methods: {
     downloadQR() {
       // Erstelle ein temporäres canvas element
       const canvas = document.createElement('canvas')
