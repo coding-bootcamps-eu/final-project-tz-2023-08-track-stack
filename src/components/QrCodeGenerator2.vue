@@ -1,11 +1,13 @@
 <template>
-  <div>
-    <form @submit.prevent="downloadQR">
-      <img class="qr-img" :src="displayedImage" alt="QR Code" :width="width" />
-      <p>{{ this.url }}</p>
-
-      <button class="secondary">Download QR Code</button>
+  <!-- Button der mir QrCode Zeigt -->
+  <div @mouseover="isHovered = true" @mouseleave="isHovered = false">
+    <form @submit.prevent="showQR">
+      <button class="secondary">Show QR-Code</button>
     </form>
+
+    <div v-if="isHovered" class="hover-text">
+      <p>{{ this.url }}</p>
+    </div>
   </div>
 </template>
 
@@ -19,10 +21,11 @@ export default {
   },
   data() {
     return {
-      displayedImage: '',
+      displayedImage: '', // QR-Code Image
       src: '',
       width: '300',
-      url: ''
+      url: '', //Event Url
+      isHovered: false
     }
   },
   mounted() {
@@ -37,6 +40,30 @@ export default {
 
       this.url = `http://localhost:5173/guest-start?eventId=${this.eventId}`
       this.displayedImage = eventQrCodeImage
+    },
+    showQR() {
+      // alert
+      this.$swal
+        .fire({
+          title: 'QR-Code:',
+          // icon: 'warning',
+          html: `<img src="${this.displayedImage}" alt="QR CODE" />`,
+          showCancelButton: true,
+          confirmButtonColor: '#5E26ED',
+          cancelButtonColor: '#000',
+          confirmButtonText: 'Download',
+          cancelButtonText: 'Kopiere Link'
+        })
+        .then((result) => {
+          //Pressed Download, started den Download des QR Images
+          if (result.isConfirmed) {
+            this.downloadQR()
+          }
+          //Pressed OK, kopiert den EventLink ins Clipboard
+          if (!result.isConfirmed) {
+            navigator.clipboard.writeText(this.url)
+          }
+        })
     },
 
     downloadQR() {
@@ -67,3 +94,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.hover-text {
+  margin-top: 10px;
+  font-size: 14px;
+}
+</style>
