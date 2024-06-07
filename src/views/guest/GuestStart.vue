@@ -2,7 +2,7 @@
   <h3>Schön, dass du da bist!</h3>
   <p v-if="!aktivEvent">
     Das Event hat noch nicht begonnen, oder ist bereits gelöscht.<br />
-    Versuche es später nochmal.
+    Bitte versuche es später nochmal.
   </p>
   <p v-if="aktivEvent">
     Herzlich willkommen bei Hulaloop, die App wo Musikwünsche wahr werden. Gib einfach deinen Namen
@@ -36,9 +36,12 @@ export default {
     }
   },
 
-  created() {
+  async created() {
+    localStorage.removeItem('currentEventId')
+
     // Beim laden der Seite überprüfen, ob Name im Local Storage bereits gespeichert ist und die eventId abgreifen und das eventObjekt abrufen.
-    this.checkIfNameInLocalStorage(), this.getEventDataFromUrl()
+    await this.getEventDataFromUrl()
+    this.checkIfNameInLocalStorage()
   },
 
   methods: {
@@ -109,8 +112,8 @@ export default {
             localStorage.setItem('eventData', JSON.stringify(eventData))
             console.log('Event-Daten:', eventData)
           } else {
-            alert('Dieses Event ist nicht aktiv.')
             localStorage.removeItem('eventData')
+            alert('Dieses Event ist nicht aktiv.')
           }
         } catch (error) {
           console.error('Fehler:', error)

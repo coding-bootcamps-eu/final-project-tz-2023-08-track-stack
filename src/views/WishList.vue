@@ -169,6 +169,7 @@ export default {
 
       return this.eventDjId === djID
     },
+
     sortedRequest() {
       return this.requests
         .filter((request) => request.open !== false)
@@ -185,12 +186,14 @@ export default {
     findOriginalRequest(request) {
       return this.requests.find((r) => r.id === request.id)
     },
+
     // VoteButtonClick wird gehandelt
     handleClick(request) {
       this.toggleVote(request)
       //Click = Disable , Enable durch watcher bei Veränderung in Requests.userHasVoted
       request.isButtonDisabled = true
     },
+
     async toggleVote(request) {
       const newrequest = { ...request } //abkoppeln!
       this.votes[request.id] = true
@@ -263,6 +266,7 @@ export default {
       return likes === 1 ? 'Stimme gezählt' : 'Stimmen gezählt'
     }
   },
+
   watch: {
     // Requests werden überwacht ob sich request.userHasVoted ändert
     // bei Änderung -> Enable VoteButton
