@@ -45,6 +45,7 @@ export default {
     }
   },
   async created() {
+    localStorage.removeItem('eventData')
     // Lade die Liste der registrierten DJs
     await useDjStore().fetchDjs()
   },
