@@ -31,14 +31,14 @@ export default {
   mounted() {
     this.generateQRCodeUrl()
   },
-
+  // Richtiger Testlink: https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://localhost:5173/guest-start?eventId=06335b1d-6565-4b28-915b-9149ec5556be
   methods: {
     generateQRCodeUrl() {
       const eventQrCodeImage = (this.src =
         'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' +
-        `localhost:5173/guest-start?eventId=${this.eventId}`)
+        `${import.meta.env.VITE_URL}/guest-start?eventId=${this.eventId}`)
 
-      this.url = `http://localhost:5173/guest-start?eventId=${this.eventId}`
+      this.url = `${import.meta.env.VITE_URL}/guest-start?eventId=${this.eventId}`
       this.displayedImage = eventQrCodeImage
     },
     showQR() {
