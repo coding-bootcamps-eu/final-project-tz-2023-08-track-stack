@@ -51,8 +51,8 @@ export default {
           showCancelButton: true,
           confirmButtonColor: '#5E26ED',
           cancelButtonColor: '#000',
-          confirmButtonText: 'Download',
-          cancelButtonText: 'Kopiere Link'
+          confirmButtonText: 'Download Code',
+          cancelButtonText: 'Kopiere Link in Zwischenablage'
         })
         .then((result) => {
           //Pressed Download, started den Download des QR Images
