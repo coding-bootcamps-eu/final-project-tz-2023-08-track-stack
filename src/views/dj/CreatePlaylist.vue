@@ -14,17 +14,14 @@
         <summary>Beispieldateien herunterladen</summary>
         <ul dir="rtl">
           <li>
-            <a href="/csv-sample/song_csv_comma.csv" download>Download CSV mit Komma getrennt</a>
+            <a href="/csv-sample/song_csv_semicolon_500.csv" download>500 Songs, CSV, Semikolon</a>
           </li>
           <li>
-            <a href="/csv-sample/song_csv_semicolon.csv" download
-              >Download CSV mit Semikolon getrennt</a
-            >
+            <a href="/csv-sample/song_csv_comma.csv" download>21 Songs, CSV, Komma</a>
           </li>
+
           <li>
-            <a href="/csv-sample/song_csv_critical.csv" download
-              >Download CSV mit Anführungszeichen und Umlauten</a
-            >
+            <a href="/csv-sample/song_csv_critical.csv" download>43 Songs, CSV, Sonderzeichen</a>
           </li>
         </ul>
       </details>
