@@ -9,11 +9,12 @@
       <p>Hier änderst du deine Playlist</p>
       <!-- Formular zur Aktualisierung der Playlist -->
       <form @submit.prevent="updatePlaylist">
-        <label for="event-title">Titel:</label>
+        <label for="playlist-title">Titel:</label>
         <!-- Eingabefeld für den Titel der Playlist -->
-        <input type="text" name="event-title" v-model="playlist.title" />
+        <input type="text" name="playlist-title" v-model="playlist.title" />
 
         <!-- Komponente zum Hochladen von CSV-Dateien -->
+        CSV Upload:
         <file-reader-csv @csv-data-uploaded="handleCsvData"></file-reader-csv>
 
         <!-- Übergabe der CSV-Daten an die Vorschau-Komponente -->
@@ -99,7 +100,11 @@ export default {
         })
       } catch (error) {
         console.error('Fehler beim Aktualisieren der Playlist:', error)
-        alert('Fehler beim Aktualisieren der Playlist')
+        this.$swal.fire({
+          icon: 'error',
+          title: 'Fehler',
+          text: 'Fehler beim Aktualisieren der Playlist'
+        })
       }
     },
 
