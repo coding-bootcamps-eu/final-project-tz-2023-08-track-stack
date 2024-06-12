@@ -1,12 +1,6 @@
 <template>
-  <label for="event-upload"
-    >CSV Upload: <span class="required">*</span>
-    <input
-      type="file"
-      name="event-upload"
-      required="required"
-      accept=".csv"
-      @change="handleFileUpload"
+  <label for="playlist-upload">
+    <input type="file" name="playlist-upload" accept=".csv" @change="handleFileUpload"
   /></label>
 </template>
 
@@ -43,8 +37,8 @@ export default {
           }
         })
 
-        //console.log('ArrayDatenCSV:', arrayData)
-        //console.log('ObjDatenCSV:', dataAsObjects)
+        // console.log('ArrayDatenCSV:', arrayData)
+        // console.log('ObjDatenCSV:', dataAsObjects)
 
         //emit to parent als Array und als Obj
         this.$emit('csv-data-uploaded', arrayData, dataAsObjects)

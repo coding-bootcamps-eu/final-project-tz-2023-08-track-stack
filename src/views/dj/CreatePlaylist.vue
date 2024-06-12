@@ -36,7 +36,8 @@
         <input type="text" name="playlist-title" required="required" v-model="playlistTitle"
       /></label>
       <!-- FILEREADER -->
-      <file-reader-csv @csv-data-uploaded="handleCsvData"></file-reader-csv>
+      CSV Upload: <span class="required">*</span>
+      <file-reader-csv required="required" @csv-data-uploaded="handleCsvData"></file-reader-csv>
 
       <!-- FilePreview -->
       <PreviewCSV :previewData="csvArrayData"></PreviewCSV>

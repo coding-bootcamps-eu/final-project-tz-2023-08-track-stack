@@ -18,7 +18,7 @@
         :placeholder="placeholderText"
         v-model="inputGuestName"
       />
-      <input type="submit" value="Ab geht die Post" />
+      <input type="submit" value="Ab geht die Post!" />
     </div>
   </form>
 </template>
